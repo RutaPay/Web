@@ -76,7 +76,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
   color: var(--text-color);
 }
 
-.sidebar .imatge {
+.sidebar .image {
   min-width: 60px;
   display: flex;
   align-items: center;
