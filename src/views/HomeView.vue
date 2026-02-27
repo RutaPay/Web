@@ -7,3 +7,9 @@ import TheWelcome from '../components/TheWelcome.vue'
     <TheWelcome />
   </main>
 </template>
+
+<script lang="ts">
+export default {
+  name: 'HomeView',
+}
+</script>

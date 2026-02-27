@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ChevronsRight, Home, Search } from '@boxicons/vue'
 
 defineOptions({ name: 'ChevronsRightIcon' })
@@ -173,3 +173,9 @@ header .image-text .header-text {
 }
 </style>
 <!-- Termina el Style -->
+
+<script lang="ts">
+export default {
+  name: 'HeaderComponent',
+}
+</script>

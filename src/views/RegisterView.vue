@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import HeaderComponent from '../components/HeaderComponent.vue'
 import { ChevronLeft } from '@boxicons/vue'
 </script>
 
 <template>
   <main>
-    <HeaderComponent></HeaderComponent>
     <div class="flex items-center justify-center min-h-screen w-full bg-white">
       <div class="p-10 bg-white text-dark rounded-lg shadow-md border border-[#333]">
-        <RouterLink to="/" class="text-lg">
-          <ChevronLeft></ChevronLeft>
-        </RouterLink>
         <h1 class="text-3xl font-bold mt-4">Registrarse en RutaPay</h1>
         <form method="POST" action="" class="mt-6 w-md">
           <input
@@ -79,4 +74,8 @@ import { ChevronLeft } from '@boxicons/vue'
   </main>
 </template>
 
-<script></script>
+<script lang="ts">
+export default {
+  name: 'RegisterView',
+}
+</script>
