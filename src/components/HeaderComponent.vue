@@ -1,65 +1,64 @@
 <script setup>
-import { ChevronsRight, Home, Search } from '@boxicons/vue';
+import { ChevronsRight, Home, Search } from '@boxicons/vue'
 
-defineOptions({  name: "ChevronsRightIcon"});
+defineOptions({ name: 'ChevronsRightIcon' })
 </script>
 
 <template>
   <!-- Comienzo del header -->
-   <nav class="sidebar">
+  <nav class="sidebar">
     <header>
-        <div class="image text">
-          <span class="image">
-            <img src="logo.pitero" alt="#">
-          </span>
-          <div class="text header-text">
-            <span class="name">RutaPay</span>
-            <span class="description">Web de Epstein</span>
-          </div>
+      <div class="image text">
+        <span class="image">
+          <img src="" alt="#" />
+        </span>
+        <div class="text header-text">
+          <span class="name">RutaPay</span>
+          <span class="description">Web de Epstein</span>
         </div>
+      </div>
 
-        <ChevronsRight class="toggle"></ChevronsRight>
+      <ChevronsRight class="toggle"></ChevronsRight>
     </header>
 
-        <div class="menu-bar">
-            <div class="menu">
-              <li class="nav-links">
-                    <Search class="icons"></Search>
-                    <input type="search" placeholder="Search">
-                </li>
-              <ul class="menu-links">
-                <li class="nav-links">
-                  <a href="#">
-                    <Home class="icons"></Home>
-                    <span class="text nav-text">DashBoard</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-        </div>
-   </nav>
+    <div class="menu-bar">
+      <div class="menu">
+        <li class="nav-links">
+          <Search class="icons"></Search>
+          <input type="search" placeholder="Search" />
+        </li>
+        <ul class="menu-links">
+          <li class="nav-links">
+            <a href="#">
+              <Home class="icons"></Home>
+              <span class="text nav-text">DashBoard</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <!-- Fin del header -->
 </template>
 <!-- Inicia el Style -->
 <style>
-
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200&display=swap');
 
-*{
-  font-family: "Lexend", sans-serif;
+* {
+  font-family: 'Lexend', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-:root{
+:root {
   /* -- Colorsinis Pussinis */
-  --body-color: #E4E9F7;
+  --body-color: #e4e9f7;
   --sidebar-color: #fff;
   --primary-color: #695cfe;
   --primary-color-light: #f6f5ff;
-  --toggle-color: #DDD;
+  --toggle-color: #ddd;
   --text-color: #707070;
 
   /* -- Transición [Skibidi] */
@@ -68,25 +67,23 @@ defineOptions({  name: "ChevronsRightIcon"});
   --trans-03: all 0.3 ease;
   --trans-04: all 0.4 ease;
   --trans-05: all 0.5 ease;
-
 }
 /* -- CSS Reutilizable -- */
 
-.sidebar .text{
+.sidebar .text {
   font-size: 16px;
   font-weight: 200;
   color: var(--text-color);
 }
 
-.sidebar .imatge{
+.sidebar .imatge {
   min-width: 60px;
   display: flex;
   align-items: center;
 }
 
-
 /* -- Sidebar -- */
-body{
+body {
   height: 100vh;
   background: var(--body-color);
 }
@@ -101,7 +98,7 @@ body{
   background: var(--sidebar-color);
 }
 
-.sidebar li{
+.sidebar li {
   height: 50px;
   margin-top: 10px;
   list-style: none;
@@ -109,7 +106,7 @@ body{
   align-items: center;
 }
 
-.sidebar li .icons{
+.sidebar li .icons {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,38 +115,37 @@ body{
 }
 
 .sidebar li .icons,
-.sidebar li .text{
+.sidebar li .text {
   color: var(--text-color);
 }
 
-.sidebar header{
+.sidebar header {
   position: relative;
 }
-.sidebar .image-text .img{
+.sidebar .image-text .img {
   width: 40px;
   border-radius: 6px;
 }
 
-.sidebar header .image-text{
+.sidebar header .image-text {
   display: flex;
   align-items: center;
 }
 
-header .image-text .header-text{
+header .image-text .header-text {
   display: flex;
   flex-direction: column;
 }
 
-.header-text .name{
+.header-text .name {
   font-weight: 400;
-
 }
 
-.header-text .description{
+.header-text .description {
   margin-top: -2px;
 }
 
-.sidebar header .toggle{
+.sidebar header .toggle {
   position: absolute;
   top: 50%;
   right: 25px;
@@ -165,11 +161,11 @@ header .image-text .header-text{
   font-size: 20px;
 }
 
-.sidebar .search.box{
+.sidebar .search.box {
   background: var(--primary-color);
 }
 
-.sidebar li a{
+.sidebar li a {
   height: 100%;
   display: flex;
   align-items: center;
