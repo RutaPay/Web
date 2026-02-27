@@ -10,7 +10,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
     <header>
       <div class="image text">
         <span class="image">
-          <img src="" alt="#" />
+          <img src="" alt="logo" />
         </span>
         <div class="text header-text">
           <span class="name">RutaPay</span>
@@ -43,7 +43,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
 </template>
 <!-- Inicia el Style -->
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 
 * {
   font-family: 'Lexend', sans-serif;
