@@ -10,7 +10,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
     <header>
       <div class="image text">
         <span class="image">
-          <img src="" alt="logo" />
+          <img src="\assets\LogoRutaPay.png" alt="logo" />
         </span>
         <div class="text header-text">
           <span class="name">RutaPay</span>
