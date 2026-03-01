@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ChevronLeft } from '@boxicons/vue'
+import HeaderComponent from '@/components/HeaderComponent.vue'
 </script>
 
 <template>
+  <HeaderComponent />
   <main>
     <div class="flex items-center justify-center min-h-screen w-full bg-white">
       <div class="p-16 bg-white text-dark rounded-lg shadow-md border border-[#333]">

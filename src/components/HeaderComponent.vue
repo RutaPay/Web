@@ -15,7 +15,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
         </span>
         <div class="text header-text">
           <span class="name">RutaPay</span>
-          <span class="description">Web de Epstein</span>
+          <span class="description"></span>
         </div>
       </div>
 
@@ -53,7 +53,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
 }
 
 :root {
-  /* -- Colorsinis Pussinis */
+  /* -- Colorsinis */
   --body-color: #e4e9f7;
   --sidebar-color: #fff;
   --primary-color: #695cfe;
@@ -61,7 +61,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
   --toggle-color: #ddd;
   --text-color: #707070;
 
-  /* -- Transición [Skibidi] */
+  /* -- Transición */
 
   --trans-03: all 0.2 ease;
   --trans-03: all 0.3 ease;
