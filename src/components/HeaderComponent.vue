@@ -12,125 +12,121 @@ import {
 } from '@boxicons/vue'
 import SideBarItem from '@/components/SideBarItem.vue'
 
-/* Script para el funcionamiento del close  */
-/* no se porque da error pero luego le probamos */
-/*const body = document.querySelector('body'),
-  sidebar = document.querySelector('.sidebar'),
-  toggleItem = document.getElementById('toggle'),
-  searchBtn = document.querySelector('.search-box')
-
-if (toggleItem) {
-  toggleItem.addEventListener('click', () => {
-    console.log('Toggle clicked')
-    sidebar!.classList.toggle('close')
-  })
-}*/
-
+//Script para el funcionamiento del sidebar
 //Arreglado el toggle con Vue, usando clases de Vue y sin objetos del DOM, ahora el toggle funciona correctamente y no da errores en la consola
-//Dejé el código antiguo comentado por si lo quieres
 import { ref } from 'vue'
 
 const isClosed = ref(false)
 
 const toggleSidebar = () => {
-  console.log('Toggle funcionando en Vue')
   isClosed.value = !isClosed.value
 }
-
-defineOptions({ name: 'ChevronsRightIcon' })
 </script>
 
 <template>
   <!-- Comienzo del header -->
-  <nav class="sidebar" :class="{ close: isClosed }">
-    <header>
-      <div class="image text">
-        <span class="image">
-          <img src="../assets/LogoRutaPay.png" alt="logo" />
+  <nav
+    class="fixed top-0 left-0 h-full py-8 px-6 border-r-2 bg-white transition-all duration-500 z-100"
+    :class="{ close: isClosed, 'w-64': !isClosed, 'w-28': isClosed }"
+  >
+    <header class="relative">
+      <div class="flex items-center">
+        <span class="min-w-16 flex items-center justify-center">
+          <img class="w-32 rounded-xl" src="../assets/LogoRutaPay.png" alt="logo" />
         </span>
-        <div class="text header-text">
-          <span class="name">RutaPay</span>
-          <span class="description"></span>
+        <!--<div class="header-text flex flex-col text-text-light" :class="{ hidden: isClosed }">
+          <span class="font-normal">RutaPay</span>
+          <span class="-mt-1"></span>
         </div>
+        -->
       </div>
 
-      //También agregue el cambio de ícono al toggle
-      <component :is="isClosed ? ChevronsRight : ChevronsLeft" id="toggle" @click="toggleSidebar" />
+      <!--También agregue el cambio de ícono al toggle-->
+      <component
+        :is="isClosed ? ChevronsRight : ChevronsLeft"
+        id="toggle"
+        @click="toggleSidebar"
+        class="absolute top-1/2 right-6 transform -translate-y-1/2 cursor-pointer h-8 w-8 bg-primary hover:bg-dark flex items-center justify-center rounded-[50%] text-white text-2xl transition-colors duration-300"
+      />
     </header>
 
-    <div class="menu-bar">
-      <div class="menu">
-        <li class="search-box">
-          <Search class="icons"></Search>
-          <input type="search" placeholder="Search" />
+    <div class="h-[calc(100%-52px)] flex flex-col justify-between">
+      <div class="mt-12">
+        <li class="flex items-center justify-center h-8">
+          <Search
+            class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200"
+          ></Search>
+          <input
+            class="w-7/8 outline-none border rounded-xl text-base font-normal text-white bg-secondary hover:border hover:border-dark transition-all duration-300 p-2"
+            :class="{ hidden: isClosed }"
+            type="search"
+            placeholder="Search"
+          />
         </li>
-        <ul class="menu-links">
-          <!-- En vez de usar el antiguo <li> usa el nuevo SideBarItem, url pones la ruta sencilla de la app (el router se encarga de mostrarlo), #icon pones el ícono y #text pones el texto del item -->
-          <SideBarItem url="/">
+        <ul class="mt-12">
+          <SideBarItem url="/" :isClosed="isClosed">
             <template #icon>
-              <Home class="icons"></Home>
+              <Home
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+              ></Home>
             </template>
             <template #text>Inicio</template>
           </SideBarItem>
-          <SideBarItem url="map">
+          <SideBarItem url="map" :isClosed="isClosed">
             <template #icon>
-              <Trip class="icons"></Trip>
+              <Trip
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+              ></Trip>
             </template>
             <template #text>Mapa de Rutas</template>
           </SideBarItem>
-          <SideBarItem url="card">
+          <SideBarItem url="card" :isClosed="isClosed">
             <template #icon>
-              <CreditCardAlt class="icons"></CreditCardAlt>
+              <CreditCardAlt
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+              ></CreditCardAlt>
             </template>
             <template #text>Tarjeta</template>
           </SideBarItem>
-          <SideBarItem url="rewards">
+          <SideBarItem url="rewards" :isClosed="isClosed">
             <template #icon>
-              <Gift class="icons"></Gift>
+              <Gift
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+              ></Gift>
             </template>
             <template #text>Recompensas</template>
           </SideBarItem>
-          <SideBarItem url="account">
+          <SideBarItem url="account" :isClosed="isClosed">
             <template #icon>
-              <User class="icons"></User>
+              <User
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+              ></User>
             </template>
             <template #text>Cuenta</template>
           </SideBarItem>
         </ul>
       </div>
     </div>
-
-    <div class="bottom-content"></div>
-    <SideBarItem url="log-out">
-      <template #icon>
-        <ArrowOutLeftSquareHalf class="icons"></ArrowOutLeftSquareHalf>
-      </template>
-      <template #text>Log-Out</template>
-    </SideBarItem>
+    <div class="-mt-14">
+      <SideBarItem url="log-out" :isClosed="isClosed">
+        <template #icon>
+          <ArrowOutLeftSquareHalf
+            class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+          ></ArrowOutLeftSquareHalf>
+        </template>
+        <template #text>Log-Out</template>
+      </SideBarItem>
+    </div>
   </nav>
 
   <!-- Fin del header -->
-  <!-- Inicio del Dashboard (Main page)-->
-
-  <section class="home">
-    <div class="text">Landing</div>
-  </section>
-  <!-- Fin del Dashboard (Main page)-->
 </template>
 
 <!-- Inicia el Style -->
 <style>
-* {
-  font-family: 'Lexend', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 :root {
   /* -- Colorsinis */
   --body-color: #e4e9f7;
-  --sidebar-color: #fff;
   --primary-color: #695cfe;
   --primary-color-light: #f6f5ff;
   --toggle-color: #ddd;
@@ -143,165 +139,8 @@ defineOptions({ name: 'ChevronsRightIcon' })
   --trans-04: all 0.4 ease;
   --trans-05: all 0.5 ease;
 }
-/* -- CSS Reutilizable -- */
 
-.sidebar .text {
-  font-size: 16px;
-  font-weight: 200;
-  color: var(--text-color);
-  transition: var(--trans-04);
-  white-space: nowrap;
-  opacity: 1;
-}
-
-.sidebar .image {
-  min-width: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* -- Sidebar -- */
-body {
-  height: 100vh;
-  background: var(--body-color);
-}
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 250px;
-  padding: 10px 14px;
-  background: var(--sidebar-color);
-  transition: var(--trans-05);
-  z-index: 100;
-}
-
-.sidebar.close {
-  width: 88px;
-}
-
-.sidebar.close .text {
-  opacity: 0;
-}
-
-.sidebar li {
-  height: 50px;
-  margin-top: 10px;
-  list-style: none;
-  display: flex;
-  align-items: center;
-}
-
-.sidebar li .icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 60px;
-  font-size: 20px;
-}
-
-.sidebar li .icons,
-.sidebar li .text {
-  color: var(--text-color);
-  transition: var(--trans-02);
-}
-
-.sidebar header {
-  position: relative;
-}
-.sidebar .image-text .img {
-  width: 40px;
-  border-radius: 6px;
-}
-
-.sidebar header .image-text {
-  display: flex;
-  align-items: center;
-}
-
-header .image-text .header-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.header-text .name {
-  font-weight: 400;
-}
-
-.header-text .description {
-  margin-top: -2px;
-}
-
-.sidebar header #toggle {
-  position: absolute;
-  top: 50%;
-  right: 25px;
-  transform: translateY(-50%);
-  height: 25px;
-  width: 25px;
-  background: var(--primary-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  color: var(--sidebar-color);
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.sidebar .menu {
-  margin-top: 35px;
-}
-
-.sidebar .search.box {
-  background: var(--primary-color);
-}
-
-.search.box input {
-  height: 100%;
-  width: 100%;
-  outline: none;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 300;
-  background-color: var(--primary-color-light);
-}
-
-.sidebar li a {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  border-radius: 6px;
-  transition: var(--trans-04);
-}
-
-.sidebar li a:hover {
-  background: var(--primary-color);
-}
-.sidebar li a:hover .icons,
-.sidebar li a:hover .text {
-  color: var(--sidebar-color);
-}
-
-.sidebar .menu-bar {
-  height: calc(100% - 50px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.menu-bar .mode {
-  position: relative;
-  border: 6px;
-  background: var(--primary-color-light);
-}
-/* -- Sidebar -- */
-/* -- Dashboard -- */
+/* -- Dashboard --
 
 .home {
   position: relative;
@@ -322,7 +161,7 @@ header .image-text .header-text {
   left: 88px;
   width: calc(100% - 88px);
 }
-/* -- Dashboard -- */
+-- Dashboard -- */
 </style>
 <!-- Termina el Style -->
 

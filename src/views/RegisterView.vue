@@ -5,12 +5,14 @@ import { ChevronLeft } from '@boxicons/vue'
 <template>
   <main>
     <div class="flex items-center justify-center min-h-screen w-full bg-white">
-      <div class="p-16 bg-white text-dark rounded-lg shadow-md border border-[#333]">
+      <div
+        class="p-16 bg-white text-dark rounded-lg shadow-md border border-dark w-full md:w-1/2 lg:w-1/3"
+      >
         <h1 class="text-3xl font-bold mt-4">Empieza a usar RutaPay</h1>
         <p class="text-sm font-bold mt-2">
           Regístrate para comenzar a usar nuestra plataforma de pagos.
         </p>
-        <form method="POST" action="" class="mt-8 w-md">
+        <form method="POST" action="" class="mt-8 w-full">
           <input
             required
             type="text"
