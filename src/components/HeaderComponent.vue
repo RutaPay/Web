@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ChevronsRight, Home, Search } from '@boxicons/vue'
+import SideBarItem from '@/components/SideBarItem.vue'
 
 defineOptions({ name: 'ChevronsRightIcon' })
 </script>
@@ -10,7 +11,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
     <header>
       <div class="image text">
         <span class="image">
-          <img src="\assets\LogoRutaPay.png" alt="logo" />
+          <img src="../assets/LogoRutaPay.png" alt="logo" />
         </span>
         <div class="text header-text">
           <span class="name">RutaPay</span>
@@ -28,9 +29,11 @@ defineOptions({ name: 'ChevronsRightIcon' })
           <input type="search" placeholder="Search" />
         </li>
         <ul class="menu-links">
-          <li class="nav-links">
-            <a href="#">
+          <!-- En vez de usar el antiguo <li> usa el nuevo SideBarItem, url pones la ruta sencilla de la app (el router se encarga de mostrarlo), #icon pones el ícono y #text pones el texto del item -->
+          <SideBarItem url="home">
+            <template #icon>
               <Home class="icons"></Home>
+<<<<<<< HEAD
               <span class="text nav-text">Inicio</span>
             </a>
           </li>
@@ -64,6 +67,11 @@ defineOptions({ name: 'ChevronsRightIcon' })
               <span class="text nav-text">DashBoard</span>
             </a>
           </li>
+=======
+            </template>
+            <template #text>DashBoard</template>
+          </SideBarItem>
+>>>>>>> cbcb48c397f619fc570aebcaa15695019193ac43
         </ul>
       </div>
     </div>
@@ -73,8 +81,6 @@ defineOptions({ name: 'ChevronsRightIcon' })
 </template>
 <!-- Inicia el Style -->
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
-
 * {
   font-family: 'Lexend', sans-serif;
   margin: 0;
@@ -83,7 +89,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
 }
 
 :root {
-  /* -- Colorsinis Pussinis */
+  /* -- Colorsinis */
   --body-color: #e4e9f7;
   --sidebar-color: #fff;
   --primary-color: #695cfe;
@@ -91,7 +97,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
   --toggle-color: #ddd;
   --text-color: #707070;
 
-  /* -- Transición [Skibidi] */
+  /* -- Transición */
 
   --trans-02: all 0.2 ease;
   --trans-03: all 0.3 ease;
