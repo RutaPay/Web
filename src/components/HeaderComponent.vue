@@ -14,7 +14,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
         </span>
         <div class="text header-text">
           <span class="name">RutaPay</span>
-          <span class="description">Web de Epstein</span>
+          <span class="description"></span>
         </div>
       </div>
 
@@ -28,6 +28,36 @@ defineOptions({ name: 'ChevronsRightIcon' })
           <input type="search" placeholder="Search" />
         </li>
         <ul class="menu-links">
+          <li class="nav-links">
+            <a href="#">
+              <Home class="icons"></Home>
+              <span class="text nav-text">Inicio</span>
+            </a>
+          </li>
+          <li class="nav-links">
+            <a href="#">
+              <Home class="icons"></Home>
+              <span class="text nav-text">Mapa</span>
+            </a>
+          </li>
+          <li class="nav-links">
+            <a href="#">
+              <Home class="icons"></Home>
+              <span class="text nav-text">DashBoard</span>
+            </a>
+          </li>
+          <li class="nav-links">
+            <a href="#">
+              <Home class="icons"></Home>
+              <span class="text nav-text">DashBoard</span>
+            </a>
+          </li>
+          <li class="nav-links">
+            <a href="#">
+              <Home class="icons"></Home>
+              <span class="text nav-text">DashBoard</span>
+            </a>
+          </li>
           <li class="nav-links">
             <a href="#">
               <Home class="icons"></Home>
@@ -63,7 +93,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
 
   /* -- Transición [Skibidi] */
 
-  --trans-03: all 0.2 ease;
+  --trans-02: all 0.2 ease;
   --trans-03: all 0.3 ease;
   --trans-04: all 0.4 ease;
   --trans-05: all 0.5 ease;
@@ -117,6 +147,7 @@ body {
 .sidebar li .icons,
 .sidebar li .text {
   color: var(--text-color);
+  transition: var(--trans-02);
 }
 
 .sidebar header {
@@ -165,11 +196,33 @@ header .image-text .header-text {
   background: var(--primary-color);
 }
 
+.search.box input{
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--primary-color-light);
+}
+
 .sidebar li a {
   height: 100%;
   display: flex;
   align-items: center;
   text-decoration: none;
+  border-radius: 6px;
+  transition: var(--trans-04);
+}
+
+.sidebar li a:hover{
+  background: var(--primary-color);
+
+
+}
+.sidebar li a:hover .icons,
+.sidebar li a:hover .text{
+  color: var(--sidebar-color);
+
 }
 </style>
 <!-- Termina el Style -->
