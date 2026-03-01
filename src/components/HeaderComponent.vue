@@ -1,24 +1,48 @@
 <script setup lang="ts">
-import { ChevronsRight, Home, Search, Trip, CreditCardAlt, Gift, User, ArrowOutLeftSquareHalf } from '@boxicons/vue'
+import {
+  ChevronsRight,
+  ChevronsLeft,
+  Home,
+  Search,
+  Trip,
+  CreditCardAlt,
+  Gift,
+  User,
+  ArrowOutLeftSquareHalf,
+} from '@boxicons/vue'
 import SideBarItem from '@/components/SideBarItem.vue'
-
-defineOptions({ name: 'ChevronsRightIcon' })
 
 /* Script para el funcionamiento del close  */
 /* no se porque da error pero luego le probamos */
-const body = document.querySelector("body"),
-      sidebar = body.querySelector(".sidebar"),
-      toggle = body.querySelector(".toggle"),
-      searchBtn = body.querySelector(".search-box"),
+/*const body = document.querySelector('body'),
+  sidebar = document.querySelector('.sidebar'),
+  toggleItem = document.getElementById('toggle'),
+  searchBtn = document.querySelector('.search-box')
 
-      toggle.addEventListener("click", () =>{
-        sidebar.classList.toggle("close");
-      });
+if (toggleItem) {
+  toggleItem.addEventListener('click', () => {
+    console.log('Toggle clicked')
+    sidebar!.classList.toggle('close')
+  })
+}*/
+
+//Arreglado el toggle con Vue, usando clases de Vue y sin objetos del DOM, ahora el toggle funciona correctamente y no da errores en la consola
+//Dejé el código antiguo comentado por si lo quieres
+import { ref } from 'vue'
+
+const isClosed = ref(false)
+
+const toggleSidebar = () => {
+  console.log('Toggle funcionando en Vue')
+  isClosed.value = !isClosed.value
+}
+
+defineOptions({ name: 'ChevronsRightIcon' })
 </script>
 
 <template>
   <!-- Comienzo del header -->
-  <nav class="sidebar close">
+  <nav class="sidebar" :class="{ close: isClosed }">
     <header>
       <div class="image text">
         <span class="image">
@@ -30,7 +54,8 @@ const body = document.querySelector("body"),
         </div>
       </div>
 
-      <ChevronsRight class="toggle"></ChevronsRight>
+      //También agregue el cambio de ícono al toggle
+      <component :is="isClosed ? ChevronsRight : ChevronsLeft" id="toggle" @click="toggleSidebar" />
     </header>
 
     <div class="menu-bar">
@@ -41,7 +66,7 @@ const body = document.querySelector("body"),
         </li>
         <ul class="menu-links">
           <!-- En vez de usar el antiguo <li> usa el nuevo SideBarItem, url pones la ruta sencilla de la app (el router se encarga de mostrarlo), #icon pones el ícono y #text pones el texto del item -->
-          <SideBarItem url="home">
+          <SideBarItem url="/">
             <template #icon>
               <Home class="icons"></Home>
             </template>
@@ -76,33 +101,23 @@ const body = document.querySelector("body"),
     </div>
 
     <div class="bottom-content"></div>
-        <SideBarItem url="log-out">
-            <template #icon>
-              <ArrowOutLeftSquareHalf class="icons"></ArrowOutLeftSquareHalf>
-            </template>
-            <template #text>Log-Out</template>
-        </SideBarItem>
+    <SideBarItem url="log-out">
+      <template #icon>
+        <ArrowOutLeftSquareHalf class="icons"></ArrowOutLeftSquareHalf>
+      </template>
+      <template #text>Log-Out</template>
+    </SideBarItem>
   </nav>
 
   <!-- Fin del header -->
   <!-- Inicio del Dashboard (Main page)-->
 
   <section class="home">
-      <div class="text">Landing</div>
-
-
-
-
-
-
-
-
-
-
-
+    <div class="text">Landing</div>
   </section>
   <!-- Fin del Dashboard (Main page)-->
 </template>
+
 <!-- Inicia el Style -->
 <style>
 * {
@@ -164,11 +179,11 @@ body {
   z-index: 100;
 }
 
-.sidebar.close{
+.sidebar.close {
   width: 88px;
 }
 
-.sidebar.close .text{
+.sidebar.close .text {
   opacity: 0;
 }
 
@@ -220,7 +235,7 @@ header .image-text .header-text {
   margin-top: -2px;
 }
 
-.sidebar header .toggle {
+.sidebar header #toggle {
   position: absolute;
   top: 50%;
   right: 25px;
@@ -237,7 +252,7 @@ header .image-text .header-text {
   cursor: pointer;
 }
 
-.sidebar .menu{
+.sidebar .menu {
   margin-top: 35px;
 }
 
@@ -273,14 +288,14 @@ header .image-text .header-text {
   color: var(--sidebar-color);
 }
 
-.sidebar .menu-bar{
+.sidebar .menu-bar {
   height: calc(100% - 50px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.menu-bar .mode{
+.menu-bar .mode {
   position: relative;
   border: 6px;
   background: var(--primary-color-light);
@@ -288,7 +303,7 @@ header .image-text .header-text {
 /* -- Sidebar -- */
 /* -- Dashboard -- */
 
-.home{
+.home {
   position: relative;
   left: 250px;
   height: 100vh;
@@ -296,19 +311,18 @@ header .image-text .header-text {
   background: var(--body-color);
   transition: var(--trans-05);
 }
-.home .text{
+.home .text {
   font-size: 40px;
   font-weight: 400;
   color: var(--text-color);
   padding: 8px 40px;
 }
 
-.sidebar.close ~ .home{
+.sidebar.close ~ .home {
   left: 88px;
   width: calc(100% - 88px);
 }
 /* -- Dashboard -- */
-
 </style>
 <!-- Termina el Style -->
 
