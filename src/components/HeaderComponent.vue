@@ -33,45 +33,9 @@ defineOptions({ name: 'ChevronsRightIcon' })
           <SideBarItem url="home">
             <template #icon>
               <Home class="icons"></Home>
-<<<<<<< HEAD
-              <span class="text nav-text">Inicio</span>
-            </a>
-          </li>
-          <li class="nav-links">
-            <a href="#">
-              <Home class="icons"></Home>
-              <span class="text nav-text">Mapa</span>
-            </a>
-          </li>
-          <li class="nav-links">
-            <a href="#">
-              <Home class="icons"></Home>
-              <span class="text nav-text">DashBoard</span>
-            </a>
-          </li>
-          <li class="nav-links">
-            <a href="#">
-              <Home class="icons"></Home>
-              <span class="text nav-text">DashBoard</span>
-            </a>
-          </li>
-          <li class="nav-links">
-            <a href="#">
-              <Home class="icons"></Home>
-              <span class="text nav-text">DashBoard</span>
-            </a>
-          </li>
-          <li class="nav-links">
-            <a href="#">
-              <Home class="icons"></Home>
-              <span class="text nav-text">DashBoard</span>
-            </a>
-          </li>
-=======
             </template>
             <template #text>DashBoard</template>
           </SideBarItem>
->>>>>>> cbcb48c397f619fc570aebcaa15695019193ac43
         </ul>
       </div>
     </div>
@@ -202,7 +166,7 @@ header .image-text .header-text {
   background: var(--primary-color);
 }
 
-.search.box input{
+.search.box input {
   height: 100%;
   width: 100%;
   outline: none;
@@ -220,15 +184,12 @@ header .image-text .header-text {
   transition: var(--trans-04);
 }
 
-.sidebar li a:hover{
+.sidebar li a:hover {
   background: var(--primary-color);
-
-
 }
 .sidebar li a:hover .icons,
-.sidebar li a:hover .text{
+.sidebar li a:hover .text {
   color: var(--sidebar-color);
-
 }
 </style>
 <!-- Termina el Style -->
