@@ -1,13 +1,24 @@
 <script setup lang="ts">
-import { ChevronsRight, Home, Search, Trip, CreditCardAlt, Gift, User } from '@boxicons/vue'
+import { ChevronsRight, Home, Search, Trip, CreditCardAlt, Gift, User, ArrowOutLeftSquareHalf } from '@boxicons/vue'
 import SideBarItem from '@/components/SideBarItem.vue'
 
 defineOptions({ name: 'ChevronsRightIcon' })
+
+/* Script para el funcionamiento del close  */
+/* no se porque da error pero luego le probamos */
+const body = document.querySelector("body"),
+      sidebar = body.querySelector(".sidebar"),
+      toggle = body.querySelector(".toggle"),
+      searchBtn = body.querySelector(".search-box"),
+
+      toggle.addEventListener("click", () =>{
+        sidebar.classList.toggle("close");
+      });
 </script>
 
 <template>
   <!-- Comienzo del header -->
-  <nav class="sidebar">
+  <nav class="sidebar close">
     <header>
       <div class="image text">
         <span class="image">
@@ -24,7 +35,7 @@ defineOptions({ name: 'ChevronsRightIcon' })
 
     <div class="menu-bar">
       <div class="menu">
-        <li class="nav-links">
+        <li class="search-box">
           <Search class="icons"></Search>
           <input type="search" placeholder="Search" />
         </li>
@@ -63,9 +74,34 @@ defineOptions({ name: 'ChevronsRightIcon' })
         </ul>
       </div>
     </div>
+
+    <div class="bottom-content"></div>
+        <SideBarItem url="log-out">
+            <template #icon>
+              <ArrowOutLeftSquareHalf class="icons"></ArrowOutLeftSquareHalf>
+            </template>
+            <template #text>Log-Out</template>
+        </SideBarItem>
   </nav>
 
   <!-- Fin del header -->
+  <!-- Inicio del Dashboard (Main page)-->
+
+  <section class="home">
+      <div class="text">Landing</div>
+
+
+
+
+
+
+
+
+
+
+
+  </section>
+  <!-- Fin del Dashboard (Main page)-->
 </template>
 <!-- Inicia el Style -->
 <style>
@@ -98,12 +134,16 @@ defineOptions({ name: 'ChevronsRightIcon' })
   font-size: 16px;
   font-weight: 200;
   color: var(--text-color);
+  transition: var(--trans-04);
+  white-space: nowrap;
+  opacity: 1;
 }
 
 .sidebar .image {
   min-width: 60px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 /* -- Sidebar -- */
@@ -120,6 +160,16 @@ body {
   width: 250px;
   padding: 10px 14px;
   background: var(--sidebar-color);
+  transition: var(--trans-05);
+  z-index: 100;
+}
+
+.sidebar.close{
+  width: 88px;
+}
+
+.sidebar.close .text{
+  opacity: 0;
 }
 
 .sidebar li {
@@ -184,6 +234,11 @@ header .image-text .header-text {
   border-radius: 50%;
   color: var(--sidebar-color);
   font-size: 20px;
+  cursor: pointer;
+}
+
+.sidebar .menu{
+  margin-top: 35px;
 }
 
 .sidebar .search.box {
@@ -196,6 +251,8 @@ header .image-text .header-text {
   outline: none;
   border: none;
   border-radius: 6px;
+  font-size: 16px;
+  font-weight: 300;
   background-color: var(--primary-color-light);
 }
 
@@ -215,6 +272,43 @@ header .image-text .header-text {
 .sidebar li a:hover .text {
   color: var(--sidebar-color);
 }
+
+.sidebar .menu-bar{
+  height: calc(100% - 50px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menu-bar .mode{
+  position: relative;
+  border: 6px;
+  background: var(--primary-color-light);
+}
+/* -- Sidebar -- */
+/* -- Dashboard -- */
+
+.home{
+  position: relative;
+  left: 250px;
+  height: 100vh;
+  width: calc(100% - 250px);
+  background: var(--body-color);
+  transition: var(--trans-05);
+}
+.home .text{
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--text-color);
+  padding: 8px 40px;
+}
+
+.sidebar.close ~ .home{
+  left: 88px;
+  width: calc(100% - 88px);
+}
+/* -- Dashboard -- */
+
 </style>
 <!-- Termina el Style -->
 
