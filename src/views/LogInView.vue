@@ -1,0 +1,39 @@
+<template>
+  <main>
+    <div class="flex items-center justify-center min-h-screen w-full bg-white">
+      <div
+        class="p-16 bg-white text-dark rounded-lg shadow-md border border-dark w-full md:w-1/2 lg:w-1/3"
+      >
+        <h1 class="text-3xl font-bold mt-4">Vuelve a usar RutaPay</h1>
+        <p class="text-sm font-bold mt-2">Accede para usar nuestra plataforma de pagos.</p>
+        <form method="POST" action="" class="mt-8 w-full">
+          <input
+            required
+            type="tel"
+            name="phone"
+            placeholder="Número de Teléfono"
+            class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
+          />
+          <input
+            required
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
+          />
+          <input
+            type="submit"
+            value="Iniciar Sesión"
+            class="w-full px-4 py-2 mt-6 bg-primary text-white font-medium rounded-lg hover:bg-dark cursor-pointer transition duration-300"
+          />
+        </form>
+      </div>
+    </div>
+  </main>
+</template>
+
+<script lang="ts">
+export default {
+  name: 'LogInView',
+}
+</script>

@@ -32,7 +32,12 @@ const toggleSidebar = () => {
     <header class="relative">
       <div class="flex items-center">
         <span class="min-w-16 flex items-center justify-center">
-          <img class="w-32 rounded-xl" src="../assets/LogoRutaPay.png" alt="logo" />
+          <img
+            class="w-32 rounded-xl"
+            :class="{ hidden: isClosed }"
+            src="../assets/LogoRutaPay.png"
+            alt="logo"
+          />
         </span>
         <!--<div class="header-text flex flex-col text-text-light" :class="{ hidden: isClosed }">
           <span class="font-normal">RutaPay</span>
@@ -47,6 +52,7 @@ const toggleSidebar = () => {
         id="toggle"
         @click="toggleSidebar"
         class="absolute top-1/2 right-6 transform -translate-y-1/2 cursor-pointer h-8 w-8 bg-primary hover:bg-dark flex items-center justify-center rounded-[50%] text-white text-2xl transition-colors duration-300"
+        :class="{ 'left-4': isClosed }"
       />
     </header>
 
@@ -121,49 +127,6 @@ const toggleSidebar = () => {
 
   <!-- Fin del header -->
 </template>
-
-<!-- Inicia el Style -->
-<style>
-:root {
-  /* -- Colorsinis */
-  --body-color: #e4e9f7;
-  --primary-color: #695cfe;
-  --primary-color-light: #f6f5ff;
-  --toggle-color: #ddd;
-  --text-color: #707070;
-
-  /* -- Transición */
-
-  --trans-02: all 0.2 ease;
-  --trans-03: all 0.3 ease;
-  --trans-04: all 0.4 ease;
-  --trans-05: all 0.5 ease;
-}
-
-/* -- Dashboard --
-
-.home {
-  position: relative;
-  left: 250px;
-  height: 100vh;
-  width: calc(100% - 250px);
-  background: var(--body-color);
-  transition: var(--trans-05);
-}
-.home .text {
-  font-size: 40px;
-  font-weight: 400;
-  color: var(--text-color);
-  padding: 8px 40px;
-}
-
-.sidebar.close ~ .home {
-  left: 88px;
-  width: calc(100% - 88px);
-}
--- Dashboard -- */
-</style>
-<!-- Termina el Style -->
 
 <script lang="ts">
 export default {
