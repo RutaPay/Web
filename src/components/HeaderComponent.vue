@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ChevronsRight, Home, Search } from '@boxicons/vue'
+import { ChevronsRight, Home, Search, Trip, CreditCardAlt, Gift, User } from '@boxicons/vue'
 import SideBarItem from '@/components/SideBarItem.vue'
 
 defineOptions({ name: 'ChevronsRightIcon' })
@@ -34,7 +34,31 @@ defineOptions({ name: 'ChevronsRightIcon' })
             <template #icon>
               <Home class="icons"></Home>
             </template>
-            <template #text>DashBoard</template>
+            <template #text>Inicio</template>
+          </SideBarItem>
+          <SideBarItem url="map">
+            <template #icon>
+              <Trip class="icons"></Trip>
+            </template>
+            <template #text>Mapa de Rutas</template>
+          </SideBarItem>
+          <SideBarItem url="card">
+            <template #icon>
+              <CreditCardAlt class="icons"></CreditCardAlt>
+            </template>
+            <template #text>Tarjeta</template>
+          </SideBarItem>
+          <SideBarItem url="rewards">
+            <template #icon>
+              <Gift class="icons"></Gift>
+            </template>
+            <template #text>Recompensas</template>
+          </SideBarItem>
+          <SideBarItem url="account">
+            <template #icon>
+              <User class="icons"></User>
+            </template>
+            <template #text>Cuenta</template>
           </SideBarItem>
         </ul>
       </div>
