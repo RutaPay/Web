@@ -13,6 +13,48 @@ const data = reactive({
   password: '',
 })
 
+const formatPhone = (e) => {
+  let val = e.target.value
+
+  if (val.length < 4) {
+    data.phoneNumber = '+52 '
+    e.target.value = '+52 '
+    return
+  }
+
+  // 1. Remove everything that isn't a number
+  let numbers = val.replace(/\D/g, '')
+
+  // 2. Ensure it starts with 52 (Mexico's code)
+  // If the user deletes it or starts with something else, we fix it
+  if (!numbers.startsWith('52')) {
+    numbers = '52' + numbers
+  }
+
+  // 3. Limit to 12 digits total (52 + 10 digit number)
+  numbers = numbers.substring(0, 12)
+
+  // 4. Formatting: +52 123 456 7890
+  let formatted = '+52'
+
+  // Add first group (3 digits)
+  if (numbers.length > 2) {
+    formatted += ' ' + numbers.substring(2, 5)
+  }
+  // Add second group (3 digits)
+  if (numbers.length > 5) {
+    formatted += ' ' + numbers.substring(5, 8)
+  }
+  // Add final group (4 digits)
+  if (numbers.length > 8) {
+    formatted += ' ' + numbers.substring(8, 12)
+  }
+
+  // Update the reactive state
+  data.phoneNumber = formatted
+  e.target.value = formatted
+}
+
 const submitForm = async () => {
   const fullLastNames = `${data.pLastName.trim()} ${data.mLastName.trim()}`.trim()
   const payload = {
@@ -22,7 +64,7 @@ const submitForm = async () => {
     phoneNumber: data.phoneNumber,
     password: data.password,
   }
-  await fetch('/api/register', {
+  await fetch('https://localhost:7130/api/account/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -75,9 +117,11 @@ const submitForm = async () => {
           />
           <input
             required
-            v-model="data.phoneNumber"
+            :value="data.phoneNumber"
+            @input="formatPhone"
             type="tel"
             placeholder="Número de Teléfono"
+            maxlength="16"
             class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
           />
           <input
