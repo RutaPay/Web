@@ -1,5 +1,37 @@
 <script setup lang="ts">
-import { ChevronLeft } from '@boxicons/vue'
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const data = reactive({
+  fullName: '',
+  pLastName: '',
+  mLastName: '',
+  email: '',
+  phoneNumber: '',
+  password: '',
+})
+
+const submitForm = async () => {
+  const fullLastNames = `${data.pLastName.trim()} ${data.mLastName.trim()}`.trim()
+  const payload = {
+    fullName: data.fullName,
+    lastNames: fullLastNames,
+    email: data.email,
+    phoneNumber: data.phoneNumber,
+    password: data.password,
+  }
+  await fetch('/api/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+
+  await router.push('/login')
+}
 </script>
 
 <template>
@@ -12,46 +44,46 @@ import { ChevronLeft } from '@boxicons/vue'
         <p class="text-sm font-bold mt-2">
           Regístrate para comenzar a usar nuestra plataforma de pagos.
         </p>
-        <form method="POST" action="" class="mt-8 w-full">
+        <form @submit.prevent="submitForm" class="mt-8 w-full">
           <input
             required
+            v-model="data.fullName"
             type="text"
-            name="name"
             placeholder="Nombre(s)"
             class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
           />
           <input
             required
+            v-model="data.pLastName"
             type="text"
-            name="pLastName"
             placeholder="Apellido Paterno"
             class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
           />
           <input
             required
+            v-model="data.mLastName"
             type="text"
-            name="mLastName"
             placeholder="Apellido Materno"
             class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
           />
           <input
             required
+            v-model="data.email"
             type="email"
-            name="email"
             placeholder="Correo Electrónico"
             class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
           />
           <input
             required
+            v-model="data.phoneNumber"
             type="tel"
-            name="phone"
             placeholder="Número de Teléfono"
             class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
           />
           <input
             required
+            v-model="data.password"
             type="password"
-            name="password"
             placeholder="Contraseña"
             class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
           />
