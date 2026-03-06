@@ -29,8 +29,8 @@ const submitForm = async () => {
       <div
         class="p-16 bg-white text-dark rounded-lg shadow-md border border-dark w-full md:w-1/2 lg:w-1/3"
       >
-        <h1 class="text-3xl font-bold mt-4">Vuelve a usar RutaPay</h1>
-        <p class="text-sm font-bold mt-2">Accede para usar nuestra plataforma de pagos.</p>
+        <h1 class="text-3xl font-bold mt-4">Inicia sesión para usar RutaPay</h1>
+        <p class="text-sm font-bold mt-2">Accede para usar nuestra plataforma de pagos para el transporte público.</p>
         <form @submit.prevent="submitForm" class="mt-8 w-full">
           <input
             required
