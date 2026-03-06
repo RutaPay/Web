@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+
+const authStore = useAuthStore()
 
 const router = useRouter()
 
@@ -10,16 +13,25 @@ const data = reactive({
 })
 
 const submitForm = async () => {
-  await fetch('https://localhost:7130/api/account/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-    body: JSON.stringify(data),
-  })
+  try {
+    const response = await fetch('https://localhost:7130/api/account/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(data),
+    })
 
-  await router.push('/')
+    if (!response.ok) {
+      throw new Error('Login failed')
+    }
+
+    authStore.setAuth(true)
+    await router.push('/')
+  } catch (error) {
+    authStore.setAuth(false)
+  }
 }
 </script>
 
