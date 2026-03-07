@@ -13,12 +13,13 @@ const data = reactive({
   password: '',
 })
 
-const formatPhone = (e) => {
-  let val = e.target.value
+const formatPhone = (e: Event) => {
+  const target = e.target as HTMLInputElement
+  let val = target.value
 
   if (val.length < 4) {
     data.phoneNumber = '+52 '
-    e.target.value = '+52 '
+    target.value = '+52 '
     return
   }
 
@@ -52,7 +53,7 @@ const formatPhone = (e) => {
 
   // Update the reactive state
   data.phoneNumber = formatted
-  e.target.value = formatted
+  target.value = formatted
 }
 
 const submitForm = async () => {

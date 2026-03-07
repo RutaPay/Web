@@ -12,17 +12,17 @@ defineProps({
 </script>
 
 <template>
-  <li class="h-12 mt-6 list-none flex items-center">
-    <RouterLink
-      :to="url"
-      class="h-full flex items-center rounded-xl transition-all duration-400 hover:bg-primary"
-    >
+  <RouterLink
+    :to="url"
+    class="group h-12 flex mt-6 rounded-xl items-center transition-all duration-400 hover:bg-primary"
+  >
+    <li class="h-full list-none flex items-center">
       <slot name="icon"></slot>
-      <span class="text-text-dark hover:text-white" :class="{ hidden: isClosed }"
+      <span class="text-text-dark group-hover:text-white" :class="{ hidden: isClosed }"
         ><slot name="text"></slot
       ></span>
-    </RouterLink>
-  </li>
+    </li>
+  </RouterLink>
 </template>
 
 <script lang="ts">

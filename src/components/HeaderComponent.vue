@@ -73,7 +73,7 @@ const toggleSidebar = () => {
           <SideBarItem url="/" :isClosed="isClosed">
             <template #icon>
               <Home
-                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
               ></Home>
             </template>
             <template #text>Inicio</template>
@@ -81,7 +81,7 @@ const toggleSidebar = () => {
           <SideBarItem url="map" :isClosed="isClosed">
             <template #icon>
               <Trip
-                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
               ></Trip>
             </template>
             <template #text>Mapa de Rutas</template>
@@ -89,7 +89,7 @@ const toggleSidebar = () => {
           <SideBarItem url="card" :isClosed="isClosed">
             <template #icon>
               <CreditCardAlt
-                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
               ></CreditCardAlt>
             </template>
             <template #text>Tarjeta</template>
@@ -97,7 +97,7 @@ const toggleSidebar = () => {
           <SideBarItem url="rewards" :isClosed="isClosed">
             <template #icon>
               <Gift
-                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
               ></Gift>
             </template>
             <template #text>Recompensas</template>
@@ -105,7 +105,7 @@ const toggleSidebar = () => {
           <SideBarItem url="account" :isClosed="isClosed">
             <template #icon>
               <User
-                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
               ></User>
             </template>
             <template #text>Cuenta</template>
@@ -117,7 +117,7 @@ const toggleSidebar = () => {
       <SideBarItem url="log-out" :isClosed="isClosed">
         <template #icon>
           <ArrowOutLeftSquareHalf
-            class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 hover:text-white"
+            class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
           ></ArrowOutLeftSquareHalf>
         </template>
         <template #text>Log-Out</template>
