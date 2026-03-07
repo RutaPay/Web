@@ -15,6 +15,7 @@ defineProps({
   <RouterLink
     :to="url"
     class="group h-12 flex mt-6 rounded-xl items-center transition-all duration-400 hover:bg-primary"
+    :class="{ 'justify-center': isClosed, 'justify-start': !isClosed }"
   >
     <li class="h-full list-none flex items-center">
       <slot name="icon"></slot>
