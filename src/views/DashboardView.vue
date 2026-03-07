@@ -1,17 +1,24 @@
 <script setup lang="ts">
 import HeaderComponent from '../components/HeaderComponent.vue'
+import { useSidebarStore } from '@/stores/sidebarstate'
+
+const sidebarStore = useSidebarStore()
 </script>
 
 <template>
-  <main>
-    <HeaderComponent />
-    <main
-      class="flex-1 bg-gray-100 h-screen overflow-y-auto p-6 md:p-10 transition-all duration-300"
+  <main
+    class="min-h-screen transition-all duration-500 bg-gray-50 p-4"
+    :class="{ 'ml-64': !sidebarStore.closedState, 'ml-28': sidebarStore.closedState }"
+  >
+    <div
+      class="w-full h-full min-h-[calc(100vh-2rem)] bg-white rounded-3xl shadow-sm border border-gray-200 p-6 md:p-10"
     >
-      <div
-        class="w-full min-h-full border-2 border-dashed border-gray-300 rounded-2xl p-4 flex flex-col gap-8"
-      ></div>
-    </main>
+      <HeaderComponent />
+
+      <div class="mt-8">
+        <p class="text-gray-400 italic">El contenido del Dashboard aparecerá aquí...</p>
+      </div>
+    </div>
   </main>
 </template>
 

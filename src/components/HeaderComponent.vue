@@ -11,30 +11,30 @@ import {
   ArrowOutLeftSquareHalf,
 } from '@boxicons/vue'
 import SideBarItem from '@/components/SideBarItem.vue'
+import { useSidebarStore } from '@/stores/sidebarstate'
 
-//Script para el funcionamiento del sidebar
-//Arreglado el toggle con Vue, usando clases de Vue y sin objetos del DOM, ahora el toggle funciona correctamente y no da errores en la consola
-import { ref } from 'vue'
+const sidebarStore = useSidebarStore()
 
-const isClosed = ref(false)
-
-const toggleSidebar = () => {
-  isClosed.value = !isClosed.value
-}
+/*const toggleSidebar = () => {
+  sidebarStore.toggleSidebar()
+}*/
 </script>
 
 <template>
-  <!-- Comienzo del header -->
   <nav
     class="fixed top-0 left-0 h-full py-8 px-6 border-r-2 bg-white transition-all duration-500 z-100"
-    :class="{ close: isClosed, 'w-64': !isClosed, 'w-28': isClosed }"
+    :class="{
+      close: sidebarStore.closedState,
+      'w-64': !sidebarStore.closedState,
+      'w-28': sidebarStore.closedState,
+    }"
   >
     <header class="relative">
       <div class="flex items-center">
         <span class="min-w-16 flex items-center justify-center">
           <img
             class="w-32 rounded-xl"
-            :class="{ hidden: isClosed }"
+            :class="{ hidden: sidebarStore.closedState }"
             src="../assets/LogoRutaPay.png"
             alt="logo"
           />
@@ -46,13 +46,12 @@ const toggleSidebar = () => {
         -->
       </div>
 
-      <!--También agregue el cambio de ícono al toggle-->
       <component
-        :is="isClosed ? ChevronsRight : ChevronsLeft"
+        :is="sidebarStore.closedState ? ChevronsRight : ChevronsLeft"
         id="toggle"
-        @click="toggleSidebar"
+        @click="sidebarStore.toggleSidebar()"
         class="absolute top-1/2 right-6 transform -translate-y-1/2 cursor-pointer h-8 w-8 bg-primary hover:bg-dark flex items-center justify-center rounded-[50%] text-white text-2xl transition-colors duration-300"
-        :class="{ 'left-4': isClosed }"
+        :class="{ 'left-4': sidebarStore.closedState }"
       />
     </header>
 
@@ -64,13 +63,13 @@ const toggleSidebar = () => {
           ></Search>
           <input
             class="w-7/8 outline-none border rounded-xl text-base font-normal text-white bg-secondary hover:border hover:border-dark transition-all duration-300 p-2"
-            :class="{ hidden: isClosed }"
+            :class="{ hidden: sidebarStore.closedState }"
             type="search"
             placeholder="Search"
           />
         </li>
         <ul class="mt-12">
-          <SideBarItem url="/" :isClosed="isClosed">
+          <SideBarItem url="/" :isClosed="sidebarStore.closedState">
             <template #icon>
               <Home
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
@@ -78,7 +77,7 @@ const toggleSidebar = () => {
             </template>
             <template #text>Inicio</template>
           </SideBarItem>
-          <SideBarItem url="map" :isClosed="isClosed">
+          <SideBarItem url="map" :isClosed="sidebarStore.closedState">
             <template #icon>
               <Trip
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
@@ -86,7 +85,7 @@ const toggleSidebar = () => {
             </template>
             <template #text>Mapa de Rutas</template>
           </SideBarItem>
-          <SideBarItem url="card" :isClosed="isClosed">
+          <SideBarItem url="card" :isClosed="sidebarStore.closedState">
             <template #icon>
               <CreditCardAlt
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
@@ -94,7 +93,7 @@ const toggleSidebar = () => {
             </template>
             <template #text>Tarjeta</template>
           </SideBarItem>
-          <SideBarItem url="rewards" :isClosed="isClosed">
+          <SideBarItem url="rewards" :isClosed="sidebarStore.closedState">
             <template #icon>
               <Gift
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
@@ -102,7 +101,7 @@ const toggleSidebar = () => {
             </template>
             <template #text>Recompensas</template>
           </SideBarItem>
-          <SideBarItem url="account" :isClosed="isClosed">
+          <SideBarItem url="account" :isClosed="sidebarStore.closedState">
             <template #icon>
               <User
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
@@ -114,7 +113,7 @@ const toggleSidebar = () => {
       </div>
     </div>
     <div class="-mt-14">
-      <SideBarItem url="log-out" :isClosed="isClosed">
+      <SideBarItem url="log-out" :isClosed="sidebarStore.closedState">
         <template #icon>
           <ArrowOutLeftSquareHalf
             class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
@@ -124,8 +123,6 @@ const toggleSidebar = () => {
       </SideBarItem>
     </div>
   </nav>
-
-  <!-- Fin del header -->
 </template>
 
 <script lang="ts">
