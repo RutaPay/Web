@@ -5,6 +5,7 @@ import HeaderComponent from '../components/HeaderComponent.vue'
 <template>
   <main>
     <HeaderComponent />
+
     <!-- Agregar dashboard del header component para no tener problemas de compatibilidad
          Comenzar con el Hero section Siguiente
     -->
