@@ -14,10 +14,6 @@ import SideBarItem from '@/components/SideBarItem.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 
 const sidebarStore = useSidebarStore()
-
-/*const toggleSidebar = () => {
-  sidebarStore.toggleSidebar()
-}*/
 </script>
 
 <template>
@@ -29,8 +25,8 @@ const sidebarStore = useSidebarStore()
       'w-28': sidebarStore.closedState,
     }"
   >
-    <header class="relative">
-      <div class="flex items-center">
+    <header class="relative flex items-center mb-8 h-16">
+      <div class="flex items-center overflow-hidden">
         <span class="min-w-16 flex items-center justify-center">
           <img
             class="w-32 rounded-xl"
@@ -55,7 +51,7 @@ const sidebarStore = useSidebarStore()
       />
     </header>
 
-    <div class="h-[calc(100%-52px)] flex flex-col justify-between">
+    <div class="flex flex-col grow overflow-y-auto overflow-x-hidden">
       <div class="mt-12">
         <li class="flex items-center justify-center h-8">
           <Search
@@ -68,7 +64,7 @@ const sidebarStore = useSidebarStore()
             placeholder="Search"
           />
         </li>
-        <ul class="mt-12">
+        <ul class="space-y-2">
           <SideBarItem url="/" :isClosed="sidebarStore.closedState">
             <template #icon>
               <Home
@@ -112,7 +108,7 @@ const sidebarStore = useSidebarStore()
         </ul>
       </div>
     </div>
-    <div class="-mt-14">
+    <div class="mt-auto pt-10">
       <SideBarItem url="log-out" :isClosed="sidebarStore.closedState">
         <template #icon>
           <ArrowOutLeftSquareHalf
