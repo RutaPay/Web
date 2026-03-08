@@ -16,7 +16,7 @@ const sidebarStore = useSidebarStore()
       <HeaderComponent />
 
       <div class="mt-8">
-        <section class="bg-white white:bg-white">
+        <section class="">
           <div
             class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12"
           >
@@ -29,8 +29,8 @@ const sidebarStore = useSidebarStore()
               <p
                 class="max-w-2xl mb-6 font-light text-gray-800 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-500"
               >
-                From checkout to global sales tax compliance, companies around the world use
-                Flowbite to simplify their payment stack.
+                El objetivo de este proyecto es mejorar el trasnporte público,
+                Consolidamos este proyecto para el desarrollo general.
               </p>
               <a
                 href="#"
