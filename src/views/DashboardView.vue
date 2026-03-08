@@ -17,9 +17,7 @@ const sidebarStore = useSidebarStore()
 
       <div class="mt-8">
         <section class="bg-white white:bg-white">
-          <div
-            class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12"
-          >
+          <div class="grid max-w-7xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div class="mr-auto place-self-center lg:col-span-7">
               <h1
                 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-black"
@@ -34,7 +32,7 @@ const sidebarStore = useSidebarStore()
               </p>
               <a
                 href="#"
-                class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+                class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-text-dark rounded-lg focus:ring-4 focus:ring-primary-300"
               >
                 Ir a mi cuenta
                 <svg
@@ -53,7 +51,7 @@ const sidebarStore = useSidebarStore()
               <!-- Este es opcional después lo podemos quitar o ajustar o recolocar pero por ahora es opcional -->
               <a
                 href="#"
-                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-black border rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-900 dark:focus:ring-gray-800"
+                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-text-dark border rounded-lg hover:bg-dark hover:text-white focus:ring-4 focus:ring-gray-100 transition-colors duration-300"
               >
                 Realiza una recarga
               </a>
