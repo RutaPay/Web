@@ -35,7 +35,7 @@ const sidebarStore = useSidebarStore()
           <img
             class="w-32 rounded-xl"
             :class="{ hidden: sidebarStore.closedState }"
-            src="../assets/LogoRutaPay.png"
+            src="../assets/LogoRutaPay.svg"
             alt="logo"
           />
         </span>
