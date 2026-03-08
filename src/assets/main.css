@@ -10,11 +10,3 @@
   --color-text-light: #707070;
   --color-text-dark: #2e2e2e;
 }
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
