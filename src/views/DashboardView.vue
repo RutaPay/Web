@@ -32,8 +32,8 @@ const sidebarStore = useSidebarStore()
                 El objetivo de este proyecto es mejorar el trasnporte público, Consolidamos este
                 proyecto para el desarrollo general.
               </p>
-              <a
-                href="#"
+              <RouterLink
+                to="/account"
                 class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-text-dark rounded-lg focus:ring-4 focus:ring-primary-300"
               >
                 Ir a mi cuenta
@@ -49,14 +49,14 @@ const sidebarStore = useSidebarStore()
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-              </a>
+              </RouterLink>
               <!-- Este es opcional después lo podemos quitar o ajustar o recolocar pero por ahora es opcional -->
-              <a
-                href="#"
+              <RouterLink
+                to="/account/recharge"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-text-dark border rounded-lg hover:bg-dark hover:text-white focus:ring-4 focus:ring-gray-100 transition-colors duration-300"
               >
                 Realiza una recarga
-              </a>
+              </RouterLink>
             </div>
             <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
               <img src="../assets/phone_mockup.png" alt="mockup" />
