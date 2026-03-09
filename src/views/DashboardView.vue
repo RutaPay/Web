@@ -137,7 +137,7 @@ const sidebarStore = useSidebarStore()
                     ></path>
                   </svg>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-text-dark">Mapá</h3>
+                <h3 class="mb-2 text-xl font-bold text-text-dark">Mapa</h3>
                 <p class="text-text-dark">
                   Consulta rutas, horarios y paradas de transporte público en tu ciudad, para planificar tus viajes de manera eficiente y sin contratiempos.
                   Rastrea los movimientos del transporte sin preopucaciones y mantente informado sobre le trafico en tiempo real.
@@ -207,9 +207,9 @@ const sidebarStore = useSidebarStore()
                     ></path>
                   </svg>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-text-dark">Operations</h3>
+                <h3 class="mb-2 text-xl font-bold text-text-dark">Nuestra relacion con Charlie Kirk</h3>
                 <p class="text-text-dark">
-                  Keep your company’s lights on with customizable, iterative, and structured
+                  NO estamos en los archivos por ahora
                   workflows built for all efficient teams and individual.
                 </p>
               </div>
