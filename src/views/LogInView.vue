@@ -27,8 +27,10 @@ const submitForm = async () => {
       throw new Error('Login failed')
     }
 
-    authStore.setAuth(true)
-    await router.push('/')
+    const userData = await response.json()
+
+    authStore.setAuth(true, userData)
+    await router.push('/dashboard')
   } catch (error) {
     authStore.setAuth(false)
   }
