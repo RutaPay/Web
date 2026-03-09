@@ -68,8 +68,8 @@ const sidebarStore = useSidebarStore()
                 Diseñado para facilitar el pago de transporte público
               </h2>
               <p class="text-text-dark sm:text-xl">
-                Here at Flowbite we focus on markets where technology, innovation, and capital can
-                unlock long-term value and drive economic growth.
+                RutaPay es un sistema de pago digital diseñado para facilitar el acceso al transporte público.
+                Algunas de sus características clave incluyen:
               </p>
             </div>
             <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
@@ -90,10 +90,10 @@ const sidebarStore = useSidebarStore()
                     ></path>
                   </svg>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-text-dark">Marketing</h3>
+                <h3 class="mb-2 text-xl font-bold text-text-dark">Cuenta</h3>
                 <p class="text-text-dark">
-                  Plan it, create it, launch it. Collaborate seamlessly with all the organization
-                  and hit your marketing goals every month with our marketing plan.
+                  Para nosotros es importante conocerte y gestionar los datos de tu cuenta
+                  de manera segura y eficiente, para que puedas disfrutar de una experiencia personalizada única.
                 </p>
               </div>
               <div>
@@ -111,10 +111,10 @@ const sidebarStore = useSidebarStore()
                     ></path>
                   </svg>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-text-dark">Legal</h3>
+                <h3 class="mb-2 text-xl font-bold text-text-dark">Tarjeta</h3>
                 <p class="text-text-dark">
-                  Protect your organization, devices and stay compliant with our structured
-                  workflows and custom permissions made for you.
+                  Protejemos tus datos de pago con un cifrado de última generación y ofrecemmos una experiencia
+                  de pago rápida y sin complicaciones, para que puedas recargar tu tarjeta de transporte público de manera segura y eficiente.
                 </p>
               </div>
               <div>
@@ -137,10 +137,10 @@ const sidebarStore = useSidebarStore()
                     ></path>
                   </svg>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-text-dark">Business Automation</h3>
+                <h3 class="mb-2 text-xl font-bold text-text-dark">Mapá</h3>
                 <p class="text-text-dark">
-                  Auto-assign tasks, send Slack messages, and much more. Now power up with hundreds
-                  of new templates to help you get started.
+                  Consulta rutas, horarios y paradas de transporte público en tu ciudad, para planificar tus viajes de manera eficiente y sin contratiempos.
+                  Rastrea los movimientos del transporte sin preopucaciones y mantente informado sobre le trafico en tiempo real.
                 </p>
               </div>
               <div>
@@ -163,10 +163,10 @@ const sidebarStore = useSidebarStore()
                     ></path>
                   </svg>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-text-dark">Finance</h3>
+                <h3 class="mb-2 text-xl font-bold text-text-dark">Recompensas</h3>
                 <p class="text-text-dark">
-                  Audit-proof software built for critical financial operations like month-end close
-                  and quarterly budgeting.
+                  Nuestro sistema te permite obtener recompensas basadas en tu actividad y uso del sistema,
+                  para que puedas disfrutar de beneficios exclusivos y promociones especiales, como recargas gratuitas, participación en sorteos y más.
                 </p>
               </div>
               <div>
@@ -184,10 +184,10 @@ const sidebarStore = useSidebarStore()
                     ></path>
                   </svg>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-text-dark">Enterprise Design</h3>
+                <h3 class="mb-2 text-xl font-bold text-text-dark">Aplicación móvil</h3>
                 <p class="text-text-dark">
-                  Craft beautiful, delightful experiences for both marketing and product with real
-                  cross-company collaboration.
+                  Nuestra aplicación móvil fue creada con el proposito de ayudar al usuario a gestionar su cuenta, recargar su tarjeta, consultar rutas y horarios, obtener recompensas y mantenerse informado sobre el transporte público en tiempo real, para que puedas disfrutar de una experiencia de transporte público más conveniente y eficiente.
+                  Además, tendrá la opción de pagar el transporte escanenado un código QR, para que puedas acceder al transporte público de manera rápida y sin complicaciones.
                 </p>
               </div>
               <div>
@@ -220,7 +220,6 @@ const sidebarStore = useSidebarStore()
     </div>
   </main>
 </template>
-
 <script lang="ts">
 export default {
   name: 'DashboardView',
