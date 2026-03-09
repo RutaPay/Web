@@ -2,6 +2,9 @@
 import { onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const authStore = useAuthStore()
 
@@ -24,7 +27,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="authStore.isInitialLoading">Loading session...</div>
+  <div v-if="authStore.isInitialLoading" class="loader">Checking session...</div>
   <RouterView v-else />
 </template>
 
