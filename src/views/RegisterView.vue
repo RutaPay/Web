@@ -23,35 +23,26 @@ const formatPhone = (e: Event) => {
     return
   }
 
-  // 1. Remove everything that isn't a number
   let numbers = val.replace(/\D/g, '')
 
-  // 2. Ensure it starts with 52 (Mexico's code)
-  // If the user deletes it or starts with something else, we fix it
   if (!numbers.startsWith('52')) {
     numbers = '52' + numbers
   }
 
-  // 3. Limit to 12 digits total (52 + 10 digit number)
   numbers = numbers.substring(0, 12)
 
-  // 4. Formatting: +52 123 456 7890
   let formatted = '+52'
 
-  // Add first group (3 digits)
   if (numbers.length > 2) {
     formatted += ' ' + numbers.substring(2, 5)
   }
-  // Add second group (3 digits)
   if (numbers.length > 5) {
     formatted += ' ' + numbers.substring(5, 8)
   }
-  // Add final group (4 digits)
   if (numbers.length > 8) {
     formatted += ' ' + numbers.substring(8, 12)
   }
 
-  // Update the reactive state
   data.phoneNumber = formatted
   target.value = formatted
 }

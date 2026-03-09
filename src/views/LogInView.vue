@@ -66,6 +66,12 @@ const submitForm = async () => {
             class="w-full px-4 py-2 mt-6 bg-primary text-white font-medium rounded-lg hover:bg-dark cursor-pointer transition duration-300"
           />
         </form>
+        <p class="text-sm mt-6">
+          ¿No tienes una cuenta?
+          <RouterLink to="/register" class="text-primary font-medium hover:underline"
+            >Regístrate aquí</RouterLink
+          >
+        </p>
       </div>
     </div>
   </main>

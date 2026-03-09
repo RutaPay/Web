@@ -115,7 +115,7 @@ const sidebarStore = useSidebarStore()
             class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
           ></ArrowOutLeftSquareHalf>
         </template>
-        <template #text>Log-Out</template>
+        <template #text>Cerrar Sesión</template>
       </SideBarItem>
     </div>
   </nav>
