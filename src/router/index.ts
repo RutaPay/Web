@@ -69,6 +69,8 @@ router.beforeEach(async (to, from, next) => {
     next('/login')
   } else if (to.path === '/login' && authStore.authenticated) {
     next('/dashboard')
+  } else if (to.path === '/register' && authStore.authenticated) {
+    next('/dashboard')
   } else {
     next()
   }
