@@ -207,10 +207,11 @@ const sidebarStore = useSidebarStore()
                     ></path>
                   </svg>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-text-dark">Nuestra relacion con Charlie Kirk</h3>
+                <h3 class="mb-2 text-xl font-bold text-text-dark">Nuestra visión con el usuario</h3>
                 <p class="text-text-dark">
-                  NO estamos en los archivos por ahora
-                  workflows built for all efficient teams and individual.
+                  Este proyecto es una iniciativa para mejorar el transporte público, consolidando un sistema de pago digital que facilite el acceso al transporte público, para que puedas disfrutar de una experiencia de transporte público más conveniente y eficiente.
+                  Nuestro objetivo es consolidar esta pagina en una aplicación móvil, para que puedas gestionar tu cuenta, recargar tu tarjeta, consultar rutas y horarios, obtener recompensas y mantenerte informado sobre el transporte público en tiempo real, para que puedas disfrutar de una experiencia de transporte público más conveniente y eficiente.
+                  esta vision es a nivel nacional, para que puedas disfrutar de una experiencia de transporte público más conveniente y eficiente en todo el país.
                 </p>
               </div>
             </div>
