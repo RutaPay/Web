@@ -8,7 +8,7 @@ const router = useRouter()
 
 const authStore = useAuthStore()
 
-onMounted(async () => {
+/*onMounted(async () => {
   try {
     const response = await fetch('https://localhost:7130/api/account', {
       credentials: 'include',
@@ -23,12 +23,13 @@ onMounted(async () => {
   } catch (error) {
     authStore.setAuth(false)
   }
-})
+})*/
 </script>
 
 <template>
-  <div v-if="authStore.isInitialLoading" class="loader">Checking session...</div>
-  <RouterView v-else />
+  <!--<div v-if="authStore.isInitialLoading" class="loader">Checking session...</div>
+  <RouterView v-else />-->
+  <RouterView />
 </template>
 
 <style scoped></style>

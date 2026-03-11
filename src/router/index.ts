@@ -18,7 +18,7 @@ const router = createRouter({
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
-      meta: { requiresAuth: true },
+      //meta: { requiresAuth: true },
     },
     {
       path: '/register',
@@ -34,18 +34,18 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('../views/DashboardView.vue'),
-      meta: { requiresAuth: true },
+      //meta: { requiresAuth: true },
     },
     {
       path: '/account',
       name: 'account',
       component: () => import('../views/AccountView.vue'),
-      meta: { requiresAuth: true },
+      //meta: { requiresAuth: true },
     },
   ],
 })
 
-router.beforeEach(async (to, from, next) => {
+/*router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
 
   const waitUntilLoaded = () => {
@@ -74,6 +74,6 @@ router.beforeEach(async (to, from, next) => {
   } else {
     next()
   }
-})
+})*/
 
 export default router
