@@ -12,8 +12,12 @@ import {
 } from '@boxicons/vue'
 import SideBarItem from '@/components/SideBarItem.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
+import { useRoute } from 'vue-router'
 
 const sidebarStore = useSidebarStore()
+const route = useRoute()
+
+const isActive = (path: string) => route.path === path
 </script>
 
 <template>
@@ -65,42 +69,63 @@ const sidebarStore = useSidebarStore()
           />
         </li>
         <ul class="space-y-2">
-          <SideBarItem url="/" :isClosed="sidebarStore.closedState">
+          <SideBarItem
+            url="/dashboard"
+            :isClosed="sidebarStore.closedState"
+            :isActive="isActive('/dashboard')"
+          >
             <template #icon>
               <Home
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
+                :class="{ 'text-white': isActive('/dashboard') }"
               ></Home>
             </template>
             <template #text>Inicio</template>
           </SideBarItem>
-          <SideBarItem url="map" :isClosed="sidebarStore.closedState">
+          <SideBarItem url="map" :isClosed="sidebarStore.closedState" :isActive="isActive('/map')">
             <template #icon>
               <Trip
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
+                :class="{ 'text-white': isActive('/map') }"
               ></Trip>
             </template>
             <template #text>Mapa de Rutas</template>
           </SideBarItem>
-          <SideBarItem url="card" :isClosed="sidebarStore.closedState">
+          <SideBarItem
+            url="card"
+            :isClosed="sidebarStore.closedState"
+            :isActive="isActive('/card')"
+          >
             <template #icon>
               <CreditCardAlt
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
+                :class="{ 'text-white': isActive('/card') }"
               ></CreditCardAlt>
             </template>
             <template #text>Tarjeta</template>
           </SideBarItem>
-          <SideBarItem url="rewards" :isClosed="sidebarStore.closedState">
+          <SideBarItem
+            url="rewards"
+            :isClosed="sidebarStore.closedState"
+            :isActive="isActive('/rewards')"
+          >
             <template #icon>
               <Gift
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
+                :class="{ 'text-white': isActive('/rewards') }"
               ></Gift>
             </template>
             <template #text>Recompensas</template>
           </SideBarItem>
-          <SideBarItem url="account" :isClosed="sidebarStore.closedState">
+          <SideBarItem
+            url="account"
+            :isClosed="sidebarStore.closedState"
+            :isActive="isActive('/account')"
+          >
             <template #icon>
               <User
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
+                :class="{ 'text-white': isActive('/account') }"
               ></User>
             </template>
             <template #text>Cuenta</template>

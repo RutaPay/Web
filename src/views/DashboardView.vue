@@ -22,13 +22,13 @@ const sidebarStore = useSidebarStore()
               <h1
                 class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-black"
               >
-                La funcionalidad de nuestra aplicación
+                Ofertas y Beneficios de RutaPay
               </h1>
               <p
                 class="max-w-2xl mb-6 font-light text-gray-800 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-500"
               >
-                El objetivo de este proyecto es mejorar el trasnporte público, Consolidamos este
-                proyecto para el desarrollo general.
+                Nuestro objetivo es mejorar el pago de transporte público.<br />
+                Llevamos tu experiencia de transporte al siguiente nivel.
               </p>
               <RouterLink
                 to="/account"
@@ -68,8 +68,8 @@ const sidebarStore = useSidebarStore()
                 Diseñado para facilitar el pago de transporte público
               </h2>
               <p class="text-text-dark sm:text-xl">
-                RutaPay es un sistema de pago digital diseñado para facilitar el acceso al transporte público.
-                Algunas de sus características clave incluyen:
+                RutaPay es un sistema de pago digital diseñado para facilitar el acceso al
+                transporte público.
               </p>
             </div>
             <div class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
@@ -92,8 +92,9 @@ const sidebarStore = useSidebarStore()
                 </div>
                 <h3 class="mb-2 text-xl font-bold text-text-dark">Cuenta</h3>
                 <p class="text-text-dark">
-                  Para nosotros es importante conocerte y gestionar los datos de tu cuenta
-                  de manera segura y eficiente, para que puedas disfrutar de una experiencia personalizada única.
+                  Para nosotros es importante conocerte y gestionar los datos de tu cuenta de manera
+                  segura y eficiente, para que puedas disfrutar de una experiencia personalizada
+                  única.
                 </p>
               </div>
               <div>
@@ -113,8 +114,9 @@ const sidebarStore = useSidebarStore()
                 </div>
                 <h3 class="mb-2 text-xl font-bold text-text-dark">Tarjeta</h3>
                 <p class="text-text-dark">
-                  Protejemos tus datos de pago con un cifrado de última generación y ofrecemmos una experiencia
-                  de pago rápida y sin complicaciones, para que puedas recargar tu tarjeta de transporte público de manera segura y eficiente.
+                  Protejemos tus datos de pago con un cifrado de última generación y ofrecemmos una
+                  experiencia de pago rápida y sin complicaciones, para que puedas recargar tu
+                  tarjeta de transporte público de manera segura y eficiente.
                 </p>
               </div>
               <div>
@@ -139,8 +141,10 @@ const sidebarStore = useSidebarStore()
                 </div>
                 <h3 class="mb-2 text-xl font-bold text-text-dark">Mapa</h3>
                 <p class="text-text-dark">
-                  Consulta rutas, horarios y paradas de transporte público en tu ciudad, para planificar tus viajes de manera eficiente y sin contratiempos.
-                  Rastrea los movimientos del transporte sin preopucaciones y mantente informado sobre le trafico en tiempo real.
+                  Consulta rutas, horarios y paradas de transporte público en tu ciudad, para
+                  planificar tus viajes de manera eficiente y sin contratiempos. Rastrea los
+                  movimientos del transporte sin preopucaciones y mantente informado sobre le
+                  trafico en tiempo real.
                 </p>
               </div>
               <div>
@@ -165,8 +169,9 @@ const sidebarStore = useSidebarStore()
                 </div>
                 <h3 class="mb-2 text-xl font-bold text-text-dark">Recompensas</h3>
                 <p class="text-text-dark">
-                  Nuestro sistema te permite obtener recompensas basadas en tu actividad y uso del sistema,
-                  para que puedas disfrutar de beneficios exclusivos y promociones especiales, como recargas gratuitas, participación en sorteos y más.
+                  Nuestro sistema te permite obtener recompensas basadas en tu actividad y uso del
+                  sistema, para que puedas disfrutar de beneficios exclusivos y promociones
+                  especiales, como recargas gratuitas, participación en sorteos y más.
                 </p>
               </div>
               <div>
@@ -186,8 +191,13 @@ const sidebarStore = useSidebarStore()
                 </div>
                 <h3 class="mb-2 text-xl font-bold text-text-dark">Aplicación móvil</h3>
                 <p class="text-text-dark">
-                  Nuestra aplicación móvil fue creada con el proposito de ayudar al usuario a gestionar su cuenta, recargar su tarjeta, consultar rutas y horarios, obtener recompensas y mantenerse informado sobre el transporte público en tiempo real, para que puedas disfrutar de una experiencia de transporte público más conveniente y eficiente.
-                  Además, tendrá la opción de pagar el transporte escanenado un código QR, para que puedas acceder al transporte público de manera rápida y sin complicaciones.
+                  Nuestra aplicación móvil fue creada con el proposito de ayudar al usuario a
+                  gestionar su cuenta, recargar su tarjeta, consultar rutas y horarios, obtener
+                  recompensas y mantenerse informado sobre el transporte público en tiempo real,
+                  para que puedas disfrutar de una experiencia de transporte público más conveniente
+                  y eficiente. Además, tendrá la opción de pagar el transporte escanenado un código
+                  QR, para que puedas acceder al transporte público de manera rápida y sin
+                  complicaciones.
                 </p>
               </div>
               <div>
@@ -207,11 +217,16 @@ const sidebarStore = useSidebarStore()
                     ></path>
                   </svg>
                 </div>
-                <h3 class="mb-2 text-xl font-bold text-text-dark">Nuestra visión con el usuario</h3>
+                <h3 class="mb-2 text-xl font-bold text-text-dark">Visión con el Usuario</h3>
                 <p class="text-text-dark">
-                  Este proyecto es una iniciativa para mejorar el transporte público, consolidando un sistema de pago digital que facilite el acceso al transporte público, para que puedas disfrutar de una experiencia de transporte público más conveniente y eficiente.
-                  Nuestro objetivo es consolidar esta pagina en una aplicación móvil, para que puedas gestionar tu cuenta, recargar tu tarjeta, consultar rutas y horarios, obtener recompensas y mantenerte informado sobre el transporte público en tiempo real, para que puedas disfrutar de una experiencia de transporte público más conveniente y eficiente.
-                  esta vision es a nivel nacional, para que puedas disfrutar de una experiencia de transporte público más conveniente y eficiente en todo el país.
+                  Este proyecto es una iniciativa para mejorar el transporte público, consolidando
+                  un sistema de pago digital que facilite el acceso al transporte público, para que
+                  puedas disfrutar de una experiencia de transporte público más conveniente y
+                  eficiente. Nuestro objetivo es consolidar esta pagina en una aplicación móvil,
+                  para que puedas gestionar tu cuenta, recargar tu tarjeta, consultar rutas y
+                  horarios, obtener recompensas y mantenerte informado sobre el transporte público
+                  en tiempo real, para que puedas disfrutar de una experiencia de transporte público
+                  más conveniente y eficiente.
                 </p>
               </div>
             </div>
