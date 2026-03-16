@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 
 const authStore = useAuthStore()
 
@@ -18,10 +15,12 @@ const authStore = useAuthStore()
       const data = await response.json()
       authStore.setAuth(true, data)
     } else {
-      authStore.setAuth(false)
+      authStore.clearAuth()
     }
   } catch (error) {
-    authStore.setAuth(false)
+    authStore.clearAuth()
+  } finally {
+    authStore.setInitialLoading(false)
   }
 })*/
 </script>

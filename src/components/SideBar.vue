@@ -148,6 +148,6 @@ const isActive = (path: string) => route.path === path
 
 <script lang="ts">
 export default {
-  name: 'HeaderComponent',
+  name: 'SideBar',
 }
 </script>
