@@ -27,7 +27,7 @@ const authStore = useAuthStore()
         <h3
           class="mb-6 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-text-dark"
         >
-          Hola, {{ authStore.user!.fullName }}
+          Hola,
         </h3>
         <p class="text-text-dark">En RutaPay desde: [Fecha de registro]</p>
       </div>
