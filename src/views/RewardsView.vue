@@ -13,7 +13,7 @@ const authStore = useAuthStore()
     class="min-h-screen transition-all duration-500 bg-gray-50 p-6 md:p-10"
     :class="{ 'ml-64': !sidebarStore.closedState, 'ml-28': sidebarStore.closedState }"
   >
-    <div class="h-full bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">
+    <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">
       <h1
         class="text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-text-dark"
       >

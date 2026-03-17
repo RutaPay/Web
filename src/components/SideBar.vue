@@ -134,7 +134,7 @@ const isActive = (path: string) => route.path === path
       </div>
     </div>
     <div class="mt-auto pt-10">
-      <SideBarItem url="log-out" :isClosed="sidebarStore.closedState">
+      <SideBarItem url="logout" :isClosed="sidebarStore.closedState">
         <template #icon>
           <ArrowOutLeftSquareHalf
             class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
