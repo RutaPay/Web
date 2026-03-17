@@ -5,7 +5,7 @@ import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 
-/*onMounted(async () => {
+onMounted(async () => {
   try {
     const response = await fetch('https://localhost:7130/api/account', {
       credentials: 'include',
@@ -20,9 +20,9 @@ const authStore = useAuthStore()
   } catch (error) {
     authStore.clearAuth()
   } finally {
-    authStore.setInitialLoading(false)
+    authStore.isInitialLoading = false
   }
-})*/
+})
 </script>
 
 <template>

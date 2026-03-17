@@ -27,7 +27,8 @@ const authStore = useAuthStore()
         <h3
           class="mb-6 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-text-dark"
         >
-          Hola,
+          Hola, <span class="text-primary">{{ authStore.user?.userName }}</span
+          >!
         </h3>
         <p class="text-text-dark">En RutaPay desde: [Fecha de registro]</p>
       </div>
@@ -37,7 +38,7 @@ const authStore = useAuthStore()
           <h3
             class="mb-6 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-primary"
           >
-            1,234
+            {{ authStore.user?.points }}
           </h3>
         </div>
         <div>

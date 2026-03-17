@@ -29,7 +29,7 @@ const submitForm = async () => {
 
     const userData = await response.json()
 
-    authStore.setAuth(true)
+    authStore.setAuth(true, userData)
     await router.push('/dashboard')
   } catch (error) {
     authStore.setAuth(false)
