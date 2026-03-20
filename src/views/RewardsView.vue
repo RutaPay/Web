@@ -21,7 +21,7 @@ const authStore = useAuthStore()
       </h1>
     </div>
     <div
-      class="flex justify-between h-full bg-white rounded-3xl shadow-sm border border-gray-200 p-6 md:p-10"
+      class="flex justify-between h-full bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10"
     >
       <div>
         <h3
@@ -30,11 +30,11 @@ const authStore = useAuthStore()
           Hola, <span class="text-primary">{{ authStore.user?.userName }}</span
           >!
         </h3>
-        <p class="text-text-dark">En RutaPay desde: [Fecha de registro]</p>
+        <p class="text-text-dark">En RutaPay desde: {{ authStore.user?.createdOn }}</p>
       </div>
       <div class="flex justify-between space-x-16">
         <div>
-          <p class="text-text-dark mb-2">Puntos Acumulados</p>
+          <p class="text-text-dark mb-2 font-bold">Puntos Acumulados</p>
           <h3
             class="mb-6 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-primary"
           >
@@ -42,13 +42,23 @@ const authStore = useAuthStore()
           </h3>
         </div>
         <div>
-          <p class="text-text-dark mb-2">Recuento de Racha</p>
+          <p class="text-text-dark mb-2 font-bold">Recuento de Racha</p>
           <h3
             class="mb-6 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-primary"
           >
-            1 día(s)
+            N/A
           </h3>
         </div>
+      </div>
+    </div>
+    <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">
+      <h3
+        class="mb-6 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-text-dark"
+      >
+        Canje de Recompensas
+      </h3>
+      <div>
+        <p class="text-text-dark mb-2">Próximamente...</p>
       </div>
     </div>
   </main>

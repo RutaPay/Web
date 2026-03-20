@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import PasswordRequirementItem from '@/components/PasswordRequirementItem.vue'
 
 const router = useRouter()
 
@@ -72,7 +73,7 @@ const submitForm = async () => {
   <main>
     <div class="flex items-center justify-center min-h-screen w-full bg-white">
       <div
-        class="p-16 bg-white text-dark rounded-lg shadow-md border border-dark w-full md:w-1/2 lg:w-1/3"
+        class="p-16 bg-white text-text-dark rounded-lg shadow-md border border-dark w-full md:w-1/2 lg:w-1/3"
       >
         <h1 class="text-3xl font-bold mt-4">Empieza a usar RutaPay</h1>
         <p class="text-sm font-bold mt-2">
@@ -116,13 +117,35 @@ const submitForm = async () => {
             maxlength="16"
             class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
           />
-          <input
-            required
-            v-model="data.password"
-            type="password"
-            placeholder="Contraseña"
-            class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
-          />
+          <div>
+            <input
+              required
+              v-model="data.password"
+              type="password"
+              placeholder="Contraseña"
+              class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
+            />
+            <div class="mt-6">
+              <p>La contraseña debe contener:</p>
+              <ul class="mt-4">
+                <PasswordRequirementItem>
+                  <template #text>Al menos 8 caractéres</template>
+                </PasswordRequirementItem>
+                <PasswordRequirementItem>
+                  <template #text>Al menos 1 número(0...9)</template>
+                </PasswordRequirementItem>
+                <PasswordRequirementItem>
+                  <template #text>Al menos 1 mayúscula(A...Z)</template>
+                </PasswordRequirementItem>
+                <PasswordRequirementItem>
+                  <template #text>Al menos 1 minúscula(a...z)</template>
+                </PasswordRequirementItem>
+                <PasswordRequirementItem>
+                  <template #text>Al menos 1 símbolo(!...$)</template>
+                </PasswordRequirementItem>
+              </ul>
+            </div>
+          </div>
           <input
             type="submit"
             value="Registrarse"

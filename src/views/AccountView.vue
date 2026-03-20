@@ -21,11 +21,24 @@ const authStore = useAuthStore()
     </div>
     <div class="flex justify-center">
       <div class="w-1/2 h-fit bg-white rounded-3xl shadow-sm border border-gray-200 p-6 md:p-10">
-        <p class="text-text-dark text-2xl">Email:</p>
-        <p class="text-text-dark text-xl">{{ authStore.user?.email }}</p>
-        <br />
         <p class="text-text-dark text-2xl">Nombre:</p>
-        <p class="text-text-dark text-xl">{{ authStore.user?.userName }}</p>
+        <p class="text-primary text-xl">{{ authStore.user?.userName }}</p>
+        <br />
+        <p class="text-text-dark text-2xl">Email:</p>
+        <p class="text-primary text-xl">{{ authStore.user?.email }}</p>
+        <br />
+        <p class="text-text-dark text-2xl">Teléfono:</p>
+        <p class="text-primary text-xl">{{ authStore.user?.phoneNumber }}</p>
+        <br />
+        <p class="text-text-dark text-2xl">Fecha de Registro:</p>
+        <p class="text-primary text-xl">{{ authStore.user?.createdOn }}</p>
+        <div class="mt-8">
+          <button
+            class="bg-primary text-white py-2 px-4 rounded-lg hover:bg-dark transition-colors duration-300 cursor-pointer"
+          >
+            Editar Perfil
+          </button>
+        </div>
       </div>
     </div>
   </main>
