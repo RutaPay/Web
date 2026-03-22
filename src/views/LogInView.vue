@@ -77,6 +77,12 @@ const submitForm = async () => {
             placeholder="Contraseña"
             class="w-full px-4 py-2 mt-4 border-2 border-[#C3C3C3] rounded-lg focus:outline-none hover:border-dark focus:border-primary placeholder-[#C3C3C3] transition duration-300"
           />
+          <p class="text-sm mt-2">
+            ¿Olvidaste tu contraseña?
+            <RouterLink to="/forgot-password" class="text-primary font-medium hover:underline"
+              >Restablecer contraseña</RouterLink
+            >
+          </p>
           <input
             type="submit"
             value="Iniciar Sesión"
