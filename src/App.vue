@@ -2,6 +2,8 @@
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { Toaster } from 'vue-sonner'
+import 'vue-sonner/style.css'
 
 const authStore = useAuthStore()
 
@@ -28,6 +30,7 @@ onMounted(async () => {
 <template>
   <!--<div v-if="authStore.isInitialLoading" class="loader">Checking session...</div>
   <RouterView v-else />-->
+  <Toaster position="top-right" richColors theme="system" />
   <RouterView />
 </template>
 
