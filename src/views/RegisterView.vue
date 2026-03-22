@@ -7,7 +7,7 @@ import FormInputErrorItem from '@/components/FormInputErrorItem.vue'
 
 const router = useRouter()
 
-const validEmail = ref(null)
+const validEmail = ref()
 
 const data = reactive({
   fullName: '',
@@ -47,7 +47,7 @@ const formatPhone = (e: Event) => {
 }
 
 // Validación de nombre
-const validName = ref(null)
+const validName = ref()
 function verifyName() {
   if (data.fullName.trim() === '') {
     validName.value = false
@@ -125,7 +125,7 @@ const submitForm = async () => {
         errorMessage = await response.text()
       }
 
-      if (errorData.message?.includes('Email already exists.')) {
+      if (errorMessage.includes('Email already exists.')) {
         validEmail.value = false
       }
     } else {

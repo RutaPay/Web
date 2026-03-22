@@ -2,9 +2,11 @@
 import SideBar from '../components/SideBar.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 import { useAuthStore } from '@/stores/auth'
+import { useLogout } from '@/composables/useAuth'
 
 const sidebarStore = useSidebarStore()
 const authStore = useAuthStore()
+const { handleLogout } = useLogout()
 </script>
 <template>
   <SideBar />
@@ -34,9 +36,10 @@ const authStore = useAuthStore()
         <p class="text-primary text-xl">{{ authStore.user?.createdOn }}</p>
         <div class="mt-8">
           <button
-            class="bg-primary text-white py-2 px-4 rounded-lg hover:bg-dark transition-colors duration-300 cursor-pointer"
+            class="bg-[#D93025] text-white py-2 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
+            @click="handleLogout()"
           >
-            Editar Perfil
+            Cerrar Sesión
           </button>
         </div>
       </div>

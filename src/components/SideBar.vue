@@ -13,9 +13,11 @@ import {
 import SideBarItem from '@/components/SideBarItem.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 import { useRoute } from 'vue-router'
+import { useLogout } from '@/composables/useAuth'
 
 const sidebarStore = useSidebarStore()
 const route = useRoute()
+const { handleLogout } = useLogout()
 
 const isActive = (path: string) => route.path === path
 </script>
@@ -134,14 +136,25 @@ const isActive = (path: string) => route.path === path
       </div>
     </div>
     <div class="mt-auto pt-10">
-      <SideBarItem url="logout" :isClosed="sidebarStore.closedState">
-        <template #icon>
+      <button
+        class="group flex h-12 mt-6 rounded-xl w-full items-center transition-all duration-400 hover:bg-primary cursor-pointer"
+        :class="{
+          'justify-center': sidebarStore.closedState,
+          'justify-start': !sidebarStore.closedState,
+        }"
+        @click="handleLogout()"
+      >
+        <li class="h-full list-none flex items-center">
           <ArrowOutLeftSquareHalf
             class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
           ></ArrowOutLeftSquareHalf>
-        </template>
-        <template #text>Cerrar Sesión</template>
-      </SideBarItem>
+          <span
+            class="text-text-dark group-hover:text-white"
+            :class="{ hidden: sidebarStore.closedState }"
+            >Cerrar Sesión
+          </span>
+        </li>
+      </button>
     </div>
   </nav>
 </template>
