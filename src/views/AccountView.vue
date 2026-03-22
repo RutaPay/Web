@@ -4,6 +4,11 @@ import { useSidebarStore } from '@/stores/sidebarstate'
 import { useAuthStore } from '@/stores/auth'
 import { useLogout } from '@/composables/useAuth'
 
+import Dialog from '@/components/Dialog.vue'
+import { ref } from 'vue'
+
+const isOpen = ref(true)
+
 const sidebarStore = useSidebarStore()
 const authStore = useAuthStore()
 const { handleLogout } = useLogout()
@@ -36,7 +41,7 @@ const { handleLogout } = useLogout()
         <p class="text-primary text-xl">{{ authStore.user?.createdOn }}</p>
         <div class="mt-8">
           <button
-            class="bg-[#D93025] text-white py-2 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
+            class="bg-[#D93025] text-white py-2 px-4 rounded-lg cursor-pointer"
             @click="handleLogout()"
           >
             Cerrar Sesión
@@ -44,5 +49,15 @@ const { handleLogout } = useLogout()
         </div>
       </div>
     </div>
+    <Dialog v-model="isOpen" title="¿Cerrar Sesión?">
+      <p>Tendrás que volver a iniciar sesión para acceder a tu cuenta.</p>
+
+      <template #footer>
+        <button @click="isOpen = false" class="text-text-light cursor-pointer">Cancelar</button>
+        <button class="bg-[#D93025] text-white px-4 py-2 rounded-lg cursor-pointer">
+          Cerrar Sesión
+        </button>
+      </template>
+    </Dialog>
   </main>
 </template>
