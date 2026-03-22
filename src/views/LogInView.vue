@@ -2,6 +2,7 @@
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { toast } from 'vue-sonner'
 
 const authStore = useAuthStore()
 
@@ -23,7 +24,15 @@ const submitForm = async () => {
       body: JSON.stringify(data),
     })
 
-    if (!response.ok) {
+    if (response.ok) {
+      toast.success('¡Inicio de sesión exitoso!', {
+        description: 'Bienvenido de nuevo a RutaPay.',
+      })
+    } else if (response.status === 401) {
+      toast.error('Credenciales incorrectas', {
+        description: 'Por favor, verifica tu correo electrónico y contraseña.',
+      })
+    } else {
       throw new Error('Login failed')
     }
 
@@ -32,6 +41,12 @@ const submitForm = async () => {
     authStore.setAuth(true, userData)
     await router.push('/dashboard')
   } catch (error) {
+    if (error.message === 'Failed to fetch') {
+      toast.error('Error de conexión', {
+        description:
+          'No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet.',
+      })
+    }
     authStore.setAuth(false)
   }
 }
