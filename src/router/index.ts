@@ -48,14 +48,15 @@ const router = createRouter({
       //meta: { requiresAuth: true },
     },
     {
-      path: '/:pathMatch(.*)*',
-      name: 'NotFound',
-      component: () => import('../views/NotFoundView.vue'),
-    },
-    {
       path: '/card',
       name: 'card',
       component: () => import('../views/CardView.vue'),
+      //meta: { requiresAuth: true },
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../views/NotFoundView.vue'),
     },
   ],
 })
