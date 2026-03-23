@@ -52,6 +52,11 @@ const router = createRouter({
       name: 'NotFound',
       component: () => import('../views/NotFoundView.vue'),
     },
+    {
+      path: '/card',
+      name: 'card',
+      component: () => import('../views/CardView.vue'),
+    },
   ],
 })
 
