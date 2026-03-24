@@ -55,6 +55,16 @@ const authStore = useAuthStore()
       <h3
         class="mb-6 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-text-dark"
       >
+        Ganar Puntos
+      </h3>
+      <div>
+        <p class="text-text-dark mb-2">Próximamente...</p>
+      </div>
+    </div>
+    <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">
+      <h3
+        class="mb-6 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-text-dark"
+      >
         Canje de Recompensas
       </h3>
       <div>

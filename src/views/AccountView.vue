@@ -6,7 +6,7 @@ import { useLogout } from '@/composables/useAuth'
 
 const sidebarStore = useSidebarStore()
 const authStore = useAuthStore()
-const { handleLogout } = useLogout()
+const { handleLogout, isLoggingOut } = useLogout()
 </script>
 <template>
   <SideBar />
@@ -38,8 +38,12 @@ const { handleLogout } = useLogout()
           <button
             class="bg-[#D93025] text-white py-2 px-4 rounded-lg transition-colors duration-300 cursor-pointer"
             @click="handleLogout()"
+            :disabled="isLoggingOut"
+            :class="{ 'opacity-50 cursor-not-allowed': isLoggingOut }"
           >
-            Cerrar Sesión
+            <span v-if="isLoggingOut">Cerrando sesión... </span>
+
+            <span v-else>Cerrar Sesión</span>
           </button>
         </div>
       </div>

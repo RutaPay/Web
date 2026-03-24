@@ -1,14 +1,13 @@
-import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { toast } from 'vue-sonner'
+import type { Router } from 'vue-router'
 
-const router = useRouter()
 const authStore = useAuthStore()
 
 export class AuthService {
   private static readonly LOGOUT_URL = 'https://localhost:7130/api/account/logout'
 
-  static async logout(): Promise<void> {
+  static async logout(router: Router): Promise<void> {
     try {
       const response = await fetch(this.LOGOUT_URL, {
         method: 'POST',
@@ -18,7 +17,7 @@ export class AuthService {
         credentials: 'include',
       })
 
-      if (response.ok) {
+      if (response.ok || response.status === 401) {
         authStore.clearAuth()
         router.push('/')
         toast.success('Sesión Cerrada', {
@@ -29,9 +28,11 @@ export class AuthService {
       }
     } catch (error) {
       console.error('Network or Server error during logout:', error)
-      toast.error('Error de Servidor', {
-        description: 'No se pudo conectar con el servidor.',
-      })
+      if (!(error instanceof TypeError)) {
+        toast.error('Error de Conexión', {
+          description: 'No se pudo conectar con el servidor.',
+        })
+      }
     } finally {
       authStore.clearAuth()
       router.push('/')
