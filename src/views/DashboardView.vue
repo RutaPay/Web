@@ -51,7 +51,7 @@ const sidebarStore = useSidebarStore()
               <!-- Este es opcional después lo podemos quitar o ajustar o recolocar pero por ahora es opcional -->
               <RouterLink
                 to="/card/recharge"
-                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-text-dark border rounded-lg hover:bg-dark hover:text-white focus:ring-4 focus:ring-gray-100 transition-colors duration-300"
+                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-text-dark border rounded-lg hover:bg-dark hover:text-white focus:ring-4 focus:ring-gray-100 transition-colors duration-300 animate-bounce"
               >
                 Realiza una recarga
               </RouterLink>
