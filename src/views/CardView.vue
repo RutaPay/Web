@@ -24,15 +24,15 @@ const transportCards = ref<TransportCard[]>([
     id: 1,
     title: 'Metro Pass',
     description: 'Unlimited metro rides for 30 days',
-    cost: 85.0,
+    cost: 500.0,
     imageUrl:
       'https://images.pexels.com/photos/3881104/pexels-photo-3881104.jpeg?auto=compress&cs=tinysrgb&w=800',
   },
   {
     id: 2,
-    title: 'Bus Pass',
-    description: '20 bus trips within the city',
-    cost: 45.0,
+    title: 'Semana Extra!',
+    description: 'Semana ilimitada de transportes',
+    cost: 180.0,
     imageUrl:
       'https://images.pexels.com/photos/385997/pexels-photo-385997.jpeg?auto=compress&cs=tinysrgb&w=800',
   },
@@ -46,9 +46,9 @@ const transportCards = ref<TransportCard[]>([
   },
   {
     id: 4,
-    title: 'Express Pass',
-    description: 'Premium express routes for 15 days',
-    cost: 65.0,
+    title: 'Pase Express de un Día',
+    description: 'Un pase ilimitado por un día de transportes',
+    cost: 60.0,
     imageUrl:
       'https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg?auto=compress&cs=tinysrgb&w=800',
   },
