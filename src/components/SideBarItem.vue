@@ -17,7 +17,7 @@ defineProps({
 
 <template>
   <RouterLink
-    :to="url"
+    :to="{ name: url }"
     class="group h-12 flex mt-6 rounded-xl items-center transition-all duration-400 hover:bg-primary"
     :class="{ 'justify-center': isClosed, 'justify-start': !isClosed, 'bg-primary': isActive }"
   >

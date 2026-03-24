@@ -19,7 +19,7 @@ const sidebarStore = useSidebarStore()
 const route = useRoute()
 const { handleLogout } = useLogout()
 
-const isActive = (path: string) => route.path === path
+const isActive = (name: string) => route.matched.some((record) => record.name === name)
 </script>
 
 <template>
@@ -72,36 +72,32 @@ const isActive = (path: string) => route.path === path
         </li>
         <ul class="space-y-2">
           <SideBarItem
-            url="/dashboard"
+            url="dashboard"
             :isClosed="sidebarStore.closedState"
-            :isActive="isActive('/dashboard')"
+            :isActive="isActive('dashboard')"
           >
             <template #icon>
               <Home
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
-                :class="{ 'text-white': isActive('/dashboard') }"
+                :class="{ 'text-white': isActive('dashboard') }"
               ></Home>
             </template>
             <template #text>Inicio</template>
           </SideBarItem>
-          <SideBarItem url="map" :isClosed="sidebarStore.closedState" :isActive="isActive('/map')">
+          <SideBarItem url="map" :isClosed="sidebarStore.closedState" :isActive="isActive('map')">
             <template #icon>
               <Trip
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
-                :class="{ 'text-white': isActive('/map') }"
+                :class="{ 'text-white': isActive('map') }"
               ></Trip>
             </template>
             <template #text>Mapa de Rutas</template>
           </SideBarItem>
-          <SideBarItem
-            url="card"
-            :isClosed="sidebarStore.closedState"
-            :isActive="isActive('/card')"
-          >
+          <SideBarItem url="card" :isClosed="sidebarStore.closedState" :isActive="isActive('card')">
             <template #icon>
               <CreditCardAlt
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
-                :class="{ 'text-white': isActive('/card') }"
+                :class="{ 'text-white': isActive('card') }"
               ></CreditCardAlt>
             </template>
             <template #text>Tarjeta</template>
@@ -109,12 +105,12 @@ const isActive = (path: string) => route.path === path
           <SideBarItem
             url="rewards"
             :isClosed="sidebarStore.closedState"
-            :isActive="isActive('/rewards')"
+            :isActive="isActive('rewards')"
           >
             <template #icon>
               <Gift
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
-                :class="{ 'text-white': isActive('/rewards') }"
+                :class="{ 'text-white': isActive('rewards') }"
               ></Gift>
             </template>
             <template #text>Recompensas</template>
@@ -122,12 +118,12 @@ const isActive = (path: string) => route.path === path
           <SideBarItem
             url="account"
             :isClosed="sidebarStore.closedState"
-            :isActive="isActive('/account')"
+            :isActive="isActive('account')"
           >
             <template #icon>
               <User
                 class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
-                :class="{ 'text-white': isActive('/account') }"
+                :class="{ 'text-white': isActive('account') }"
               ></User>
             </template>
             <template #text>Cuenta</template>

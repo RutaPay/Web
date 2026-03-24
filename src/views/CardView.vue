@@ -273,5 +273,6 @@ onUnmounted(() => {
         </Transition>
       </div>
     </div>
+    <RouterView />
   </main>
 </template>

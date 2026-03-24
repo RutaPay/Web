@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 import { useAuthStore } from '@/stores/auth'
 import { watch } from 'vue'
 
@@ -36,6 +37,12 @@ const router = createRouter({
       //meta: { requiresAuth: true },
     },
     {
+      path: '/map',
+      name: 'map',
+      component: () => import('../views/MapView.vue'),
+      //meta: { requiresAuth: true },
+    },
+    {
       path: '/rewards',
       name: 'rewards',
       component: () => import('../views/RewardsView.vue'),
@@ -51,12 +58,19 @@ const router = createRouter({
       path: '/card',
       name: 'card',
       component: () => import('../views/CardView.vue'),
+      children: [
+        {
+          path: 'recharge',
+          name: 'card-recharge',
+          component: () => import('../views/CardRechargeView.vue'),
+        },
+      ],
       //meta: { requiresAuth: true },
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
-      component: () => import('../views/NotFoundView.vue'),
+      component: NotFoundView,
     },
   ],
 })

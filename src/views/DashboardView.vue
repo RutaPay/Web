@@ -31,7 +31,7 @@ const sidebarStore = useSidebarStore()
                 Llevamos tu experiencia de transporte al siguiente nivel.
               </p>
               <RouterLink
-                to="/account"
+                :to="{ name: 'account' }"
                 class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-text-dark rounded-lg focus:ring-4 focus:ring-primary-300"
               >
                 Ir a mi cuenta
@@ -50,7 +50,7 @@ const sidebarStore = useSidebarStore()
               </RouterLink>
               <!-- Este es opcional después lo podemos quitar o ajustar o recolocar pero por ahora es opcional -->
               <RouterLink
-                to="/card/recharge"
+                :to="{ name: 'card-recharge' }"
                 class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-text-dark border rounded-lg hover:bg-dark hover:text-white focus:ring-4 focus:ring-gray-100 transition-colors duration-300 animate-bounce"
               >
                 Realiza una recarga
