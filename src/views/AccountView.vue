@@ -48,5 +48,8 @@ const { handleLogout, isLoggingOut } = useLogout()
         </div>
       </div>
     </div>
+    <div class="w-1/2 h-fit bg-white rounded-3xl shadow-sm border border-gray-200 p-6 md:p-10">
+
+    </div>
   </main>
 </template>
