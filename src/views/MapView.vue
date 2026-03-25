@@ -35,25 +35,7 @@ const sidebarStore = useSidebarStore()
         </div>
       </main>
 
-      <!-- Info Box -->
-      <footer
-        class="bg-white p-4 shadow-inner border-t border-gray-200 animate-fade-in-up rounded-xl"
-      >
-        <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-          <div class="p-4 bg-blue-100 rounded-lg hover:bg-blue-200 transition duration-300">
-            <p class="text-sm text-gray-600">Próxima Parada:</p>
-            <p class="text-lg font-semibold">Av. Tecnológico</p>
-          </div>
-          <div class="p-4 bg-green-100 rounded-lg hover:bg-green-200 transition duration-300">
-            <p class="text-sm text-gray-600">Tiempo de llegada</p>
-            <p class="text-lg font-semibold">3 min</p>
-          </div>
-          <div class="p-4 bg-yellow-100 rounded-lg hover:bg-yellow-200 transition duration-300">
-            <p class="text-sm text-gray-600">Camiones en servicio</p>
-            <p class="text-lg font-semibold">5</p>
-          </div>
-        </div>
-      </footer>
+
     </div>
   </main>
 </template>
