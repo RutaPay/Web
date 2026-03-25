@@ -118,7 +118,7 @@ onUnmounted(() => {
                   class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white rounded-xl shadow-2xl p-6 w-80 transform hover:scale-105 transition-transform duration-300 border border-gray-700 animate-slide-in"
                 >
                   <div class="flex justify-between items-start mb-4">
-                    <div class="text-xs uppercase tracking-wider opacity-75">Bank Card</div>
+                    <div class="text-xs uppercase tracking-wider opacity-75">RutaPay Tarjeta</div>
                     <div class="w-8 h-8 bg-white bg-opacity-20 rounded-full"></div>
                   </div>
 
@@ -130,12 +130,12 @@ onUnmounted(() => {
 
                   <div class="flex justify-between items-end">
                     <div>
-                      <div class="text-xs opacity-75 mb-1">Card Holder</div>
+                      <div class="text-xs opacity-75 mb-1">Nombre Usuario</div>
                       <div class="text-sm font-semibold">{{ authStore.user?.userName }}</div>
                     </div>
                     <div>
-                      <div class="text-xs opacity-75 mb-1">Expires</div>
-                      <div class="text-sm font-semibold">12/28</div>
+                      <div class="text-xs opacity-75 mb-1">Renuevala el:</div>
+                      <div class="text-sm font-semibold">00/00</div>
                     </div>
                   </div>
                 </div>
@@ -147,7 +147,7 @@ onUnmounted(() => {
                   <div class="text-6xl sm:text-7xl font-bold text-gray-900 tracking-tight">
                     ${{ authStore.user?.cardBalance }}
                   </div>
-                  <div class="mt-4 text-gray-600 text-sm">Available Balance</div>
+                  <div class="mt-4 text-gray-600 text-sm">Presupuesto disponible</div>
                 </div>
               </div>
             </div>
