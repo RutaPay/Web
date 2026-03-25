@@ -4,7 +4,7 @@ import { useSidebarStore } from '@/stores/sidebarstate'
 
 const sidebarStore = useSidebarStore()
 </script>
-<!-- Skibidi -->
+
 <template>
   <SideBar />
   <main
