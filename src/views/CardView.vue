@@ -126,6 +126,18 @@ const transportCards = ref<TransportCard[]>([
           </div>
         </div>
       </div>
+      <h3 class="mt-14 lg:mt-20 text-2xl font-bold md:text-3xl lg:text-4xl text-text-dark">
+          ¿Como pagar con RutaPay?
+      </h3>
+      <!-- Box img -->+
+      <div class="h-100 w-full bg-gray-200 rounded-lg flex items-center justify-center">
+      <img src="#" alt="Imagen 1" class="h-64 w-128 object-cover rounded-lg mt-6"/>
+      <div class="bg-white rounded-lg p-6 mt-6 justify-center text-2xl text-center">
+        <p class="text-text-dark text-lg mt-4">
+          Para pagar con RutaPay, simplemente escanea el código QR en la pantalla de tu autobús, aseguarte de tener suficiente saldo en tu cuenta.
+        </p>
+      </div>
+      </div>
     </div>
     <RouterView />
   </main>
