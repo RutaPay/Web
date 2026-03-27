@@ -1,0 +1,41 @@
+{
+  "base": {
+    "title": "RutaPay Base",
+    "benefits": [
+      "Tarjeta Base RutaPay",
+      "1 punto por cada $20 que gastes",
+      "Acceso a recompensas para miembros",
+      "Soporte estándar"
+    ]
+  },
+  "student": {
+    "title": "RutaPay Estudiantes",
+    "benefits": [
+      "Tarjeta Estudiante RutaPay",
+      "Descuento al pagar viajes",
+      "2 puntos por cada $20 que gastes",
+      "Acceso a recompensas para miembros",
+      "Soporte prioritario"
+    ]
+  },
+  "health": {
+    "title": "RutaPay Sector Salud",
+    "benefits": [
+      "Tarjeta Sector Salud RutaPay",
+      "Descuento al pagar viajes",
+      "2 puntos por cada $20 que gastes",
+      "Acceso a recompensas para miembros",
+      "Soporte prioritario"
+    ]
+  },
+  "adult": {
+    "title": "RutaPay Adultos Mayores",
+    "benefits": [
+      "Tarjeta Adulto Mayor RutaPay",
+      "Descuento al pagar viajes",
+      "2 puntos por cada $20 que gastes",
+      "Acceso a recompensas para miembros",
+      "Soporte prioritario"
+    ]
+  }
+}

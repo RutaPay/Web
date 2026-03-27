@@ -59,45 +59,71 @@ const authStore = useAuthStore()
       </h3>
       <div>
         <div class="text-center py-10">
-          <h5 class="text-gray-500">
-            Tu oportunidad!
-          </h5>
+          <h5 class="text-gray-500">Tu oportunidad!</h5>
           <h1 class="text-4xl mx-auto leading-normal mb-12 text-black">
             Sigue las instrucciones para ganar puntos
           </h1>
           <div class="flex max-w-5xl mx-auto gap-8 group">
-            <div class="bg-white duration-400 group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 border-primary border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity">
-            <img src="#" alt="Source" class="h-20 mx-auto">
+            <div
+              class="bg-white duration-400 group-hover:blur-sm hover:blur-none! group-hover:scale-[0.85] hover:scale-100! border-primary border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity"
+            >
+              <img src="#" alt="Source" class="h-20 mx-auto" />
               <h4 class="uppercase text-xl font-bold text-black">Gasto de Pasaje</h4>
               <p class="text-sm leading-7 ,y-3 font-light opacity-50 text-black">
-                Paga una pasaje con RutaPay y gana puntos automáticamente.
-                Cumple con cualquier autobus a nuestra disposición.
+                Paga una pasaje con RutaPay y gana puntos automáticamente. Cumple con cualquier
+                autobus a nuestra disposición.
               </p>
+<<<<<<< HEAD
               <button class="bg-primary  py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
                 Ganar Puntos
+=======
+              <button
+                class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300"
+              >
+                Canjear Recompensa
+>>>>>>> 8bb146d6ba14044a888c33739c343f9e896330dc
               </button>
-            </div><div class="bg-white duration-400 group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 border-primary border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity">
-            <img src="#" alt="Source" class="h-20 mx-auto">
+            </div>
+            <div
+              class="bg-white duration-400 group-hover:blur-sm hover:blur-none! group-hover:scale-[0.85] hover:!cale-100! border-primary border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity"
+            >
+              <img src="#" alt="Source" class="h-20 mx-auto" />
               <h4 class="uppercase text-xl font-bold text-black">Recarga Diaria!</h4>
               <p class="text-sm leading-7 ,y-3 font-light opacity-50 text-black">
-                Recarga hoy con RutaPay y consigue tus puntos diarios.
-                Manten tu saldo en un nivel óptimo para ganar puntos cada día.
+                Recarga hoy con RutaPay y consigue tus puntos diarios. Manten tu saldo en un nivel
+                óptimo para ganar puntos cada día.
               </p>
+<<<<<<< HEAD
               <button class="bg-primary  py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
                 Ganar Puntos
+=======
+              <button
+                class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300"
+              >
+                Canjear Recompensa
+>>>>>>> 8bb146d6ba14044a888c33739c343f9e896330dc
               </button>
-            </div><div class="bg-white duration-400 group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 border-primary border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity">
-            <img src="#" alt="Source" class="h-20 mx-auto">
+            </div>
+            <div
+              class="bg-white duration-400 group-hover:blur-sm hover:blur-none! group-hover:scale-[0.85] hover:scale-100! border-primary border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity"
+            >
+              <img src="#" alt="Source" class="h-20 mx-auto" />
               <h4 class="uppercase text-xl font-bold text-black">Descarga la App!</h4>
               <p class="text-sm leading-7 ,y-3 font-light opacity-50 text-black">
                 Nuestra aplicación móvil te ofrece una experiencia mejorada y puntos adicionales.
                 Inicia sesión en la app.
               </p>
+<<<<<<< HEAD
               <button class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
                 Ganar Puntos
+=======
+              <button
+                class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300"
+              >
+                Canjear Recompensa
+>>>>>>> 8bb146d6ba14044a888c33739c343f9e896330dc
               </button>
             </div>
-
           </div>
         </div>
       </div>
