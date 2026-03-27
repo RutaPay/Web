@@ -33,6 +33,8 @@ onMounted(async () => {
     console.error('Error loading account benefits:', error)
   }
 })
+
+
 </script>
 <template>
   <SideBar />
@@ -48,7 +50,7 @@ onMounted(async () => {
       </h1>
     </div>
 
-    <div class="flex justify-center mb-8">
+    <div class="flex justify-center mb-8 ">
       <div class="w-1/2 h-fit bg-white rounded-3xl shadow-sm border border-gray-200 p-6 md:p-10">
         <p class="text-text-dark text-2xl">Nombre:</p>
         <p class="text-primary text-xl">{{ authStore.user?.userName }}</p>
@@ -106,5 +108,23 @@ onMounted(async () => {
     <div class="flex justify-center mb-8 text-text-light" v-else>
       <p>Cargando información del plan...</p>
     </div>
+    <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-12 p-6 md:p-10">
+      <h1
+        class="text-3xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl text-text-dark"
+      >
+        Verificación de Cuenta
+      </h1>
+      <div class="flex items-center justify-center mt-6">
+      <input type="file" id="file" class="hidden" />
+        <label for="file"
+          class="h-[400px] w-[450px] rounded-md border border-dashed border-gray-400 hover:text-blue-500 hover:border-blue-500 flex items-center justify-center cursor-pointer text-4xl">
+          Subir archivos
+        </label>
+      </div>
+    </div>
   </main>
+
 </template>
+
+
+
