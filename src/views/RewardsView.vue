@@ -17,7 +17,7 @@ const authStore = useAuthStore()
       <h1
         class="text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-text-dark"
       >
-        Recompensas y Beneficios
+        Puntoss y Beneficios
       </h1>
     </div>
     <div
@@ -74,7 +74,7 @@ const authStore = useAuthStore()
                 Cumple con cualquier autobus a nuestra disposición.
               </p>
               <button class="bg-primary  py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
-                Canjear Recompensa
+                Ganar Puntos
               </button>
             </div><div class="bg-white duration-400 group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 border-primary border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity">
             <img src="#" alt="Source" class="h-20 mx-auto">
@@ -84,7 +84,7 @@ const authStore = useAuthStore()
                 Manten tu saldo en un nivel óptimo para ganar puntos cada día.
               </p>
               <button class="bg-primary  py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
-                Canjear Recompensa
+                Ganar Puntos
               </button>
             </div><div class="bg-white duration-400 group-hover:blur-sm hover:!blur-none group-hover:scale-[0.85] hover:!scale-100 border-primary border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity">
             <img src="#" alt="Source" class="h-20 mx-auto">
@@ -94,7 +94,7 @@ const authStore = useAuthStore()
                 Inicia sesión en la app.
               </p>
               <button class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
-                Canjear Recompensa
+                Ganar Puntos
               </button>
             </div>
 
@@ -106,7 +106,7 @@ const authStore = useAuthStore()
       <h3
         class="mb-6 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-text-dark"
       >
-        Canje de Recompensas
+        Canje de Puntos
       </h3>
       <div>
         <p class="text-text-dark mb-2">Próximamente...</p>
