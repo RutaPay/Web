@@ -118,7 +118,10 @@ const transportCards = ref<TransportCard[]>([
             <p class="font-bold text-primary text-center text-2xl">$200</p>
           </div>
           <div class="rounded-2xl border-2 border-primary p-8">
-            <PlusCircle pack="filled" fill="#449dd1" class="mx-auto" />
+            <PlusCircle
+              pack="filled"
+              class="flex items-center justify-center min-w-16 text-2xl text-primary"
+            />
             <p class="text-text-light uppercase">AÑADIR</p>
           </div>
         </div>
