@@ -20,3 +20,21 @@ export function useLogout() {
     isLoggingOut,
   }
 }
+
+export function useUserInfo() {
+  const isLoading = ref(true)
+
+  const handleGetUserInfo = async () => {
+    isLoading.value = true
+    try {
+      await AuthService.getUserInfo()
+    } finally {
+      isLoading.value = false
+    }
+  }
+
+  return {
+    handleGetUserInfo,
+    isLoading,
+  }
+}

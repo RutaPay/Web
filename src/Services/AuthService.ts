@@ -6,6 +6,7 @@ const authStore = useAuthStore()
 
 export class AuthService {
   private static readonly LOGOUT_URL = 'https://localhost:7130/api/account/logout'
+  private static readonly USER_INFO_URL = 'https://localhost:7130/api/account'
 
   static async logout(router: Router): Promise<void> {
     try {
@@ -36,6 +37,25 @@ export class AuthService {
     } finally {
       authStore.clearAuth()
       router.push('/')
+    }
+  }
+
+  static async getUserInfo(): Promise<void> {
+    try {
+      const response = await fetch(this.USER_INFO_URL, {
+        credentials: 'include',
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        authStore.setAuth(true, data)
+      } else {
+        authStore.clearAuth()
+      }
+    } catch (error) {
+      authStore.clearAuth()
+    } finally {
+      authStore.isInitialLoading = false
     }
   }
 }

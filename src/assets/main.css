@@ -9,4 +9,8 @@
   --color-dark: #052b4a;
   --color-text-light: #707070;
   --color-text-dark: #2e2e2e;
+
+  --color-card-student: #49e386;
+  --color-card-health: #ed145b;
+  --color-card-adult: #f5a623;
 }

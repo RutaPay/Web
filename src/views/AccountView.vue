@@ -10,6 +10,8 @@ const authStore = useAuthStore()
 const { handleLogout, isLoggingOut } = useLogout()
 
 // Tier Data Code
+const accType = authStore.user?.accountType
+
 interface TierInfo {
   title: string
   benefits: string[]
@@ -20,7 +22,22 @@ interface TiersData {
 }
 
 const selectedTier = ref<TierInfo | null>(null)
-const currentTierKey = ref('base')
+let currentTierKey = ref('')
+
+switch (accType) {
+  case 'User':
+    currentTierKey = ref('base')
+    break
+  case 'Student':
+    currentTierKey = ref('student')
+    break
+  case 'Health':
+    currentTierKey = ref('health')
+    break
+  case 'Adult':
+    currentTierKey = ref('adult')
+    break
+}
 
 onMounted(async () => {
   try {
@@ -33,8 +50,6 @@ onMounted(async () => {
     console.error('Error loading account benefits:', error)
   }
 })
-
-
 </script>
 <template>
   <SideBar />
@@ -50,7 +65,7 @@ onMounted(async () => {
       </h1>
     </div>
 
-    <div class="flex justify-center mb-8 ">
+    <div class="flex justify-center mb-8">
       <div class="w-1/2 h-fit bg-white rounded-3xl shadow-sm border border-gray-200 p-6 md:p-10">
         <p class="text-text-dark text-2xl">Nombre:</p>
         <p class="text-primary text-xl">{{ authStore.user?.userName }}</p>
@@ -82,14 +97,24 @@ onMounted(async () => {
         <h3
           class="text-2xl font-extrabold tracking-tight leading-none md:text-3xl lg:text-4xl text-text-dark"
         >
-          Estado de Cuenta - <span class="text-primary">RutaPay Base</span>
+          Estado de Cuenta -
+          <span
+            :class="{
+              'text-primary': authStore.user?.accountType === 'User',
+              'text-card-student': authStore.user?.accountType === 'Student',
+              'text-card-health': authStore.user?.accountType === 'Health',
+              'text-card-adult': authStore.user?.accountType === 'Adult',
+            }"
+          >
+            {{ selectedTier?.title }}
+          </span>
         </h3>
         <h5
           class="mb-6 text-lg font-bold tracking-tight leading-none md:text-xl xl:text-2xl text-text-dark y mt-8"
         >
           Beneficios:
         </h5>
-        <ul class="list-disc list-inside space-y-2">
+        <ul class="list-disc list-inside space-y-2 mb-8">
           <li
             v-for="(benefit, index) in selectedTier?.benefits"
             :key="index"
@@ -100,31 +125,17 @@ onMounted(async () => {
           <!--<li class="text-text-dark">Tarjeta Base <span class="text-primary">RutaPay</span></li>
           <li class="text-text-dark">Acceso a recompensas para miembros</li>-->
         </ul>
-        <p class="text-text-dark mt-8 font-bold">
-          Aplicar para tarjeta preferencial - Próximamente...
-        </p>
+        <RouterLink
+          :to="{ name: 'account-verify' }"
+          class="text-primary font-bold hover:text-dark transition-all duration-200"
+        >
+          Aplicar para tarjeta preferencial
+        </RouterLink>
       </div>
     </div>
     <div class="flex justify-center mb-8 text-text-light" v-else>
       <p>Cargando información del plan...</p>
     </div>
-    <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-12 p-6 md:p-10">
-      <h1
-        class="text-3xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl text-text-dark"
-      >
-        Verificación de Cuenta
-      </h1>
-      <div class="flex items-center justify-center mt-6">
-      <input type="file" id="file" class="hidden" />
-        <label for="file"
-          class="h-[400px] w-[450px] rounded-md border border-dashed border-gray-400 hover:text-blue-500 hover:border-blue-500 flex items-center justify-center cursor-pointer text-4xl">
-          Subir archivos
-        </label>
-      </div>
-    </div>
   </main>
-
+  <RouterView />
 </template>
-
-
-

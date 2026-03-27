@@ -43,6 +43,19 @@ const router = createRouter({
       //meta: { requiresAuth: true },
     },
     {
+      path: '/card',
+      name: 'card',
+      component: () => import('../views/CardView.vue'),
+      children: [
+        {
+          path: 'recharge',
+          name: 'card-recharge',
+          component: () => import('../views/CardRechargeView.vue'),
+        },
+      ],
+      //meta: { requiresAuth: true },
+    },
+    {
       path: '/rewards',
       name: 'rewards',
       component: () => import('../views/RewardsView.vue'),
@@ -52,17 +65,11 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: () => import('../views/AccountView.vue'),
-      //meta: { requiresAuth: true },
-    },
-    {
-      path: '/card',
-      name: 'card',
-      component: () => import('../views/CardView.vue'),
       children: [
         {
-          path: 'recharge',
-          name: 'card-recharge',
-          component: () => import('../views/CardRechargeView.vue'),
+          path: 'verify',
+          name: 'account-verify',
+          component: () => import('../views/AccountVerifyView.vue'),
         },
       ],
       //meta: { requiresAuth: true },

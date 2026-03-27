@@ -3,7 +3,9 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { toast } from 'vue-sonner'
+import { useUserInfo } from '@/composables/useAuth'
 
+const { handleGetUserInfo } = useUserInfo()
 const authStore = useAuthStore()
 
 const router = useRouter()
@@ -36,9 +38,8 @@ const submitForm = async () => {
       throw new Error('Login failed')
     }
 
-    const userData = await response.json()
+    handleGetUserInfo()
 
-    authStore.setAuth(true, userData)
     await router.push('/dashboard')
   } catch (error) {
     if (error.message === 'Failed to fetch') {
