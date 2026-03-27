@@ -49,5 +49,15 @@ const { handleLogout, isLoggingOut } = useLogout()
       </div>
     </div>
 
+    <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">
+      <h1
+        class="text-3xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl text-text-dark"
+      >
+        Autenticación
+      </h1>
+      <h5 class="text-black"> Proximamente... </h5>
+    </div>
+
+
   </main>
 </template>

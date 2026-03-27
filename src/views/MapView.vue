@@ -13,7 +13,7 @@ const sidebarStore = useSidebarStore()
   >
 
     <div
-      class="min-h-screen flex flex-col bg-gray-100 text-text-dark rounded-3xl shadow-sm border border-gray-200 p-4 md:p-8"
+      class="min-h-screen flex flex-col bg-white text-text-dark rounded-3xl shadow-sm border border-gray-200 p-4 md:p-8"
     >
       <!-- Search Bar -->
       <header class="p-4 bg-white shadow-md sticky top-0 z-10 animate-fade-in rounded-xl">
@@ -28,7 +28,7 @@ const sidebarStore = useSidebarStore()
       <!-- Map Container -->
       <main class="grow flex items-center justify-center p-4 animate-fade-in-up">
         <div
-          class="w-full max-w-5xl h-[60vh] bg-gray-300 rounded-xl shadow-inner transition-transform duration-500 hover:scale-[1.01]"
+          class="w-full max-w-5xl h-[60vh] bg-gray-400 rounded-xl shadow-inner transition-transform duration-500 hover:scale-[1.01]"
         >
           <!-- Placeholder for map -->
           <p class="text-center text-gray-600 pt-24 text-lg">[Mapa de rutas y paradas aquí]</p>

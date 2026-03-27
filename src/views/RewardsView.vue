@@ -58,7 +58,48 @@ const authStore = useAuthStore()
         Ganar Puntos
       </h3>
       <div>
-        <p class="text-text-dark mb-2">Próximamente...</p>
+        <div class="text-center py-10">
+          <h5 class="text-gray-500">
+            Tu oportunidad!
+          </h5>
+          <h1 class="text-4xl mx-auto leading-normal mb-12 text-black">
+            Sigue las instrucciones para ganar puntos
+          </h1>
+          <div class="flex max-w-5xl mx-auto gap-8">
+            <div class="bg-white border-primary border-2 p-8 rounded-xl mix-blend-luminosity">
+            <img src="#" alt="Source" class="h-20 mx-auto">
+              <h4 class="uppercase text-xl font-bold text-black">Gasto de Pasaje</h4>
+              <p class="text-sm leading-7 ,y-3 font-light opacity-50 text-black">
+                Paga una pasaje con RutaPay y gana puntos automáticamente.
+                Cumple con cualquier autobus a nuestra disposición.
+              </p>
+              <button class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
+                Canjear Recompensa
+              </button>
+            </div><div class="bg-white border-primary border-2 p-8 rounded-xl mix-blend-luminosity">
+            <img src="#" alt="Source" class="h-20 mx-auto">
+              <h4 class="uppercase text-xl font-bold text-black">Recarga Diaria!</h4>
+              <p class="text-sm leading-7 ,y-3 font-light opacity-50 text-black">
+                Recarga hoy con RutaPay y consigue tus puntos diarios.
+                Manten tu saldo en un nivel óptimo para ganar puntos cada día.
+              </p>
+              <button class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
+                Canjear Recompensa
+              </button>
+            </div><div class="bg-white border-primary border-2 p-8 rounded-xl mix-blend-luminosity">
+            <img src="#" alt="Source" class="h-20 mx-auto">
+              <h4 class="uppercase text-xl font-bold text-black">Descarga nuestra App!</h4>
+              <p class="text-sm leading-7 ,y-3 font-light opacity-50 text-black">
+                Nuestra aplicación móvil te ofrece una experiencia mejorada y puntos adicionales.
+                Descarga la aplicación e ingresa tu cuenta.
+              </p>
+              <button class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
+                Canjear Recompensa
+              </button>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
     <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">

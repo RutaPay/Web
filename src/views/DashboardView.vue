@@ -219,14 +219,11 @@ const sidebarStore = useSidebarStore()
                 </div>
                 <h3 class="mb-2 text-xl font-bold text-text-dark">Visión con el Usuario</h3>
                 <p class="text-text-dark">
-                  Este proyecto es una iniciativa para mejorar el transporte público, consolidando
-                  un sistema de pago digital que facilite el acceso al transporte público, para que
-                  puedas disfrutar de una experiencia de transporte público más conveniente y
-                  eficiente. Nuestro objetivo es consolidar esta pagina en una aplicación móvil,
-                  para que puedas gestionar tu cuenta, recargar tu tarjeta, consultar rutas y
-                  horarios, obtener recompensas y mantenerte informado sobre el transporte público
-                  en tiempo real, para que puedas disfrutar de una experiencia de transporte público
-                  más conveniente y eficiente.
+                  Este proyecto busca mejorar el transporte público mediante un sistema de pago digital que
+                   facilite el acceso y ofrezca una experiencia más conveniente y eficiente.
+                   Nuestro objetivo es transformar esta página en una aplicación móvil, donde
+                   podrás gestionar tu cuenta, recargar tu tarjeta, consultar rutas y horarios,
+                   obtener recompensas y mantenerte informado en tiempo real.
                 </p>
               </div>
             </div>
