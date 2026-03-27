@@ -73,15 +73,8 @@ const authStore = useAuthStore()
                 Paga una pasaje con RutaPay y gana puntos automáticamente. Cumple con cualquier
                 autobus a nuestra disposición.
               </p>
-<<<<<<< HEAD
               <button class="bg-primary  py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
                 Ganar Puntos
-=======
-              <button
-                class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300"
-              >
-                Canjear Recompensa
->>>>>>> 8bb146d6ba14044a888c33739c343f9e896330dc
               </button>
             </div>
             <div
@@ -93,15 +86,8 @@ const authStore = useAuthStore()
                 Recarga hoy con RutaPay y consigue tus puntos diarios. Manten tu saldo en un nivel
                 óptimo para ganar puntos cada día.
               </p>
-<<<<<<< HEAD
               <button class="bg-primary  py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
                 Ganar Puntos
-=======
-              <button
-                class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300"
-              >
-                Canjear Recompensa
->>>>>>> 8bb146d6ba14044a888c33739c343f9e896330dc
               </button>
             </div>
             <div
@@ -113,15 +99,8 @@ const authStore = useAuthStore()
                 Nuestra aplicación móvil te ofrece una experiencia mejorada y puntos adicionales.
                 Inicia sesión en la app.
               </p>
-<<<<<<< HEAD
               <button class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
                 Ganar Puntos
-=======
-              <button
-                class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300"
-              >
-                Canjear Recompensa
->>>>>>> 8bb146d6ba14044a888c33739c343f9e896330dc
               </button>
             </div>
           </div>
