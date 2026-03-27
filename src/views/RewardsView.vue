@@ -73,7 +73,7 @@ const authStore = useAuthStore()
                 Paga una pasaje con RutaPay y gana puntos automáticamente. Cumple con cualquier
                 autobus a nuestra disposición.
               </p>
-              <button class="bg-primary  py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
+              <button class="bg-primary  py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300 cursor-pointer">
                 Ganar Puntos
               </button>
             </div>
@@ -86,7 +86,7 @@ const authStore = useAuthStore()
                 Recarga hoy con RutaPay y consigue tus puntos diarios. Manten tu saldo en un nivel
                 óptimo para ganar puntos cada día.
               </p>
-              <button class="bg-primary  py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
+              <button class="bg-primary  py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300 cursor-pointer">
                 Ganar Puntos
               </button>
             </div>
@@ -99,7 +99,7 @@ const authStore = useAuthStore()
                 Nuestra aplicación móvil te ofrece una experiencia mejorada y puntos adicionales.
                 Inicia sesión en la app.
               </p>
-              <button class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300">
+              <button class="bg-primary py-2.5 px-7 rounded-full text-white font-bold mt-4 hover:bg-primary/80 transition duration-300 cursor-pointer">
                 Ganar Puntos
               </button>
             </div>
@@ -113,8 +113,153 @@ const authStore = useAuthStore()
       >
         Canje de Puntos
       </h3>
-      <div>
-        <p class="text-text-dark mb-2">Próximamente...</p>
+      <div class="h-100 flex items-center justify-center gap-15">
+        <div class="relative w-70 hover:scale-105 transition duration-300 cursor-pointer">
+          <div class="absolute -right-5 -bottom-5 bg-primary h-full w-full rounded-xl "></div>
+          <div class="relative bg-secondary text-white rounded-xl p-8 space-y-8">
+          <div class="h-2 w-20 bg-primary"></div>
+          <div class="text-5xl font-extrabold text-white">$20MXN</div>
+          <p class="leading-sung text-grey-400">
+            Canjea tus puntos por un saldo de $20MXN en tu cuenta.
+          </p>
+          <!-- Puedes cambiarlo por un botón si quieres -->
+          <a href="#" class=" text-primary font-bold tracking-wider flex"> <span>Canjear Recompensa</span>
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 ml-2">
+            <path stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+          </a>
+        </div>
+        </div>
+        <div class="relative w-70 hover:scale-105 transition duration-300 cursor-pointer">
+          <div class="absolute -right-5 -bottom-5 bg-primary h-full w-full rounded-xl "></div>
+          <div class="relative bg-secondary text-white rounded-xl p-8 space-y-8">
+          <div class="h-2 w-20 bg-primary"></div>
+          <div class="text-5xl font-extrabold text-white">$50MXN</div>
+          <p class="leading-sung text-grey-400">
+            Canjea tus puntos por un saldo de $50MXN en tu cuenta.
+          </p>
+          <!-- Puedes cambiarlo por un botón si quieres -->
+          <a href="#" class=" text-primary font-bold tracking-wider flex"> <span>Canjear Recompensa</span>
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 ml-2">
+            <path stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+          </a>
+        </div>
+        </div>
+        <div class="relative w-70 hover:scale-105 transition duration-300 cursor-pointer">
+          <div class="absolute -right-5 -bottom-5 bg-primary h-full w-full rounded-xl "></div>
+          <div class="relative bg-secondary text-white rounded-xl p-8 space-y-8">
+          <div class="h-2 w-20 bg-primary"></div>
+          <div class="text-5xl font-extrabold text-white">$100MXN</div>
+          <p class="leading-sung text-grey-400">
+            Canjea tus puntos por un saldo de $100MXN en tu cuenta.
+          </p>
+          <!-- Puedes cambiarlo por un botón si quieres -->
+          <a href="#" class=" text-primary font-bold tracking-wider flex"> <span>Canjear Recompensa</span>
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 ml-2">
+            <path stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+          </a>
+        </div>
+        </div>
+      </div>
+      <div class="h-100 flex items-center justify-center gap-15">
+        <div class="relative w-70 hover:scale-105 transition duration-300 cursor-pointer">
+          <div class="absolute -right-5 -bottom-5 bg-primary h-full w-full rounded-xl "></div>
+          <div class="relative bg-secondary text-white rounded-xl p-8 space-y-8">
+          <div class="h-2 w-20 bg-primary"></div>
+          <div class="text-5xl font-extrabold text-white">1 Pasaje</div>
+          <p class="leading-sung text-grey-400">
+            Canjea tus puntos por un pasaje gratis automatico.
+          </p>
+          <!-- Puedes cambiarlo por un botón si quieres -->
+          <a href="#" class=" text-primary font-bold tracking-wider flex"> <span>Canjear Recompensa</span>
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 ml-2">
+            <path stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+          </a>
+        </div>
+        </div>
+        <div class="relative w-70 hover:scale-105 transition duration-300 cursor-pointer">
+          <div class="absolute -right-5 -bottom-5 bg-primary h-full w-full rounded-xl "></div>
+          <div class="relative bg-secondary text-white rounded-xl p-8 space-y-8">
+          <div class="h-2 w-20 bg-primary"></div>
+          <div class="text-5xl font-extrabold text-white">Semana</div>
+          <p class="leading-sung text-grey-400">
+            Canjea tus puntos por una semana gratuita de uso ilimitado de RutaPay.
+          </p>
+          <!-- Puedes cambiarlo por un botón si quieres -->
+          <a href="#" class=" text-primary font-bold tracking-wider flex"> <span>Canjear Recompensa</span>
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 ml-2">
+            <path stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+          </a>
+        </div>
+        </div>
+        <div class="relative w-70 hover:scale-105 transition duration-300 cursor-pointer hover:scale-105 transition duration-300 cursor-pointer">
+          <div class="absolute -right-5 -bottom-5 bg-primary h-full w-full rounded-xl "></div>
+          <div class="relative bg-secondary text-white rounded-xl p-8 space-y-8">
+          <div class="h-2 w-20 bg-primary"></div>
+          <div class="text-5xl font-extrabold text-white">Ida y vuelta</div>
+          <p class="leading-sung text-grey-400">
+            Canjea tus puntos por dos pasajes gratis .
+          </p>
+          <!-- Puedes cambiarlo por un botón si quieres -->
+          <a href="#" class=" text-primary font-bold tracking-wider flex"> <span>Canjear Recompensa</span>
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 ml-2">
+            <path stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+          </a>
+        </div>
+        </div>
       </div>
     </div>
   </main>
