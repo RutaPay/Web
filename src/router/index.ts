@@ -65,14 +65,12 @@ const router = createRouter({
       path: '/account',
       name: 'account',
       component: () => import('../views/AccountView.vue'),
-      children: [
-        {
-          path: 'verify',
-          name: 'account-verify',
-          component: () => import('../views/AccountVerifyView.vue'),
-        },
-      ],
       //meta: { requiresAuth: true },
+    },
+    {
+      path: '/account/verify',
+      name: 'account-verify',
+      component: () => import('../views/AccountVerifyView.vue'),
     },
     {
       path: '/admin',
