@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SideBar from '../components/SideBar.vue'
+import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 import { useAuthStore } from '@/stores/auth'
 import { useLogout } from '@/composables/useAuth'
@@ -137,5 +138,6 @@ onMounted(async () => {
       <p>Cargando información del plan...</p>
     </div>
   </main>
+  <Footer :isClosed="sidebarStore.closedState" />
   <RouterView />
 </template>

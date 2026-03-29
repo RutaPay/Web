@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SideBar from '../components/SideBar.vue'
+import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 
 const sidebarStore = useSidebarStore()
@@ -11,7 +12,6 @@ const sidebarStore = useSidebarStore()
     class="min-h-screen transition-all duration-500 bg-gray-50 p-6 md:p-10"
     :class="{ 'ml-64': !sidebarStore.closedState, 'ml-28': sidebarStore.closedState }"
   >
-
     <div
       class="min-h-screen flex flex-col bg-white text-text-dark rounded-3xl shadow-sm border border-gray-200 p-4 md:p-8"
     >
@@ -24,7 +24,6 @@ const sidebarStore = useSidebarStore()
         />
       </header>
 
-
       <!-- Map Container -->
       <main class="grow flex items-center justify-center p-4 animate-fade-in-up">
         <div
@@ -34,8 +33,7 @@ const sidebarStore = useSidebarStore()
           <p class="text-center text-gray-600 pt-24 text-lg">[Mapa de rutas y paradas aquí]</p>
         </div>
       </main>
-
-
     </div>
   </main>
+  <Footer :isClosed="sidebarStore.closedState" />
 </template>

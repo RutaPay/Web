@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SideBar from '../components/SideBar.vue'
+import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 import { useAuthStore } from '@/stores/auth'
 
@@ -17,7 +18,7 @@ const authStore = useAuthStore()
       <h1
         class="text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-text-dark"
       >
-        Puntoss y Beneficios
+        Puntos y Recompensas
       </h1>
     </div>
     <div
@@ -291,4 +292,5 @@ const authStore = useAuthStore()
       </div>
     </div>
   </main>
+  <Footer :isClosed="sidebarStore.closedState" />
 </template>

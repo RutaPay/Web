@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import SideBar from '../components/SideBar.vue'
+import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 
 const sidebarStore = useSidebarStore()
@@ -219,11 +220,11 @@ const sidebarStore = useSidebarStore()
                 </div>
                 <h3 class="mb-2 text-xl font-bold text-text-dark">Visión con el Usuario</h3>
                 <p class="text-text-dark">
-                  Este proyecto busca mejorar el transporte público mediante un sistema de pago digital que
-                   facilite el acceso y ofrezca una experiencia más conveniente y eficiente.
-                   Nuestro objetivo es transformar esta página en una aplicación móvil, donde
-                   podrás gestionar tu cuenta, recargar tu tarjeta, consultar rutas y horarios,
-                   obtener recompensas y mantenerte informado en tiempo real.
+                  Este proyecto busca mejorar el transporte público mediante un sistema de pago
+                  digital que facilite el acceso y ofrezca una experiencia más conveniente y
+                  eficiente. Nuestro objetivo es transformar esta página en una aplicación móvil,
+                  donde podrás gestionar tu cuenta, recargar tu tarjeta, consultar rutas y horarios,
+                  obtener recompensas y mantenerte informado en tiempo real.
                 </p>
               </div>
             </div>
@@ -232,6 +233,7 @@ const sidebarStore = useSidebarStore()
       </div>
     </div>
   </main>
+  <Footer :isClosed="sidebarStore.closedState" />
 </template>
 <script lang="ts">
 export default {

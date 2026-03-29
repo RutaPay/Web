@@ -3,56 +3,14 @@ import { ref } from 'vue'
 
 import { PlusCircle } from '@boxicons/vue'
 import SideBar from '../components/SideBar.vue'
+import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 import { useAuthStore } from '@/stores/auth'
 
 const sidebarStore = useSidebarStore()
 const authStore = useAuthStore()
 
-interface TransportCard {
-  id: number
-  title: string
-  description: string
-  cost: number
-  imageUrl: string
-}
-
 const userCardNumber = ref('4532 1234 5678 9012')
-
-const transportCards = ref<TransportCard[]>([
-  {
-    id: 1,
-    title: 'Metro Pass',
-    description: 'Unlimited metro rides for 30 days',
-    cost: 500.0,
-    imageUrl:
-      'https://images.pexels.com/photos/3881104/pexels-photo-3881104.jpeg?auto=compress&cs=tinysrgb&w=800',
-  },
-  {
-    id: 2,
-    title: 'Semana Extra!',
-    description: 'Semana ilimitada de transportes',
-    cost: 180.0,
-    imageUrl:
-      'https://images.pexels.com/photos/385997/pexels-photo-385997.jpeg?auto=compress&cs=tinysrgb&w=800',
-  },
-  {
-    id: 3,
-    title: 'Combined Pass',
-    description: 'Metro + Bus unlimited for 30 days',
-    cost: 120.0,
-    imageUrl:
-      'https://images.pexels.com/photos/1253166/pexels-photo-1253166.jpeg?auto=compress&cs=tinysrgb&w=800',
-  },
-  {
-    id: 4,
-    title: 'Pase Express de un Día',
-    description: 'Un pase ilimitado por un día de transportes',
-    cost: 60.0,
-    imageUrl:
-      'https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg?auto=compress&cs=tinysrgb&w=800',
-  },
-])
 </script>
 
 <template>
@@ -127,23 +85,28 @@ const transportCards = ref<TransportCard[]>([
         </div>
       </div>
       <h3 class="mt-14 lg:mt-20 text-2xl font-bold md:text-3xl lg:text-4xl text-text-dark">
-          ¿Como pagar con RutaPay?
+        ¿Como pagar con RutaPay?
       </h3>
       <!-- Box img -->+
-      <div class="h-100 w-full  rounded-lg flex items-center justify-center">
-      <img src="../assets/EntradaFicticia.png" alt="Imagen 1" class="h-80 w-148 object-cover rounded-lg mt-6"/>
-      <div class=" rounded-lg p-6 mt-6 justify-center text-2xl text-center">
-        <p class="text-text-dark text-4xl mt-4 h-70 ">
-          Para pagar con RutaPay, <span class="font-bold text-primary">
-            simplemente escanea el código QR en la pantalla de tu autobús,
-                                  </span>
-            aseguarte de tener suficiente saldo en tu cuenta.
-            Este cobro es automático, por lo que no tendrás que preocuparte por nada más.
-            ¡Disfruta de tu viaje sin complicaciones!
-        </p>
-      </div>
+      <div class="h-100 w-full rounded-lg flex items-center justify-center">
+        <img
+          src="../assets/EntradaFicticia.png"
+          alt="Imagen 1"
+          class="h-80 w-148 object-cover rounded-lg mt-6"
+        />
+        <div class="rounded-lg p-6 mt-6 justify-center text-2xl text-center">
+          <p class="text-text-dark text-3xl mt-4 h-70 md:text-2xl lg:text-3xl">
+            Para pagar con RutaPay,
+            <span class="font-bold text-primary">
+              simplemente escanea el código QR en la pantalla de tu autobús,
+            </span>
+            aseguarte de tener suficiente saldo en tu cuenta. Este cobro es automático, por lo que
+            no tendrás que preocuparte por nada más. ¡Disfruta de tu viaje sin complicaciones!
+          </p>
+        </div>
       </div>
     </div>
     <RouterView />
   </main>
+  <Footer :isClosed="sidebarStore.closedState" />
 </template>

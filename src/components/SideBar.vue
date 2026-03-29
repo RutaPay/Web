@@ -133,7 +133,7 @@ const isActive = (name: string) => route.matched.some((record) => record.name ==
     </div>
     <div class="mt-auto pt-10">
       <button
-        class="group flex h-12 mt-6 rounded-xl w-full items-center transition-all duration-400 hover:bg-primary cursor-pointer"
+        class="group flex h-12 mt-6 rounded-xl w-full items-center transition-all duration-400 hover:bg-[#D93025] cursor-pointer"
         :class="{
           'justify-center': sidebarStore.closedState,
           'justify-start': !sidebarStore.closedState,
