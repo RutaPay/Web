@@ -39,7 +39,8 @@ defineProps({
                 class="overflow-hidden transition-all duration-500 text-sm text-gray-600 mt-2"
               >
                 <p>
-                  RutaPay es una plataforma diseñada para facilitar pagos y gestión financiera de manera segura y eficiente.
+                  RutaPay es una plataforma diseñada para facilitar pagos y gestión financiera de
+                  manera segura y eficiente.
                 </p>
               </div>
             </transition>
@@ -51,7 +52,7 @@ defineProps({
         <ul class="space-y-2">
           <li>
             <button
-              class="text-text-light hover:text-primary w-full text-left"
+              class="text-text-light hover:text-primary w-full text-left hover:cursor-pointer"
               @click="toggleSection('terminos')"
             >
               Términos de servicio
@@ -61,15 +62,13 @@ defineProps({
                 v-show="openSection === 'terminos'"
                 class="overflow-hidden transition-all duration-500 text-sm text-gray-600 mt-2"
               >
-                <p>
-                  Al utilizar RutaPay, aceptas los términos y condiciones de uso.
-                </p>
+                <p>Al utilizar RutaPay, aceptas los términos y condiciones de uso.</p>
               </div>
             </transition>
           </li>
           <li>
             <button
-              class="text-text-light hover:text-primary w-full text-left"
+              class="text-text-light hover:text-primary w-full text-left hover:cursor-pointer"
               @click="toggleSection('privacidad')"
             >
               Política de privacidad
@@ -80,7 +79,8 @@ defineProps({
                 class="overflow-hidden transition-all duration-500 text-sm text-gray-600 mt-2"
               >
                 <p>
-                  Protegemos tu información personal y no la compartimos con terceros sin tu consentimiento.
+                  Protegemos tu información personal y no la compartimos con terceros sin tu
+                  consentimiento.
                 </p>
               </div>
             </transition>
