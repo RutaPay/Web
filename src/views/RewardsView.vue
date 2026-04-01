@@ -66,7 +66,7 @@ const authStore = useAuthStore()
           </h1>
           <div class="flex max-w-5xl mx-auto gap-8 group">
             <div
-              class="bg-white duration-400 group-hover:blur-sm hover:blur-none! group-hover:scale-[0.85] hover:scale-100! border-primary border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity"
+              class="bg-white duration-400 group-hover:blur-sm hover:blur-none! group-hover:scale-[0.85] hover:scale-100! border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity"
             >
               <img src="#" alt="Source" class="h-20 mx-auto" />
               <h4 class="uppercase text-xl font-bold text-black">Gasto de Pasaje</h4>
