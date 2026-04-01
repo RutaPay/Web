@@ -1,4 +1,12 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
+const openSection = ref<string | null>(null)
+
+function toggleSection(section: string) {
+  openSection.value = openSection.value === section ? null : section
+}
+
 defineProps({
   isClosed: {
     type: Boolean,
@@ -18,15 +26,65 @@ defineProps({
         <h3 class="text-lg font-bold text-text-dark mb-4">Enlaces útiles</h3>
         <ul class="space-y-2">
           <li><a href="#" class="text-text-light hover:text-primary">Inicio</a></li>
-          <li><a href="#" class="text-text-light hover:text-primary">Acerca de</a></li>
-          <li><a href="#" class="text-text-light hover:text-primary">Contacto</a></li>
+          <li>
+            <button
+              class="text-text-light hover:text-primary w-full text-left"
+              @click="toggleSection('acerca')"
+            >
+              Acerca de
+            </button>
+            <transition name="accordion">
+              <div
+                v-show="openSection === 'acerca'"
+                class="overflow-hidden transition-all duration-500 text-sm text-gray-600 mt-2"
+              >
+                <p>
+                  RutaPay es una plataforma diseñada para facilitar pagos y gestión financiera de manera segura y eficiente.
+                </p>
+              </div>
+            </transition>
+          </li>
         </ul>
       </div>
       <div>
         <h3 class="text-lg font-bold text-text-dark mb-4">Legal</h3>
         <ul class="space-y-2">
-          <li><a href="#" class="text-text-light hover:text-primary">Términos de servicio</a></li>
-          <li><a href="#" class="text-text-light hover:text-primary">Política de privacidad</a></li>
+          <li>
+            <button
+              class="text-text-light hover:text-primary w-full text-left"
+              @click="toggleSection('terminos')"
+            >
+              Términos de servicio
+            </button>
+            <transition name="accordion">
+              <div
+                v-show="openSection === 'terminos'"
+                class="overflow-hidden transition-all duration-500 text-sm text-gray-600 mt-2"
+              >
+                <p>
+                  Al utilizar RutaPay, aceptas los términos y condiciones de uso.
+                </p>
+              </div>
+            </transition>
+          </li>
+          <li>
+            <button
+              class="text-text-light hover:text-primary w-full text-left"
+              @click="toggleSection('privacidad')"
+            >
+              Política de privacidad
+            </button>
+            <transition name="accordion">
+              <div
+                v-show="openSection === 'privacidad'"
+                class="overflow-hidden transition-all duration-500 text-sm text-gray-600 mt-2"
+              >
+                <p>
+                  Protegemos tu información personal y no la compartimos con terceros sin tu consentimiento.
+                </p>
+              </div>
+            </transition>
+          </li>
         </ul>
       </div>
       <div>
