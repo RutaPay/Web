@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/require-toggle-inside-transition -->
 <script setup lang="ts"></script>
 
 <template>
@@ -25,6 +26,17 @@
             </svg>
           </RouterLink>
         </header>
+        <!-- Payment -->
+        <div class="payment-box h-max w-full md:w-[500px] bg-blue-800 rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10 flex flex-col md:flex-col ">
+        <!-- Card Box -->
+        <div class="card-box h-max w-full md:w-[250px] bg-black rounded-3xl shadow-sm mb-8 p-6 md:p-10">
+            <div class="card-visual"></div>
+        </div>
+        <!-- Payment Form -->
+        <div class="form-box h-max w-full md:w-[250px] bg-white rounded-3xl shadow-sm mb-8 p-6 md:p-10 flex flex-col">
+
+        </div>
+       </div>
       </div>
     </main>
   </Transition>
