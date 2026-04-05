@@ -10,7 +10,6 @@ const sidebarStore = useSidebarStore()
 const authStore = useAuthStore()
 const { handleLogout, isLoggingOut } = useLogout()
 
-// Tier Data Code
 const accType = authStore.user?.accountType
 
 interface TierInfo {
@@ -45,7 +44,6 @@ onMounted(async () => {
     const response = await fetch('/data/benefits.json')
     const data: TiersData = await response.json()
 
-    // Assign the specific tier data to our ref
     selectedTier.value = data[currentTierKey.value]
   } catch (error) {
     console.error('Error loading account benefits:', error)

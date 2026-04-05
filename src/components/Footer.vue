@@ -10,16 +10,16 @@ function toggleSection(section: string) {
 defineProps({
   isClosed: {
     type: Boolean,
-    default: false,
+    default: null,
   },
 })
 </script>
 
 <template>
-  <hr class="border-secondary" :class="{ 'ml-64': !isClosed, 'ml-28': isClosed }" />
+  <hr class="border-secondary" :class="isClosed === null ? 'ml-0' : isClosed ? 'ml-28' : 'ml-64'" />
   <footer
     class="p-8 transition-all duration-500 bg-gray-50"
-    :class="{ 'ml-64': !isClosed, 'ml-28': isClosed }"
+    :class="isClosed === null ? 'ml-0' : isClosed ? 'ml-28' : 'ml-64'"
   >
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
       <div>

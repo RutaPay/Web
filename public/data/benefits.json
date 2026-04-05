@@ -3,17 +3,19 @@
     "title": "RutaPay Base",
     "benefits": [
       "Tarjeta Base RutaPay",
+      "Tarifa Prepago: $8.00 MXN por viaje",
       "1 punto por cada $20 que gastes",
       "Acceso a recompensas para miembros",
       "Soporte estándar"
     ]
   },
   "student": {
-    "title": "RutaPay Estudiantes",
+    "title": "RutaPay Estudiantes y Menores de 12 años",
     "benefits": [
       "Tarjeta Estudiante RutaPay",
-      "Descuento al pagar viajes",
+      "Tarifa Prepago Preferencial: $5.50 MXN por viaje",
       "2 puntos por cada $20 que gastes",
+      "Tarjeta Virtual especial para estudiantes",
       "Acceso a recompensas para miembros",
       "Soporte prioritario"
     ]
@@ -22,18 +24,20 @@
     "title": "RutaPay Sector Salud",
     "benefits": [
       "Tarjeta Sector Salud RutaPay",
-      "Descuento al pagar viajes",
+      "Tarifa Prepago Preferencial: $5.50 MXN por viaje",
       "2 puntos por cada $20 que gastes",
+      "Tarjeta Virtual especial para el sector salud",
       "Acceso a recompensas para miembros",
       "Soporte prioritario"
     ]
   },
   "adult": {
-    "title": "RutaPay Adultos Mayores",
+    "title": "RutaPay Adultos Mayores y Personas con Discapacidad",
     "benefits": [
       "Tarjeta Adulto Mayor RutaPay",
-      "Descuento al pagar viajes",
+      "Tarifa Prepago Preferencial: $5.50 MXN por viaje",
       "2 puntos por cada $20 que gastes",
+      "Tarjeta Virtual especial para Adultos Mayores y Personas con Discapacidad",
       "Acceso a recompensas para miembros",
       "Soporte prioritario"
     ]
