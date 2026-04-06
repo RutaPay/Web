@@ -5,7 +5,7 @@ const authStore = useAuthStore()
 </script>
 
 <template>
-  <header class="bg-white border-b border-primary">
+  <header class="bg-white border-b border-primary sticky top-0">
     <nav class="px-4 lg:px-6 py-4">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-7xl">
         <a href="https://rutapay.com" class="flex items-center focus:outline-none">

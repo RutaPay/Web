@@ -39,7 +39,7 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('../views/DashboardView.vue'),
-      meta: { requiresAuth: true },
+      //meta: { requiresAuth: true },
     },
     {
       path: '/map',
@@ -77,11 +77,6 @@ const router = createRouter({
       name: 'account-verify',
       component: () => import('../views/AccountVerifyView.vue'),
       //meta: { requiresAuth: true },
-    },
-    {
-      path: '/admin',
-      name: 'admin',
-      component: () => import('../views/admin/DashboardView.vue'),
     },
     {
       path: '/:pathMatch(.*)*',

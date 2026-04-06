@@ -39,7 +39,7 @@ const submitForm = async () => {
       throw new Error('Login failed')
     }
 
-    handleGetUserInfo()
+    await handleGetUserInfo()
 
     await router.push('/dashboard')
   } catch (error) {
@@ -101,9 +101,3 @@ const submitForm = async () => {
     </div>
   </main>
 </template>
-
-<script lang="ts">
-export default {
-  name: 'LogInView',
-}
-</script>
