@@ -63,6 +63,11 @@ const sidebarStore = useSidebarStore()
           </div>
         </section>
         <section>
+          <div class="">
+
+          </div>
+        </section>
+        <section>
           <div class="py-8 px-4 mx-auto max-w-7xl sm:py-16 lg:px-6">
             <div class="max-w-3xl mb-8 lg:mb-16">
               <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-text-dark">
