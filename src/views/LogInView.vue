@@ -34,6 +34,7 @@ const submitForm = async () => {
       toast.error('Credenciales incorrectas', {
         description: 'Por favor, verifica tu correo electrónico y contraseña.',
       })
+      throw new Error('Unauthorized')
     } else {
       throw new Error('Login failed')
     }

@@ -16,7 +16,7 @@ const authStore = useAuthStore()
   >
     <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">
       <h1
-        class="text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl text-text-dark"
+        class="text-3xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl text-text-dark"
       >
         Puntos y Recompensas
       </h1>
@@ -96,7 +96,7 @@ const authStore = useAuthStore()
               </button>
             </div>
             <div
-              class="bg-white duration-400 group-hover:blur-sm hover:blur-none! group-hover:scale-[0.85] hover:scale-100!  border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity"
+              class="bg-white duration-400 group-hover:blur-sm hover:blur-none! group-hover:scale-[0.85] hover:scale-100! border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity"
             >
               <img src="#" alt="Source" class="h-20 mx-auto" />
               <h4 class="uppercase text-xl font-bold text-black">Descarga la App!</h4>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const openSection = ref<string | null>(null)
 
@@ -10,22 +11,26 @@ function toggleSection(section: string) {
 defineProps({
   isClosed: {
     type: Boolean,
-    default: false,
+    default: null,
   },
 })
 </script>
 
 <template>
-  <hr class="border-secondary" :class="{ 'ml-64': !isClosed, 'ml-28': isClosed }" />
+  <hr class="border-secondary" :class="isClosed === null ? 'ml-0' : isClosed ? 'ml-28' : 'ml-64'" />
   <footer
     class="p-8 transition-all duration-500 bg-gray-50"
-    :class="{ 'ml-64': !isClosed, 'ml-28': isClosed }"
+    :class="isClosed === null ? 'ml-0' : isClosed ? 'ml-28' : 'ml-64'"
   >
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
       <div>
         <h3 class="text-lg font-bold text-text-dark mb-4">Enlaces útiles</h3>
         <ul class="space-y-2">
-          <li><a href="#" class="text-text-light hover:text-primary">Inicio</a></li>
+          <li>
+            <RouterLink :to="{ name: 'home' }" class="text-text-light hover:text-primary"
+              >Inicio</RouterLink
+            >
+          </li>
           <li>
             <button
               class="text-text-light hover:text-primary w-full text-left"
@@ -104,9 +109,3 @@ defineProps({
     <p class="text-text-dark text-center">&copy; 2026 RutaPay. Todos los derechos reservados.</p>
   </footer>
 </template>
-
-<script lang="ts">
-export default {
-  name: 'Footer',
-}
-</script>
