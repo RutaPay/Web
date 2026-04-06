@@ -8,6 +8,7 @@ import FormInputErrorItem from '@/components/FormInputErrorItem.vue'
 const router = useRouter()
 
 const validEmail = ref()
+const tc = ref(false)
 
 const data = reactive({
   fullName: '',
@@ -81,7 +82,7 @@ const passwordsMatch = computed(
 const isFormValid = computed(() => {
   const hasNames =
     data.fullName.trim() !== '' && data.pLastName.trim() !== '' && data.mLastName.trim() !== ''
-  const hasPhone = data.phoneNumber.replace(/\D/g, '').length === 12 // 52 + 10 dígitos
+  const hasPhone = data.phoneNumber.replace(/\D/g, '').length === 12
 
   return hasNames && hasPhone && isPasswordValid.value && passwordsMatch.value
 })
@@ -245,9 +246,3 @@ const submitForm = async () => {
     </div>
   </main>
 </template>
-
-<script lang="ts">
-export default {
-  name: 'RegisterView',
-}
-</script>
