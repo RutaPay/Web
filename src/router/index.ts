@@ -71,6 +71,7 @@ const router = createRouter({
       path: '/account/verify',
       name: 'account-verify',
       component: () => import('../views/AccountVerifyView.vue'),
+      //meta: { requiresAuth: true },
     },
     {
       path: '/admin',

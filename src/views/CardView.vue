@@ -19,6 +19,13 @@ const userCardNumber = ref('4532 1234 5678 9012')
     class="min-h-screen transition-all duration-500 bg-gray-50 p-6 md:p-10"
     :class="{ 'ml-64': !sidebarStore.closedState, 'ml-28': sidebarStore.closedState }"
   >
+    <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-12 p-6 md:p-10">
+      <h1
+        class="text-3xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl text-text-dark"
+      >
+        Mi Tarjeta
+      </h1>
+    </div>
     <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 p-12 md:p-16 lg:p-24">
       <div class="relative bg-white border-2 border-dark rounded-2xl p-8 sm:p-12 shadow-xl">
         <div class="absolute -top-6 -left-6 z-10">
