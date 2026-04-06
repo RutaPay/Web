@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import { useAuthStore } from '@/stores/auth'
 import { watch } from 'vue'
+import { toast } from 'vue-sonner'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,6 +12,10 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+    },
+    {
+      path: '/home',
+      redirect: '/',
     },
     {
       path: '/register',
@@ -34,7 +39,7 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('../views/DashboardView.vue'),
-      //meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
     },
     {
       path: '/map',
@@ -86,7 +91,7 @@ const router = createRouter({
   ],
 })
 
-/*router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
 
   const waitUntilLoaded = () => {
@@ -107,14 +112,17 @@ const router = createRouter({
   await waitUntilLoaded()
 
   if (to.meta.requiresAuth && !authStore.authenticated) {
+    toast.error('Debes Iniciar Sesión')
     next('/login')
   } else if (to.path === '/login' && authStore.authenticated) {
+    toast.info('Ya has iniciado sesión')
     next('/dashboard')
   } else if (to.path === '/register' && authStore.authenticated) {
+    toast.info('Ya has iniciado sesión')
     next('/dashboard')
   } else {
     next()
   }
-})*/
+})
 
 export default router

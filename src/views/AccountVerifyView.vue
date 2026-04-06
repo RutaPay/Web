@@ -126,7 +126,7 @@ const submitForm = async () => {
           <div class="mt-8">
             <p class="text-text-dark font-semibold md:text-lg">Sube tus archivos</p>
             <label for="curp" class="text-text-dark">Sube tu CURP:</label>
-            <input type="file" name="curp" id="curp" />
+            <input type="file" name="curp" id="curp" accept=".png, .jpg, .jpeg, .pdf" />
           </div>
         </form>
       </div>

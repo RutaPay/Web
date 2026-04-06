@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const openSection = ref<string | null>(null)
 
@@ -25,7 +26,11 @@ defineProps({
       <div>
         <h3 class="text-lg font-bold text-text-dark mb-4">Enlaces útiles</h3>
         <ul class="space-y-2">
-          <li><a href="#" class="text-text-light hover:text-primary">Inicio</a></li>
+          <li>
+            <RouterLink :to="{ name: 'home' }" class="text-text-light hover:text-primary"
+              >Inicio</RouterLink
+            >
+          </li>
           <li>
             <button
               class="text-text-light hover:text-primary w-full text-left"
@@ -104,9 +109,3 @@ defineProps({
     <p class="text-text-dark text-center">&copy; 2026 RutaPay. Todos los derechos reservados.</p>
   </footer>
 </template>
-
-<script lang="ts">
-export default {
-  name: 'Footer',
-}
-</script>
