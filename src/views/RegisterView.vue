@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { toast } from 'vue-sonner'
 import PasswordRequirementItem from '@/components/PasswordRequirementItem.vue'
 import FormInputErrorItem from '@/components/FormInputErrorItem.vue'
+import { Check } from '@boxicons/vue'
 
 const router = useRouter()
 
@@ -236,10 +237,25 @@ const submitForm = async () => {
               </PasswordRequirementItem>
             </div>
           </div>
+          <div class="flex items-center space-x-2 mt-4">
+            <input
+              type="checkbox"
+              v-model="tc"
+              id="tc"
+              class="appearance-none h-4 w-4 bg-[#AAA] rounded-sm cursor-pointer checked:bg-primary hover:not-checked:bg-[#999] transition duration-200"
+            />
+            <label for="tc" class="text-text-dark">
+              Acepto los
+              <a href="/terms" target="_blank" class="text-primary hover:underline">
+                Términos y Condiciones
+              </a>
+            </label>
+          </div>
           <input
+            :disabled="!tc"
             type="submit"
             value="Registrarse"
-            class="w-full px-4 py-2 mt-6 bg-primary text-white font-medium rounded-lg hover:bg-dark cursor-pointer transition duration-300"
+            class="w-full px-4 py-2 mt-6 bg-primary text-white font-medium rounded-lg hover:bg-dark cursor-pointer transition duration-300 disabled:opacity-80 disabled:hover:bg-primary disabled:cursor-not-allowed"
           />
         </form>
       </div>

@@ -76,7 +76,7 @@ const submitForm = async () => {
           <div class="w-full">
             <input type="hidden" name="accType" v-model="data.accType" />
             <div
-              class="flex h-12 ps-4 pe-2 py-2 mt-4 text-text-dark items-center cursor-pointer justify-between border-2 border-[#C3C3C3] rounded-lg hover:border-dark focus:border-primary"
+              class="flex h-12 ps-4 pe-2 py-2 mt-4 text-text-dark items-center cursor-pointer justify-between border-2 border-[#C3C3C3] rounded-lg hover:border-dark"
               @click="toggleMenu"
             >
               <span>{{ selectedOption }}</span>
@@ -106,19 +106,61 @@ const submitForm = async () => {
           </div>
           <div class="mt-8" v-if="data.accType === 'student' || data.accType === 'adult'">
             <p class="text-text-dark font-semibold md:text-lg">Selecciona tu opción:</p>
-            <div v-if="data.accType === 'student'" class="flex items-center gap-4 mt-4">
-              <input type="radio" name="option" id="student-student" />
-              <label for="student-student" class="text-text-dark cursor-pointer">Estudiante</label>
-              <input type="radio" name="option" id="student-minor" />
-              <label for="student-minor" class="text-text-dark cursor-pointer"
+            <div
+              v-if="data.accType === 'student'"
+              class="inline-flex overflow-hidden mt-4 border-2 border-dark rounded-lg"
+            >
+              <input
+                type="radio"
+                name="option"
+                id="student-student"
+                value="ss"
+                class="hidden peer/ss"
+              />
+              <label
+                for="student-student"
+                class="text-text-dark cursor-pointer transition-all duration-200 border-r px-4 py-2 border-dark peer-checked/ss:font-bold peer-checked/ss:bg-primary peer-checked/ss:text-white"
+                >Estudiante</label
+              >
+              <input
+                type="radio"
+                name="option"
+                id="student-minor"
+                value="sm"
+                class="hidden peer/sm"
+              />
+              <label
+                for="student-minor"
+                class="text-text-dark cursor-pointer transition-all duration-200 border-l border-dark px-4 py-2 peer-checked/sm:font-bold peer-checked/sm:bg-primary peer-checked/sm:text-white"
                 >Menor de 12 años</label
               >
             </div>
-            <div v-if="data.accType === 'adult'" class="flex items-center gap-4 mt-4">
-              <input type="radio" name="option" id="adult-adult" />
-              <label for="adult-adult" class="text-text-dark cursor-pointer">Adulto Mayor</label>
-              <input type="radio" name="option" id="adult-disability" />
-              <label for="adult-disability" class="text-text-dark cursor-pointer"
+            <div
+              v-if="data.accType === 'adult'"
+              class="inline-flex overflow-hidden mt-4 border-2 border-dark rounded-lg"
+            >
+              <input
+                type="radio"
+                name="option"
+                id="adult-adult"
+                value="aa"
+                class="hidden peer/aa"
+              />
+              <label
+                for="adult-adult"
+                class="text-text-dark cursor-pointer transition-all duration-200 border-r px-4 py-2 border-dark peer-checked/aa:font-bold peer-checked/aa:bg-primary peer-checked/aa:text-white"
+                >Adulto Mayor</label
+              >
+              <input
+                type="radio"
+                name="option"
+                id="adult-disability"
+                value="ad"
+                class="hidden peer/ad"
+              />
+              <label
+                for="adult-disability"
+                class="text-text-dark cursor-pointer transition-all duration-200 border-l border-dark px-4 py-2 peer-checked/ad:font-bold peer-checked/ad:bg-primary peer-checked/ad:text-white"
                 >Persona con Discapacidad</label
               >
             </div>
