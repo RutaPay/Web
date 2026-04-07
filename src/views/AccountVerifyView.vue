@@ -1,16 +1,35 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import { ChevronDown, Education, InfoCircle, PlusBig, UniversalAccess } from '@boxicons/vue'
+import { ref, reactive, computed } from 'vue'
+import {
+  ArrowInUpSquareHalf,
+  ChevronDown,
+  Education,
+  InfoCircle,
+  PlusBig,
+  UniversalAccess,
+} from '@boxicons/vue'
 import Footer from '../components/Footer.vue'
-import Modal from '../components/modal.vue'
+import Modal from '../components/Modal.vue'
 
 const isModalOpen = ref(false)
 
 const isActive = ref(false)
 const selectedOption = ref('Selecciona tu tipo de usuario')
 
-const data = reactive({
+interface AccountData {
+  accType: string
+  subAccType: string
+  mainIDFile: File | null
+  secondFile: File | null
+  secondFileType: string
+}
+
+const data = reactive<AccountData>({
   accType: '',
+  subAccType: '',
+  mainIDFile: null,
+  secondFile: null,
+  secondFileType: '',
 })
 
 const typeOptions = [
@@ -40,11 +59,53 @@ const selectItem = (optionText) => {
       data.accType = option.value
     }
   })
+  data.subAccType = ''
   isActive.value = false
 }
 
 function handleModal() {
   isModalOpen.value = !isModalOpen.value
+}
+
+const formattedFileSize = (file: File | null): string => {
+  if (!file) return ''
+  const bytes = file.size
+  if (bytes === 0) return '0 Bytes'
+
+  const k = 1024
+  const sizes = ['Bytes', 'KB', 'MB', 'GB']
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+}
+
+const handleFileUpload = (e: Event, type: String) => {
+  const target = e.target as HTMLInputElement
+  const file = target.files ? target.files[0] : null
+
+  if (file) {
+    switch (type) {
+      case 'curp':
+        data.mainIDFile = file
+        break
+      case 'sscomp':
+        data.secondFile = file
+        data.secondFileType = 'sscomp'
+        break
+      case 'smacta':
+        data.secondFile = file
+        data.secondFileType = 'smacta'
+        break
+      case 'aainapam':
+        data.secondFile = file
+        data.secondFileType = 'aainapam'
+        break
+      case 'adconst':
+        data.secondFile = file
+        data.secondFileType = 'adconst'
+        break
+    }
+  }
 }
 
 const submitForm = async () => {
@@ -66,11 +127,12 @@ const submitForm = async () => {
         </h1>
         <form @submit.prevent="submitForm" class="mt-8 w-full">
           <div class="w-full flex justify-between">
-            <label for="type" class="text-text-dark font-semibold md:text-lg"
-              >Tipo de Usuario:</label
+            <label for="type" class="text-text-dark font-semibold text-lg">Tipo de Usuario:</label>
+            <button
+              class="cursor-pointer text-text-dark focus:outline-none focus:text-primary"
+              @click="handleModal"
             >
-            <button class="cursor-pointer" @click="handleModal">
-              <InfoCircle class="inline-block text-text-dark" />
+              <InfoCircle class="inline-block" />
             </button>
           </div>
           <div class="w-full">
@@ -105,14 +167,14 @@ const submitForm = async () => {
             </ul>
           </div>
           <div class="mt-8" v-if="data.accType === 'student' || data.accType === 'adult'">
-            <p class="text-text-dark font-semibold md:text-lg">Selecciona tu opción:</p>
+            <p class="text-text-dark font-semibold text-lg">Selecciona tu opción:</p>
             <div
               v-if="data.accType === 'student'"
               class="inline-flex overflow-hidden mt-4 border-2 border-dark rounded-lg"
             >
               <input
                 type="radio"
-                name="option"
+                v-model="data.subAccType"
                 id="student-student"
                 value="ss"
                 class="hidden peer/ss"
@@ -124,7 +186,7 @@ const submitForm = async () => {
               >
               <input
                 type="radio"
-                name="option"
+                v-model="data.subAccType"
                 id="student-minor"
                 value="sm"
                 class="hidden peer/sm"
@@ -141,7 +203,7 @@ const submitForm = async () => {
             >
               <input
                 type="radio"
-                name="option"
+                v-model="data.subAccType"
                 id="adult-adult"
                 value="aa"
                 class="hidden peer/aa"
@@ -153,7 +215,7 @@ const submitForm = async () => {
               >
               <input
                 type="radio"
-                name="option"
+                v-model="data.subAccType"
                 id="adult-disability"
                 value="ad"
                 class="hidden peer/ad"
@@ -165,14 +227,221 @@ const submitForm = async () => {
               >
             </div>
           </div>
-          <div class="mt-8">
-            <p class="text-text-dark font-semibold md:text-lg">Sube tus archivos</p>
-            <label for="curp" class="text-text-dark">Sube tu CURP:</label>
-            <input type="file" name="curp" id="curp" accept=".png, .jpg, .jpeg, .pdf" />
+          <hr class="mt-8 border-dark" />
+          <p class="text-text-dark font-semibold text-lg mt-8">Sube tus archivos</p>
+
+          <div v-if="data.accType === 'student'">
+            <p class="text-text-dark mt-4">Sube tu CURP:</p>
+            <input
+              type="file"
+              id="curp"
+              accept=".png, .jpg, .jpeg, .pdf"
+              class="hidden"
+              @change="handleFileUpload($event, 'curp')"
+            />
+            <div class="flex space-x-8 w-full mt-2">
+              <label
+                for="curp"
+                class="bg-primary text-white flex relative font-medium items-center justify-evenly w-56 rounded-lg py-3 cursor-pointer"
+                ><ArrowInUpSquareHalf />Seleccionar Archivo</label
+              >
+              <div v-if="data.mainIDFile" class="flex flex-col justify-around">
+                <span class="text-sm font-semibold text-text-dark truncate">
+                  {{ data.mainIDFile.name }}
+                </span>
+                <span class="text-xs text-text-light">
+                  {{ formattedFileSize(data.mainIDFile) }}
+                </span>
+              </div>
+
+              <div v-else class="flex flex-col justify-center">
+                <span class="text-sm text-text-light"> Ningún archivo seleccionado </span>
+              </div>
+            </div>
+
+            <div v-if="data.subAccType == 'ss'" class="mt-8">
+              <p class="text-text-dark mt-4">Sube tu comprobante escolar:</p>
+              <input
+                type="file"
+                id="sscomp"
+                accept=".png, .jpg, .jpeg, .pdf"
+                class="hidden"
+                @change="handleFileUpload($event, 'sscomp')"
+              />
+              <div class="flex space-x-8 w-full mt-2">
+                <label
+                  for="sscomp"
+                  class="bg-primary text-white flex relative font-medium items-center justify-evenly w-56 rounded-lg py-3 cursor-pointer"
+                  ><ArrowInUpSquareHalf />Seleccionar Archivo</label
+                >
+                <div v-if="data.secondFile" class="flex flex-col justify-around">
+                  <span class="text-sm font-semibold text-text-dark truncate">
+                    {{ data.secondFile.name }}
+                  </span>
+                  <span class="text-xs text-text-light">
+                    {{ formattedFileSize(data.secondFile) }}
+                  </span>
+                </div>
+
+                <div v-else class="flex flex-col justify-center">
+                  <span class="text-sm text-text-light"> Ningún archivo seleccionado </span>
+                </div>
+              </div>
+            </div>
+            <div v-if="data.subAccType == 'sm'" class="mt-8">
+              <p class="text-text-dark mt-4">Sube tu Acta de Nacimiento:</p>
+              <input
+                type="file"
+                id="smacta"
+                accept=".png, .jpg, .jpeg, .pdf"
+                class="hidden"
+                @change="handleFileUpload($event, 'smacta')"
+              />
+              <div class="flex space-x-8 w-full mt-2">
+                <label
+                  for="smacta"
+                  class="bg-primary text-white flex relative font-medium items-center justify-evenly w-56 rounded-lg py-3 cursor-pointer"
+                  ><ArrowInUpSquareHalf />Seleccionar Archivo</label
+                >
+                <div v-if="data.secondFile" class="flex flex-col justify-around">
+                  <span class="text-sm font-semibold text-text-dark truncate">
+                    {{ data.secondFile.name }}
+                  </span>
+                  <span class="text-xs text-text-light">
+                    {{ formattedFileSize(data.secondFile) }}
+                  </span>
+                </div>
+
+                <div v-else class="flex flex-col justify-center">
+                  <span class="text-sm text-text-light"> Ningún archivo seleccionado </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="data.accType === 'health'">
+            <p class="text-text-dark mt-4">Sube tu:</p>
+            <input
+              disabled
+              type="file"
+              id="curp"
+              accept=".png, .jpg, .jpeg, .pdf"
+              class="hidden"
+              @change="handleFileUpload($event, 'curp')"
+            />
+            <div class="flex space-x-8 w-full mt-2">
+              <label
+                for="curp"
+                class="bg-primary text-white flex relative font-medium items-center justify-evenly w-56 rounded-lg py-3 cursor-not-allowed opacity-75"
+                ><ArrowInUpSquareHalf />Seleccionar Archivo</label
+              >
+              <div v-if="data.mainIDFile" class="flex flex-col justify-around">
+                <span class="text-sm font-semibold text-text-dark truncate">
+                  {{ data.mainIDFile.name }}
+                </span>
+                <span class="text-xs text-text-light">
+                  {{ formattedFileSize(data.mainIDFile) }}
+                </span>
+              </div>
+
+              <div v-else class="flex flex-col justify-center">
+                <span class="text-sm text-text-light"> Ningún archivo seleccionado </span>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="data.accType === 'adult'">
+            <p class="text-text-dark mt-4">Sube tu Identificación Oficial:</p>
+            <input
+              type="file"
+              id="curp"
+              accept=".png, .jpg, .jpeg, .pdf"
+              class="hidden"
+              @change="handleFileUpload($event, 'curp')"
+            />
+            <div class="flex space-x-8 w-full mt-2">
+              <label
+                for="curp"
+                class="bg-primary text-white flex relative font-medium items-center justify-evenly w-56 rounded-lg py-3 cursor-pointer"
+                ><ArrowInUpSquareHalf />Seleccionar Archivo</label
+              >
+              <div v-if="data.mainIDFile" class="flex flex-col justify-around">
+                <span class="text-sm font-semibold text-text-dark truncate">
+                  {{ data.mainIDFile.name }}
+                </span>
+                <span class="text-xs text-text-light">
+                  {{ formattedFileSize(data.mainIDFile) }}
+                </span>
+              </div>
+
+              <div v-else class="flex flex-col justify-center">
+                <span class="text-sm text-text-light"> Ningún archivo seleccionado </span>
+              </div>
+            </div>
+
+            <div v-if="data.subAccType == 'aa'" class="mt-8">
+              <p class="text-text-dark mt-4">Sube tu credencial del INAPAM:</p>
+              <input
+                type="file"
+                id="aainapam"
+                accept=".png, .jpg, .jpeg, .pdf"
+                class="hidden"
+                @change="handleFileUpload($event, 'aainapam')"
+              />
+              <div class="flex space-x-8 w-full mt-2">
+                <label
+                  for="aainapam"
+                  class="bg-primary text-white flex relative font-medium items-center justify-evenly w-56 rounded-lg py-3 cursor-pointer"
+                  ><ArrowInUpSquareHalf />Seleccionar Archivo</label
+                >
+                <div v-if="data.secondFile" class="flex flex-col justify-around">
+                  <span class="text-sm font-semibold text-text-dark truncate">
+                    {{ data.secondFile.name }}
+                  </span>
+                  <span class="text-xs text-text-light">
+                    {{ formattedFileSize(data.secondFile) }}
+                  </span>
+                </div>
+
+                <div v-else class="flex flex-col justify-center">
+                  <span class="text-sm text-text-light"> Ningún archivo seleccionado </span>
+                </div>
+              </div>
+            </div>
+            <div v-if="data.subAccType == 'ad'" class="mt-8">
+              <p class="text-text-dark mt-4">Sube tu constancia del DIF o APAC:</p>
+              <input
+                type="file"
+                id="adconst"
+                accept=".png, .jpg, .jpeg, .pdf"
+                class="hidden"
+                @change="handleFileUpload($event, 'adconst')"
+              />
+              <div class="flex space-x-8 w-full mt-2">
+                <label
+                  for="adconst"
+                  class="bg-primary text-white flex relative font-medium items-center justify-evenly w-56 rounded-lg py-3 cursor-pointer"
+                  ><ArrowInUpSquareHalf />Seleccionar Archivo</label
+                >
+                <div v-if="data.secondFile" class="flex flex-col justify-around">
+                  <span class="text-sm font-semibold text-text-dark truncate">
+                    {{ data.secondFile.name }}
+                  </span>
+                  <span class="text-xs text-text-light">
+                    {{ formattedFileSize(data.secondFile) }}
+                  </span>
+                </div>
+
+                <div v-else class="flex flex-col justify-center">
+                  <span class="text-sm text-text-light"> Ningún archivo seleccionado </span>
+                </div>
+              </div>
+            </div>
           </div>
         </form>
       </div>
     </div>
+
     <Modal v-model="isModalOpen" title="Requisitos para aplicar a la tarjeta preferencial">
       <p class="text-text-dark">Estudiante:</p>
       <ul class="list-disc list-inside">
