@@ -39,16 +39,16 @@ const authStore = useAuthStore()
               >
             </li>
             <li>
-              <a href="#" class="text-text-light">Compañía</a>
+              <a href="#" class="text-text-light">Q&A</a>
             </li>
             <li>
-              <a href="#" class="text-text-light">Características</a>
+              <a href="#" class="text-text-light">Compañía</a>
             </li>
             <li>
               <a href="#" class="text-text-light">Equipo</a>
             </li>
             <li>
-              <a href="#" class="text-text-light">Contacto</a>
+              <a href="#" class="text-text-light">Crecimiento</a>
             </li>
           </ul>
         </div>
