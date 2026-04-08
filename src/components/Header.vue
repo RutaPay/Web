@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth'
+import { Route } from '@boxicons/vue'
 
 const authStore = useAuthStore()
 </script>
 
 <template>
-  <header class="bg-white border-b border-primary sticky top-0">
+  <header class="bg-white border-b border-primary sticky top-0 overflow-hidden">
     <nav class="px-4 lg:px-6 py-4">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-7xl">
         <a href="https://rutapay.com" class="flex items-center focus:outline-none">
@@ -34,21 +35,40 @@ const authStore = useAuthStore()
         <div class="justify-between items-center w-full lg:flex lg:w-auto">
           <ul class="flex font-medium space-x-8">
             <li>
-              <RouterLink :to="{ name: 'home' }" class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300" aria-current="page"
+              <RouterLink
+                :to="{ name: 'home' }"
+                class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300"
+                aria-current="page"
                 >Inicio</RouterLink
               >
             </li>
             <li>
-              <a href="#Q&A" class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300">Q&A</a>
+              <RouterLink
+                :to="{ hash: '#Q&A' }"
+                class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300"
+                >Q&A</RouterLink
+              >
             </li>
             <li>
-              <a href="#Company" class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300">Compañía</a>
+              <RouterLink
+                :to="{ hash: '#Company' }"
+                class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300"
+                >Compañía</RouterLink
+              >
             </li>
             <li>
-              <a href="#Team" class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300" id="Team">Equipo</a>
+              <RouterLink
+                :to="{ hash: '#Team' }"
+                class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300"
+                >Equipo</RouterLink
+              >
             </li>
             <li>
-              <a href="#Growth" class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300">Crecimiento</a>
+              <RouterLink
+                :to="{ hash: '#Growth' }"
+                class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300"
+                >Crecimiento</RouterLink
+              >
             </li>
           </ul>
         </div>

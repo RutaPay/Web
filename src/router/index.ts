@@ -84,6 +84,15 @@ const router = createRouter({
       component: NotFoundView,
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+      }
+    }
+    return { top: 0 }
+  },
 })
 
 router.beforeEach(async (to, from, next) => {
