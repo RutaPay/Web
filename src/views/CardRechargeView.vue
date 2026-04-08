@@ -173,7 +173,7 @@
                           Monto a recargar
                         </dt>
                         <dd class="text-base font-medium text-gray-900 dark:text-white">
-                          $2,000,000
+                          $0
                         </dd>
                       </dl>
 
@@ -181,29 +181,16 @@
                         <dt class="text-base font-normal text-gray-500 dark:text-gray-700">
                           Opcional
                         </dt>
-                        <dd class="text-base font-medium text-green-500">-$299.00</dd>
+                        <dd class="text-base font-medium text-green-500">$0</dd>
                       </dl>
 
-                      <dl class="flex items-center justify-between gap-4">
-                        <dt class="text-base font-normal text-gray-500 dark:text-gray-700">
-                          Opcional
-                        </dt>
-                        <dd class="text-base font-medium text-gray-900 dark:text-white">$99</dd>
-                      </dl>
-
-                      <dl class="flex items-center justify-between gap-4">
-                        <dt class="text-base font-normal text-gray-500 dark:text-gray-700">
-                          Opcional
-                        </dt>
-                        <dd class="text-base font-medium text-gray-900 dark:text-white">$799</dd>
-                      </dl>
                     </div>
 
                     <dl
                       class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700"
                     >
                       <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
-                      <dd class="text-base font-bold text-gray-900 dark:text-white">-$000.002</dd>
+                      <dd class="text-base font-bold text-gray-900 dark:text-white">$0</dd>
                     </dl>
                   </div>
 

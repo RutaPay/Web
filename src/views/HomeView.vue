@@ -7,7 +7,7 @@ import { ArrowRightStroke, ChevronRight, Dashboard } from '@boxicons/vue'
 <template>
   <Header />
   <main class="bg-white">
-    <div class="py-8 px-4 mx-auto max-w-7xl text-center lg:py-16 lg:px-12">
+    <div class="py-8 px-4 mx-auto max-w-7xl text-center lg:py-16 lg:px-12" id="Start">
       <a
         href="#"
         class="inline-flex justify-between items-center py-2 px-2 mb-8 text-sm text-gray-700 bg-gray-100 rounded-full"
@@ -42,7 +42,7 @@ import { ArrowRightStroke, ChevronRight, Dashboard } from '@boxicons/vue'
         </RouterLink>
       </div>
     </div>
-    <section class="bg-white">
+    <section class="bg-white" id="Q&A">
       <div class="py-8 px-4 mx-auto max-w-7xl sm:py-16 lg:px-6">
         <h2 class="mb-8 text-4xl tracking-tight font-extrabold text-gray-900">
           Preguntas Frecuentes
@@ -162,42 +162,52 @@ import { ArrowRightStroke, ChevronRight, Dashboard } from '@boxicons/vue'
         </div>
       </div>
     </section>
-    <div class="overflow-hidden bg-gray-900 py-24 sm:py-32">
+<div class="overflow-hidden bg-white py-24 sm:py-32" id="Company">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
       <div class="lg:pt-4 lg:pr-8">
         <div class="lg:max-w-lg">
-          <h2 class="text-base/7 font-semibold text-indigo-400">Deploy faster</h2>
-          <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">A better workflow</p>
-          <p class="mt-6 text-lg/8 text-gray-300">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</p>
-          <dl class="mt-10 max-w-xl space-y-8 text-base/7 text-gray-400 lg:max-w-none">
+          <h2 class="text-base/7 font-semibold text-primary">Desarrollo unitario</h2>
+          <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-black sm:text-5xl">
+            Un mejor trabajo
+          </p>
+          <p class="mt-6 text-lg/8 text-gray-500">
+            Nos gustaría compartir contigo un poco de nuestro proceso de desarrollo, para que puedas entender un poco más sobre lo que hacemos y cómo lo hacemos.
+          </p>
+          <dl class="mt-10 max-w-xl space-y-8 text-base/7 text-gray-500 lg:max-w-none">
             <div class="relative pl-9">
-              <dt class="inline font-semibold text-white">
-                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="absolute top-1 left-1 size-5 text-indigo-400">
+              <dt class="inline font-semibold text-black">
+                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="absolute top-1 left-1 size-5 text-primary">
                   <path d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm3.75-2.75a.75.75 0 0 0 1.5 0V9.66l1.95 2.1a.75.75 0 1 0 1.1-1.02l-3.25-3.5a.75.75 0 0 0-1.1 0l-3.25 3.5a.75.75 0 1 0 1.1 1.02l1.95-2.1v4.59Z" clip-rule="evenodd" fill-rule="evenodd" />
                 </svg>
-                Push to deploy.
+                Herramientas de desarrollo.
               </dt>
-              <dd class="inline">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</dd>
+              <dd class="inline">
+                La nube como herramienta de desarrollo es algo que nos ha ayudado mucho a mejorar nuestro proceso de desarrollo, ya que nos permite tener un entorno de desarrollo unificado y accesible desde cualquier lugar.
+              </dd>
             </div>
             <div class="relative pl-9">
-              <dt class="inline font-semibold text-white">
-                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="absolute top-1 left-1 size-5 text-indigo-400">
+              <dt class="inline font-semibold text-black">
+                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="absolute top-1 left-1 size-5 text-primary">
                   <path d="M10 1a4.5 4.5 0 0 0-4.5 4.5V9H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2h-.5V5.5A4.5 4.5 0 0 0 10 1Zm3 8V5.5a3 3 0 1 0-6 0V9h6Z" clip-rule="evenodd" fill-rule="evenodd" />
                 </svg>
-                SSL certificates.
+                Seguridad y privacidad.
               </dt>
-              <dd class="inline">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.</dd>
+              <dd class="inline">
+                La seguridad y privacidad de los datos son aspectos fundamentales en nuestro proceso de desarrollo, ya que nos comprometemos a proteger la información de nuestros usuarios y garantizar su privacidad en todo momento.
+              </dd>
             </div>
             <div class="relative pl-9">
-              <dt class="inline font-semibold text-white">
-                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="absolute top-1 left-1 size-5 text-indigo-400">
+              <dt class="inline font-semibold text-black">
+                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="absolute top-1 left-1 size-5 text-primary">
                   <path d="M4.632 3.533A2 2 0 0 1 6.577 2h6.846a2 2 0 0 1 1.945 1.533l1.976 8.234A3.489 3.489 0 0 0 16 11.5H4c-.476 0-.93.095-1.344.267l1.976-8.234Z" />
                   <path d="M4 13a2 2 0 1 0 0 4h12a2 2 0 1 0 0-4H4Zm11.24 2a.75.75 0 0 1 .75-.75H16a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75h-.01a.75.75 0 0 1-.75-.75V15Zm-2.25-.75a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75H13a.75.75 0 0 0 .75-.75V15a.75.75 0 0 0-.75-.75h-.01Z" clip-rule="evenodd" fill-rule="evenodd" />
                 </svg>
-                Database backups.
+                Backups.
               </dt>
-              <dd class="inline">Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.</dd>
+              <dd class="inline">
+                Realizamos copias de seguridad periódicas de nuestros datos para garantizar la integridad y disponibilidad de la información.
+              </dd>
             </div>
           </dl>
         </div>
@@ -206,64 +216,39 @@ import { ArrowRightStroke, ChevronRight, Dashboard } from '@boxicons/vue'
     </div>
   </div>
 </div>
-<div class="bg-gray-900 py-24 sm:py-32">
+<div class="bg-white py-24 sm:py-32" id="Team">
   <div class="mx-auto grid max-w-7xl gap-20 px-6 lg:px-8 xl:grid-cols-3">
     <div class="max-w-xl">
-      <h2 class="text-3xl font-semibold tracking-tight text-pretty text-white sm:text-4xl">Meet our leadership</h2>
-      <p class="mt-6 text-lg/8 text-gray-400">We’re a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.</p>
+      <h2 class="text-3xl font-semibold tracking-tight text-pretty text-black sm:text-4xl">Conocenos un poco más</h2>
+      <p class="mt-6 text-lg/8 text-gray-500">
+        Somos dos estudiantes, que intentan mejorar el transporte público de su ciudad.
+        Nuestro objetivo es simple, queremos conectar con las personas que nos rodean y ayudarles un poco,
+        En su día a día, nos seguiremos esforzando para mejorar y crecer en este proyecto, y esperamos que nos acompañes en este camino.
+      </p>
     </div>
-    <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
+    <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-1 sm:gap-y-16 xl:col-span-2">
       <li>
-        <div class="flex items-center gap-x-6">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" />
+        <div class="flex items-center gap-x-6 ">
+          <img src="" alt="" class="size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" />
           <div>
-            <h3 class="text-base/7 font-semibold tracking-tight text-white">Leslie Alexander</h3>
-            <p class="text-sm/6 font-semibold text-indigo-400">Co-Founder / CEO</p>
+            <h3 class="text-3xl font-semibold tracking-tight text-black">
+              Haziel Ramírez Rodríguez
+            </h3>
+            <p class="text-lg font-semibold text-secondary">
+              Co-Founder / CEO
+            </p>
           </div>
         </div>
       </li>
       <li>
         <div class="flex items-center gap-x-6">
-          <img src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" />
+          <img src="" alt="" class="size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" />
           <div>
-            <h3 class="text-base/7 font-semibold tracking-tight text-white">Michael Foster</h3>
-            <p class="text-sm/6 font-semibold text-indigo-400">Co-Founder / CTO</p>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="flex items-center gap-x-6">
-          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" />
-          <div>
-            <h3 class="text-base/7 font-semibold tracking-tight text-white">Dries Vincent</h3>
-            <p class="text-sm/6 font-semibold text-indigo-400">Business Relations</p>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="flex items-center gap-x-6">
-          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" />
-          <div>
-            <h3 class="text-base/7 font-semibold tracking-tight text-white">Lindsay Walton</h3>
-            <p class="text-sm/6 font-semibold text-indigo-400">Front-end Developer</p>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="flex items-center gap-x-6">
-          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" />
-          <div>
-            <h3 class="text-base/7 font-semibold tracking-tight text-white">Courtney Henry</h3>
-            <p class="text-sm/6 font-semibold text-indigo-400">Designer</p>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="flex items-center gap-x-6">
-          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-16 rounded-full outline-1 -outline-offset-1 outline-white/10" />
-          <div>
-            <h3 class="text-base/7 font-semibold tracking-tight text-white">Tom Cook</h3>
-            <p class="text-sm/6 font-semibold text-indigo-400">Director of Product</p>
+            <h3 class="text-3xl font-semibold tracking-tight text-black">
+              Ian Orozco Paniagua
+            </h3>
+            <p class="text-lg font-semibold text-secondary">
+              Co-Founder / CEO</p>
           </div>
         </div>
       </li>
@@ -271,17 +256,27 @@ import { ArrowRightStroke, ChevronRight, Dashboard } from '@boxicons/vue'
   </div>
 </div>
 
-<section class="bg-white dark:bg-gray-900">
+<section class="bg-white" id="Growth">
     <div class="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
         <img class="w-full dark:hidden" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup.svg" alt="dashboard image">
         <img class="w-full hidden dark:block" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg" alt="dashboard image">
         <div class="mt-4 md:mt-0">
-            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Let's create more tools and ideas that brings us together.</h2>
-            <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">Flowbite helps you connect with friends and communities of people who share your interests. Connecting with your friends and family as well as discovering new ones is easy with features like Groups.</p>
-            <a href="#" class="inline-flex items-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
-                Get started
+            <p class="text-lg font-semibold text-primary py-3">
+              Crecimiento
+            </p>
+            <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-black ">
+              Creemos más herramientas e ideas que nos unan.
+            </h2>
+            <p class="mb-6 font-light text-gray-600 md:text-lg ">
+              RutaPay no es solo un proyecto de nosotros, es un proyecto para todos como una comunidad unida.
+              Conectar con los que te rodean y empatizar con ellos nos hace mejores personas.
+            </p>
+            <RouterLink
+             :to="{ name: 'dashboard' }"
+             class="inline-flex items-center text-black bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900">
+                Empezar ahora
                 <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            </a>
+            </RouterLink>
         </div>
     </div>
 </section>

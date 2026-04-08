@@ -70,25 +70,43 @@ const userCardNumber = ref('4532 1234 5678 9012')
           Recargar
         </h3>
         <div class="flex justify-between space-x-8 sm:mt-4 md:mt-6 lg:mt-8">
-          <div class="rounded-2xl border-2 border-primary p-8">
-            <p class="text-text-light uppercase">AÑADIR</p>
-            <p class="font-bold text-primary text-center text-2xl">$50</p>
-          </div>
-          <div class="bg-primary rounded-2xl border-2 border-primary p-8">
-            <p class="text-text-dark uppercase">AÑADIR</p>
-            <p class="font-bold text-white text-center text-2xl">$100</p>
-          </div>
-          <div class="rounded-2xl border-2 border-primary p-8">
-            <p class="text-text-light uppercase">AÑADIR</p>
-            <p class="font-bold text-primary text-center text-2xl">$200</p>
-          </div>
-          <div class="rounded-2xl border-2 border-primary p-8">
-            <PlusCircle
-              pack="filled"
-              class="flex items-center justify-center min-w-16 text-2xl text-primary"
-            />
-            <p class="text-text-light uppercase">AÑADIR</p>
-          </div>
+          <!-- Botones de recarga -->
+           <RouterLink
+                :to="{ name: 'card-recharge' }"
+            class="grid flex-col justify-center items-center bg-white border border-primary rounded-lg p-6 w-full hover:bg-primary hover:text-white transition-colors duration-300">
+            <PlusCircle class="text-secondary text-4xl mb-2" />
+            <h4 class="text-2xl text-black mt-1">
+              $50
+            </h4>
+            <span class="text-lg font-semibold text-black">Recargar Saldo</span>
+          </RouterLink>
+           <RouterLink
+                :to="{ name: 'card-recharge' }"
+            class="grid flex-col justify-center items-center bg-white border border-primary rounded-lg p-6 w-full hover:bg-primary hover:text-white transition-colors duration-300">
+            <PlusCircle class="text-secondary text-4xl mb-2" />
+            <h4 class="text-2xl text-black mt-1">
+              $100
+            </h4>
+            <span class="text-lg font-semibold text-black">Recargar Saldo</span>
+          </RouterLink>
+          <RouterLink
+                :to="{ name: 'card-recharge' }"
+            class="grid flex-col justify-center items-center bg-white border border-primary rounded-lg p-6 w-full hover:bg-primary hover:text-white transition-colors duration-300">
+            <PlusCircle class="text-secondary text-4xl mb-2" />
+            <h4 class="text-2xl text-black mt-1">
+              $200
+            </h4>
+            <span class="text-lg font-semibold text-black">Recargar Saldo</span>
+          </RouterLink>
+           <RouterLink
+                :to="{ name: 'card-recharge' }"
+            class="grid flex-col justify-center items-center bg-white border border-primary rounded-lg p-6 w-full hover:bg-primary hover:text-white transition-colors duration-300">
+            <PlusCircle class="text-secondary text-4xl mb-2" />
+            <h4 class="text-2xl text-black mt-1">
+              Saldo Perosonalizado
+            </h4>
+            <span class="text-lg font-semibold text-black">Recargar Saldo</span>
+           </RouterLink>
         </div>
       </div>
       <h3 class="mt-14 lg:mt-20 text-2xl font-bold md:text-3xl lg:text-4xl text-text-dark">

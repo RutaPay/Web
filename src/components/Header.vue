@@ -34,21 +34,21 @@ const authStore = useAuthStore()
         <div class="justify-between items-center w-full lg:flex lg:w-auto">
           <ul class="flex font-medium space-x-8">
             <li>
-              <RouterLink :to="{ name: 'home' }" class="text-text-dark" aria-current="page"
+              <RouterLink :to="{ name: 'home' }" class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300" aria-current="page"
                 >Inicio</RouterLink
               >
             </li>
             <li>
-              <a href="#" class="text-text-light">Q&A</a>
+              <a href="#Q&A" class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300">Q&A</a>
             </li>
             <li>
-              <a href="#" class="text-text-light">Compañía</a>
+              <a href="#Company" class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300">Compañía</a>
             </li>
             <li>
-              <a href="#" class="text-text-light">Equipo</a>
+              <a href="#Team" class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300" id="Team">Equipo</a>
             </li>
             <li>
-              <a href="#" class="text-text-light">Crecimiento</a>
+              <a href="#Growth" class="text-text-light hover:text-black hover:tracking-wider transition-all duration-300">Crecimiento</a>
             </li>
           </ul>
         </div>
