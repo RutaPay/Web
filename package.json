@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "@boxicons/vue": "^1.0.1",
+    "@indoorequal/vue-maplibre-gl": "^8.4.2",
     "@tailwindcss/vite": "^4.2.0",
     "flowbite": "^4.0.1",
+    "maplibre-gl": "^5.22.0",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.2.0",
     "vue": "^3.5.28",

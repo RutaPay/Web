@@ -2,6 +2,7 @@
 import SideBar from '../components/SideBar.vue'
 import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
+import { MglMap } from '@indoorequal/vue-maplibre-gl'
 
 const sidebarStore = useSidebarStore()
 
@@ -75,7 +76,6 @@ const routes = ref([
 const filteredRoutes = computed(() => {
   return routes.value.filter((route) => route.toLowerCase().includes(search.value.toLowerCase()))
 })
-
 </script>
 
 <template>
@@ -100,7 +100,6 @@ const filteredRoutes = computed(() => {
         >
           <div class="text-2xl font-semibold mt-4 text-primary">Rutas Sugeridas</div>
 
-
           <div class="w-full h-164 bg-white rounded-lg p-6 overflow-y-auto border border-gray-300">
             <ul>
               <li v-for="route in filteredRoutes" :key="route" class="hover:text-primary">
@@ -113,10 +112,19 @@ const filteredRoutes = computed(() => {
 
       <div class="p-8 bg-white md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
         <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
-          <div class="text-2xl p-5 text-primary">[Mapa de Rutas]</div>
+          <MglMap
+            mapStyle="https://tiles.openfreemap.org/styles/bright"
+            :center="[20.521788, -100.8140458]"
+            :zoom="8"
+            class="w-full h-full rounded-lg"
+          />
         </div>
       </div>
     </div>
   </main>
   <Footer :isClosed="sidebarStore.closedState" />
 </template>
+
+<style scoped>
+@import 'maplibre-gl/dist/maplibre-gl.css';
+</style>
