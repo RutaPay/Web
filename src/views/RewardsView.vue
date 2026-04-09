@@ -120,10 +120,8 @@ const authStore = useAuthStore()
       >
         Canje de Puntos
       </h3>
-      </div>
-      <div class="h-100 flex items-center justify-center gap-15">
-
-      </div>
+    </div>
+    <div class="h-100 flex items-center justify-center gap-15"></div>
   </main>
   <Footer :isClosed="sidebarStore.closedState" />
 </template>

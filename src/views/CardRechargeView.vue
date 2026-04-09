@@ -172,9 +172,7 @@
                         <dt class="text-base font-normal text-gray-500 dark:text-gray-700">
                           Monto a recargar
                         </dt>
-                        <dd class="text-base font-medium text-gray-900 dark:text-white">
-                          $0
-                        </dd>
+                        <dd class="text-base font-medium text-gray-900 dark:text-white">$0</dd>
                       </dl>
 
                       <dl class="flex items-center justify-between gap-4">
@@ -183,7 +181,6 @@
                         </dt>
                         <dd class="text-base font-medium text-green-500">$0</dd>
                       </dl>
-
                     </div>
 
                     <dl

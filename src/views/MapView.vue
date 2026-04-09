@@ -1,16 +1,17 @@
 <script setup lang="ts">
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import SideBar from '../components/SideBar.vue'
 import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 
+import mapboxgl from 'mapbox-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
+
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API_KEY
+
 const sidebarStore = useSidebarStore()
 
-import { ref, computed } from 'vue'
-
-// Texto que escribe el usuario
 const search = ref('')
-
-// Lista de rutas
 const routes = ref([
   'R1 - SMO - CELAYA',
   'R2 - TAMAYO',
@@ -76,6 +77,48 @@ const filteredRoutes = computed(() => {
   return routes.value.filter((route) => route.toLowerCase().includes(search.value.toLowerCase()))
 })
 
+const mapContainer = ref<HTMLDivElement | null>(null)
+const map = ref<mapboxgl.Map | null>(null)
+
+onMounted(async () => {
+  map.value = new mapboxgl.Map({
+    container: mapContainer.value as HTMLDivElement,
+    center: [-100.8140458, 20.521788],
+    zoom: 12,
+    style: 'mapbox://styles/mapbox/standard',
+  })
+
+  const route = await fetch('/data/route.geojson')
+  const data = await route.json()
+  addRouteToMap(data)
+})
+
+const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
+  if (map.value?.getSource('route')) {
+    const source = map.value.getSource('route') as mapboxgl.GeoJSONSource
+    source.setData(routeData)
+  } else {
+    map.value?.on('load', () => {
+      map.value?.addSource('route', {
+        type: 'geojson',
+        data: routeData,
+      })
+      map.value?.addLayer({
+        id: 'route',
+        type: 'line',
+        source: 'route',
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#449dd1',
+          'line-width': 4
+        }
+      })
+    })
+  }
+}
 </script>
 
 <template>
@@ -100,7 +143,6 @@ const filteredRoutes = computed(() => {
         >
           <div class="text-2xl font-semibold mt-4 text-primary">Rutas Sugeridas</div>
 
-
           <div class="w-full h-164 bg-white rounded-lg p-6 overflow-y-auto border border-gray-300">
             <ul>
               <li v-for="route in filteredRoutes" :key="route" class="hover:text-primary">
@@ -113,7 +155,7 @@ const filteredRoutes = computed(() => {
 
       <div class="p-8 bg-white md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
         <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
-          <div class="text-2xl p-5 text-primary">[Mapa de Rutas]</div>
+          <div ref="mapContainer" class="w-full h-full rounded-lg""></div>
         </div>
       </div>
     </div>

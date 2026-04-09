@@ -19,6 +19,7 @@
     "@boxicons/vue": "^1.0.1",
     "@tailwindcss/vite": "^4.2.0",
     "flowbite": "^4.0.1",
+    "mapbox-gl": "^3.21.0",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.2.0",
     "vue": "^3.5.28",
