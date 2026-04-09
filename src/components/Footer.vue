@@ -103,7 +103,7 @@ defineProps({
       <div>
         <h3 class="text-lg font-bold text-text-dark mb-4">Contacto</h3>
         <p class="text-text-light">Dirección: Calle Principal 123, Ciudad</p>
-        <p class="text-text-light">Teléfono: +1 (555) 123-4567</p>
+        <p class="text-text-light">Teléfono: +52 461 123-4567</p>
       </div>
     </div>
     <p class="text-text-dark text-center">&copy; 2026 RutaPay. Todos los derechos reservados.</p>
