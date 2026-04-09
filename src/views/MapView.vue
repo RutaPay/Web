@@ -24,11 +24,8 @@ const routes = ref([
 
 // Computada: devuelve solo las rutas que coinciden con la búsqueda
 const filteredRoutes = computed(() => {
-  return routes.value.filter(route =>
-    route.toLowerCase().includes(search.value.toLowerCase())
-  )
+  return routes.value.filter((route) => route.toLowerCase().includes(search.value.toLowerCase()))
 })
-
 </script>
 
 <template>
@@ -41,22 +38,21 @@ const filteredRoutes = computed(() => {
       class="min-h-screen flex flex-row bg-white text-text-dark rounded-3xl shadow-sm border border-gray-200 p-4 md:p-8"
     >
       <!-- Columna izquierda -->
-      <div class="w-1/2 flex items-baseline flex-col p-8 bg-white">
-
+      <div class="w-1/3 flex items-baseline flex-col p-8 bg-white">
         <input
-          type="text"
+          type="search"
           placeholder="Busca una ruta..."
           class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary mb-4"
           v-model="search"
         />
 
-        <div class="w-full h-128 bg-white rounded-lg flex items-baseline justify-baseline text-black flex-col gap-10 pr-5">
-          <div class="text-2xl p-5 text-primary border-b border-gray-300 hover:text-black">Rutas Sugeridas</div>
+        <div
+          class="w-full bg-white rounded-lg flex items-baseline justify-baseline text-black flex-col gap-10 pr-5"
+        >
+          <div class="text-2xl font-semibold mt-4 text-primary">Rutas Sugeridas</div>
 
-
-          <div class="w-full h-128 bg-white rounded-lg p-5 overflow-y-auto border border-gray-300">
+          <div class="w-full h-auto bg-white rounded-lg p-6 overflow-y-auto border border-gray-300">
             <ul>
-
               <li v-for="route in filteredRoutes" :key="route" class="hover:text-primary">
                 <span>{{ route }}</span>
               </li>
@@ -66,14 +62,13 @@ const filteredRoutes = computed(() => {
       </div>
 
       <!-- Columna derecha -->
-      <div class="w-1/2 p-8 bg-gray-400">
+      <div class="w-2/3 p-8 bg-gray-400">
         <!-- Aquí van las rutas en el mapa toilet -->
-         <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
+        <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
           <div class="text-2xl p-5 text-primary">[Mapa de Rutas]</div>
-         </div>
+        </div>
       </div>
     </div>
   </main>
   <Footer :isClosed="sidebarStore.closedState" />
-
 </template>
