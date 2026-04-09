@@ -52,7 +52,7 @@ const toggleMenu = () => {
   isActive.value = !isActive.value
 }
 
-const selectItem = (optionText) => {
+const selectItem = (optionText: string) => {
   selectedOption.value = optionText
   typeOptions.forEach((option) => {
     if (option.text === optionText) {
