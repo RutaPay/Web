@@ -98,7 +98,7 @@ const filteredRoutes = computed(() => {
         >
           <div class="text-2xl font-semibold mt-4 text-primary">Rutas Sugeridas</div>
 
-          <div class="w-full h-auto bg-white rounded-lg p-6 overflow-y-auto border border-gray-300">
+          <div class="w-full h-196 bg-white rounded-lg p-6 overflow-y-auto border border-gray-300">
             <ul>
               <li v-for="route in filteredRoutes" :key="route" class="hover:text-primary">
                 <span>{{ route }}</span>
