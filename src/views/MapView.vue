@@ -20,6 +20,8 @@ const routes = ref([
   '006 LOS OLIVOS - SKIBIDILANDIA ',
   '007 CENTRAL DE AUTOBUSES - UNIVERSIDAD TECNOLÓGICA',
   '010 PEDREGOSO - LOS OLIVOS',
+  '011 KIRK ROAD - LITTLE SAINT JAMES',
+  '010 PEDREGOSO - LOS OLIVOS',
 ])
 
 // Computada: devuelve solo las rutas que coinciden con la búsqueda
