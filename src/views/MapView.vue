@@ -68,12 +68,14 @@ const routes = ref([
   'R60 - PINOS',
   'R61 - INDUSTRIAL',
   'R62 - SMO - CD INDUSTRIAL',
+  'R63 - UNIVERSIDADES',
 ])
 
 // Computada: devuelve solo las rutas que coinciden con la búsqueda
 const filteredRoutes = computed(() => {
   return routes.value.filter((route) => route.toLowerCase().includes(search.value.toLowerCase()))
 })
+
 </script>
 
 <template>
@@ -98,7 +100,7 @@ const filteredRoutes = computed(() => {
         >
           <div class="text-2xl font-semibold mt-4 text-primary">Rutas Sugeridas</div>
 
-          <div class="w-full h-196 bg-white rounded-lg p-6 overflow-y-auto border border-gray-300">
+          <div class="w-full h-164 bg-white rounded-lg p-6 overflow-y-auto border border-gray-300">
             <ul>
               <li v-for="route in filteredRoutes" :key="route" class="hover:text-primary">
                 <span>{{ route }}</span>
@@ -108,7 +110,7 @@ const filteredRoutes = computed(() => {
         </div>
       </div>
 
-      <div class="p-8 bg-gray-400 md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
+      <div class="p-8 bg-white md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
         <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
           <div class="text-2xl p-5 text-primary">[Mapa de Rutas]</div>
         </div>
