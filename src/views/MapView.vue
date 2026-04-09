@@ -12,14 +12,62 @@ const search = ref('')
 
 // Lista de rutas
 const routes = ref([
-  '001 PEDREGOSO - CENTRO',
-  '002 PEDREGOSO - UNIVERSIDAD TECNOLÓGICA',
-  '003 PEDREGOSO 2A. SECCIÓN - CENTRO',
-  '004 COL. INDUSTRIAL NUEVO SAN JUAN - CENTRO',
-  '005 PEDREGOSO 2A. SECCIÓN - CENTRAL DE AUTOBUSES',
-  '006 LOS OLIVOS - SKIBIDILANDIA ',
-  '007 CENTRAL DE AUTOBUSES - UNIVERSIDAD TECNOLÓGICA',
-  '010 PEDREGOSO - LOS OLIVOS',
+  'R1 - SMO - CELAYA',
+  'R2 - TAMAYO',
+  'R3 - SAN LORENZO',
+  'R7 - EL SAUZ',
+  'R8 - SAN JUAN DE LA VEGA',
+  'R8 - RAMAL SJV-5 DE MAYO (RAMAL)',
+  'R9 - HOSPITAL',
+  'R10 - PUENTE',
+  'R11 - PRESA BLANCA',
+  'R11 - ESQUIROZ',
+  'R12 - SAN JOSÉ',
+  'R13 - LAJA',
+  'R14 - ESTRADA',
+  'R15 - SILVA X IGNACIO GUTIERREZ',
+  'R15 - SILVA X TENOCHTITLAN',
+  'R16 - ALAMOS',
+  'R17 - SAN ANTONIO',
+  'R18 - SAN JOSE EL NUEVO-PLANCARTE',
+  'R19 - ELGUERA',
+  'R20 - GASCA',
+  'R21 - MOLINO DE CRESPO',
+  'R22 - EL PUESTO',
+  'R23 - ROQUE',
+  'R24 - TENERIA',
+  'R25 - PLANCARTE',
+  'R26 - PUERTA DEL MONTE CELAYA',
+  'R27 - SAN ELIAS',
+  'R28 - ARREGUIN',
+  'R29 - SAN CAYETANO',
+  'R31 - REVOLUCION',
+  'R32 - MONTE BLANCO',
+  'R36 - LAURELES',
+  'R37 - VILLAS DEL BAJÍO',
+  'R37B - LAGOS',
+  'R39 - QUINTANA ROO',
+  'R40 - DELICIAS',
+  'R41 - HOSP.MAT- CENTRO',
+  'R42 - HOSP.MAT - CENTRAL',
+  'R43 - ROMERAL X FOVISSSTE',
+  'R44 - VILLAS DEL BAJIO',
+  'R45 - LOS OLIVOS',
+  'R46 - CD.INDUST - CAMPUS - CENTRAL',
+  'R47 - SAN MARTIN DE CAMARGO',
+  'R49 - LAS FLORES X INDUSTRIAL',
+  'R50 - LAS FLORES X FOVISSSTE',
+  'R51 - LA HERRADURA X IRRIGACION',
+  'R52 - LA HERRADURA X TENOCHTITLAN',
+  'R53 - ROMERAL X INDUSTRIAL',
+  'R54 - SAN LUIS REY X IRRIGACION',
+  'R54 - SAN LUIS REY X 16 DE SEPTIEMBRE',
+  'R55 - YUSTIS',
+  'R56 - SAN ELIAS',
+  'R58 - PROGRESO',
+  'R60 - PINOS',
+  'R61 - INDUSTRIAL',
+  'R62 - SMO - CD INDUSTRIAL',
 ])
 
 // Computada: devuelve solo las rutas que coinciden con la búsqueda
@@ -35,10 +83,9 @@ const filteredRoutes = computed(() => {
     :class="{ 'ml-64': !sidebarStore.closedState, 'ml-28': sidebarStore.closedState }"
   >
     <div
-      class="min-h-screen flex flex-row bg-white text-text-dark rounded-3xl shadow-sm border border-gray-200 p-4 md:p-8"
+      class="min-h-screen flex bg-white text-text-dark rounded-3xl shadow-sm border border-gray-200 p-4 md:p-8 md:flex-col xl:flex-row"
     >
-      <!-- Columna izquierda -->
-      <div class="w-1/3 flex items-baseline flex-col p-8 bg-white">
+      <div class="flex items-baseline flex-col p-8 bg-white sm:w-full xl:w-1/3">
         <input
           type="search"
           placeholder="Busca una ruta..."
@@ -61,9 +108,7 @@ const filteredRoutes = computed(() => {
         </div>
       </div>
 
-      <!-- Columna derecha -->
-      <div class="w-2/3 p-8 bg-gray-400">
-        <!-- Aquí van las rutas en el mapa toilet -->
+      <div class="p-8 bg-gray-400 md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
         <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
           <div class="text-2xl p-5 text-primary">[Mapa de Rutas]</div>
         </div>
