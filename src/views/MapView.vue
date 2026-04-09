@@ -70,6 +70,7 @@ const routes = ref([
   'R61 - INDUSTRIAL',
   'R62 - SMO - CD INDUSTRIAL',
   'R63 - UNIVERSIDADES',
+  'R67 - LITTLE SAINT JAMES - CAMINO A KIRK'
 ])
 
 // Computada: devuelve solo las rutas que coinciden con la búsqueda
@@ -155,7 +156,7 @@ const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
 
       <div class="p-8 bg-white md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
         <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
-          <div ref="mapContainer" class="w-full h-full rounded-lg""></div>
+          <div ref="mapContainer" class="w-full h-full rounded-lg"></div>
         </div>
       </div>
     </div>
