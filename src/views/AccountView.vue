@@ -43,8 +43,10 @@ onMounted(async () => {
   try {
     const response = await fetch('/data/benefits.json')
     const data: TiersData = await response.json()
-
-    selectedTier.value = data[currentTierKey.value]
+    const tier = data[currentTierKey.value]
+    if (tier) {
+      selectedTier.value = tier
+    }
   } catch (error) {
     console.error('Error loading account benefits:', error)
   }
