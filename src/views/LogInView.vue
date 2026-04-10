@@ -42,7 +42,7 @@ const submitForm = async () => {
     await handleGetUserInfo()
 
     await router.push('/dashboard')
-  } catch (error) {
+  } catch (error: any) {
     if (error.message === 'Failed to fetch') {
       toast.error('Error de Conexión', {
         description:

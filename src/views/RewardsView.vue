@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import SideBar from '../components/SideBar.vue'
-import Footer from '../components/Footer.vue'
+import SideBar from '@/components/SideBar.vue'
+import Footer from '@/components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 import { useAuthStore } from '@/stores/auth'
 
@@ -68,7 +68,7 @@ const authStore = useAuthStore()
             <div
               class="bg-white duration-400 group-hover:blur-sm hover:blur-none! group-hover:scale-[0.85] hover:scale-100! border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity"
             >
-              <img src="#" alt="Source" class="h-20 mx-auto" />
+              <img src="" alt="Source" class="h-20 mx-auto" />
               <h4 class="uppercase text-xl font-bold text-black">Gasto de Pasaje</h4>
               <p class="text-sm leading-7 ,y-3 font-light opacity-50 text-black">
                 Paga una pasaje con RutaPay y gana puntos automáticamente. Cumple con cualquier
@@ -83,7 +83,7 @@ const authStore = useAuthStore()
             <div
               class="bg-white duration-400 group-hover:blur-sm hover:blur-none! group-hover:scale-[0.85] hover:scale-100! b border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity"
             >
-              <img src="#" alt="Source" class="h-20 mx-auto" />
+              <img src="" alt="Source" class="h-20 mx-auto" />
               <h4 class="uppercase text-xl font-bold text-black">Recarga Diaria!</h4>
               <p class="text-sm leading-7 ,y-3 font-light opacity-50 text-black">
                 Recarga hoy con RutaPay y consigue tus puntos diarios. Manten tu saldo en un nivel
@@ -98,7 +98,7 @@ const authStore = useAuthStore()
             <div
               class="bg-white duration-400 group-hover:blur-sm hover:blur-none! group-hover:scale-[0.85] hover:scale-100! border-2 cursor-pointer p-8 rounded-xl mix-blend-luminosity"
             >
-              <img src="#" alt="Source" class="h-20 mx-auto" />
+              <img src="" alt="Source" class="h-20 mx-auto" />
               <h4 class="uppercase text-xl font-bold text-black">Descarga la App!</h4>
               <p class="text-sm leading-7 ,y-3 font-light opacity-50 text-black">
                 Nuestra aplicación móvil te ofrece una experiencia mejorada y puntos adicionales.
