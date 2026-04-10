@@ -114,7 +114,7 @@ const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
         },
         paint: {
           'line-color': '#449dd1',
-          'line-width': 4
+          'line-width': 6
         }
       })
     })
