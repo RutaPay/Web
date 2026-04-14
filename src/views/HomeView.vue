@@ -60,23 +60,27 @@ import {
             <div class="mb-10">
               <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900">
                 <HelpCircle class="mr-2 text-text-light" pack="filled" />
-                Lorem ipsum dolor sit amet.
+                ¿Cómo funciona RutaPay?
               </h3>
               <p class="text-text-light">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi qui est, ratione
-                quaerat dicta, nulla expedita maxime quo magnam voluptate cumque sint esse possimus
-                unde? Asperiores repellendus perferendis laborum autem.
+                RutaPay es una plataforma de pago para transporte público que permite a los usuarios
+                pagar sus viajes de manera rápida y segura a través de su teléfono móvil. Los
+                usuarios pueden vincular su tarjeta de crédito o débito a la aplicación y utilizarla
+                para pagar sus viajes en autobús, metro o cualquier otro medio de transporte público
+                compatible con la plataforma.
               </p>
             </div>
             <div class="mb-10">
               <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900">
                 <HelpCircle class="mr-2 text-text-light" pack="filled" />
-                Lorem ipsum dolor sit amet.
+                ¿Qué beneficios ofrece RutaPay a los usuarios?
               </h3>
               <p class="text-text-light">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi qui est, ratione
-                quaerat dicta, nulla expedita maxime quo magnam voluptate cumque sint esse possimus
-                unde? Asperiores repellendus perferendis laborum autem.
+                RutaPay ofrece una serie de beneficios a los usuarios, como la comodidad de poder
+                pagar sus viajes de transporte público sin tener que llevar efectivo o tarjetas
+                físicas, la seguridad de realizar pagos a través de una plataforma confiable y la
+                posibilidad de acceder a promociones y descuentos exclusivos para los usuarios de la
+                aplicación.
               </p>
             </div>
           </div>
@@ -84,23 +88,25 @@ import {
             <div class="mb-10">
               <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900">
                 <HelpCircle class="mr-2 text-text-light" pack="filled" />
-                Lorem ipsum dolor sit amet.
+                ¿Para que fue creado RutaPay?
               </h3>
               <p class="text-text-light">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi qui est, ratione
-                quaerat dicta, nulla expedita maxime quo magnam voluptate cumque sint esse possimus
-                unde? Asperiores repellendus perferendis laborum autem.
+                RutaPay fue creado con el objetivo de mejorar la experiencia de pago en el transporte
+                público, ofreciendo una solución moderna y eficiente para los usuarios. Además,
+                busca fomentar el uso del transporte público al facilitar el proceso de pago y
+                promover la adopción de tecnologías digitales en este ámbito.
               </p>
             </div>
             <div class="mb-10">
               <h3 class="flex items-center mb-4 text-lg font-medium text-gray-900">
                 <HelpCircle class="mr-2 text-text-light" pack="filled" />
-                Lorem ipsum dolor sit amet.
+                ¿Tienes más preguntas?
               </h3>
               <p class="text-text-light">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi qui est, ratione
-                quaerat dicta, nulla expedita maxime quo magnam voluptate cumque sint esse possimus
-                unde? Asperiores repellendus perferendis laborum autem.
+                Si tienes más preguntas sobre RutaPay, no dudes en ponerte en contacto con nuestro
+                equipo de soporte a través de la sección de contacto en nuestra página web o a
+                través de nuestras redes sociales. Estamos aquí para ayudarte y resolver cualquier
+                duda que puedas tener sobre nuestra plataforma.
               </p>
             </div>
           </div>

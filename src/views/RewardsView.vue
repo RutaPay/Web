@@ -114,12 +114,18 @@ const authStore = useAuthStore()
         </div>
       </div>
     </div>
-    <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">
+    <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10 flex flex-col items-baseline">
+      <div class="h-auto w-max flex items-center justify-center">
       <h3
         class="mb-6 text-2xl font-bold tracking-tight leading-none md:text-3xl xl:text-4xl text-text-dark"
       >
         Canje de Puntos
       </h3>
+      </div>
+      <div class="h-auto w-full flex">
+        <p class="text-gray-500 text-center">¡Próximamente! Estamos trabajando en emocionantes recompensas para ti.</p>
+
+      </div>
     </div>
     <div class="h-100 flex items-center justify-center gap-15"></div>
   </main>
