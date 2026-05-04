@@ -100,7 +100,7 @@ const userCardNumber = ref('4532 1234 5678 9012')
             class="grid flex-col justify-center items-center bg-white border border-primary rounded-lg p-6 w-full hover:bg-primary hover:text-white transition-colors duration-300"
           >
             <PlusCircle class="text-secondary text-4xl mb-2" />
-            <h4 class="text-2xl text-black mt-1">Saldo Perosonalizado</h4>
+            <h4 class="text-2xl text-black mt-1">Saldo Personalizado</h4>
             <span class="text-lg font-semibold text-black">Recargar Saldo</span>
           </RouterLink>
         </div>

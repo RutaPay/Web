@@ -38,3 +38,21 @@ export function useUserInfo() {
     isLoading,
   }
 }
+
+export function useRefreshUserData() {
+  const isRefreshing = ref(false)
+
+  const handleRefreshUserData = async () => {
+    isRefreshing.value = true
+    try {
+      await AuthService.refreshUserData()
+    } finally {
+      isRefreshing.value = false
+    }
+  }
+
+  return {
+    handleRefreshUserData,
+    isRefreshing,
+  }
+}

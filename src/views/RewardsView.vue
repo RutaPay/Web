@@ -190,7 +190,6 @@ const rewards = ref([
         </div>
       </div>
     </div>
-    <div class="h-100 flex items-center justify-center gap-15"></div>
   </main>
   <Footer :isClosed="sidebarStore.closedState" />
 </template>

@@ -58,4 +58,21 @@ export class AuthService {
       authStore.isInitialLoading = false
     }
   }
+
+  static async refreshUserData(): Promise<void> {
+    try {
+      const response = await fetch(this.USER_INFO_URL, {
+        credentials: 'include',
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        authStore.setAuth(true, data)
+      } else {
+        authStore.clearAuth()
+      }
+    } catch (error) {
+      authStore.clearAuth()
+    }
+  }
 }

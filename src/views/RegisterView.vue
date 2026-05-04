@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router'
 import { toast } from 'vue-sonner'
 import PasswordRequirementItem from '@/components/PasswordRequirementItem.vue'
 import FormInputErrorItem from '@/components/FormInputErrorItem.vue'
-import { Check } from '@boxicons/vue'
 
 const router = useRouter()
 
