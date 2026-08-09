@@ -91,10 +91,10 @@ import {
                 ¿Para que fue creado RutaPay?
               </h3>
               <p class="text-text-light">
-                RutaPay fue creado con el objetivo de mejorar la experiencia de pago en el transporte
-                público, ofreciendo una solución moderna y eficiente para los usuarios. Además,
-                busca fomentar el uso del transporte público al facilitar el proceso de pago y
-                promover la adopción de tecnologías digitales en este ámbito.
+                RutaPay fue creado con el objetivo de mejorar la experiencia de pago en el
+                transporte público, ofreciendo una solución moderna y eficiente para los usuarios.
+                Además, busca fomentar el uso del transporte público al facilitar el proceso de pago
+                y promover la adopción de tecnologías digitales en este ámbito.
               </p>
             </div>
             <div class="mb-10">
@@ -175,7 +175,7 @@ import {
           <img
             width="2432"
             height="1442"
-            src="https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png"
+            src="https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png"
             alt="Product screenshot"
             class="w-3xl max-w-none rounded-xl shadow-xl ring-1 ring-white/10 sm:w-228 md:-ml-4 lg:ml-0"
           />
@@ -235,7 +235,7 @@ import {
       >
         <img
           class="w-full"
-          src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup-dark.svg"
+          src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/cta/cta-dashboard-mockup.svg"
           alt="dashboard image"
         />
         <div class="mt-4 md:mt-0">
