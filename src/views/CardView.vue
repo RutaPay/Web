@@ -181,9 +181,15 @@ onMounted(() => {
               <span
                 class="text-xs px-2.5 py-1 rounded-md font-mono font-semibold"
                 :class="
-                  authStore.user?.accountType === 'Student'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-800 text-gray-300'
+                  authStore.user?.accountType === 'Admin'
+                    ? 'bg-primary text-white'
+                    : authStore.user?.accountType === 'Student'
+                      ? 'bg-card-student text-white'
+                      : authStore.user?.accountType === 'Health'
+                        ? 'bg-card-health text-white'
+                        : authStore.user?.accountType === 'Adult'
+                          ? 'bg-card-adult text-white'
+                          : 'bg-gray-800 text-gray-300'
                 "
               >
                 {{
@@ -193,7 +199,9 @@ onMounted(() => {
                       ? 'Salud'
                       : authStore.user?.accountType === 'Adult'
                         ? 'Inapam'
-                        : 'Ordinario'
+                        : authStore.user?.accountType === 'Admin'
+                          ? 'Admin'
+                          : 'Ordinario'
                 }}
               </span>
             </div>

@@ -82,7 +82,7 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('../views/AdminView.vue'),
-      //meta: { requiresAuth: true },
+      meta: { requiresAuth: true, requiresAdmin: true },
     },
     {
       path: '/:pathMatch(.*)*',
@@ -123,13 +123,20 @@ router.beforeEach(async (to, from, next) => {
 
   if (to.meta.requiresAuth && !authStore.authenticated) {
     toast.error('Debes Iniciar Sesión')
-    next('/login')
+    next({ name: 'login' })
   } else if (to.path === '/login' && authStore.authenticated) {
     toast.info('Ya has iniciado sesión')
-    next('/dashboard')
+    next({ name: 'dashboard' })
   } else if (to.path === '/register' && authStore.authenticated) {
     toast.info('Ya has iniciado sesión')
-    next('/dashboard')
+    next({ name: 'dashboard' })
+  } else {
+    next()
+  }
+
+  if (to.meta.requiresAdmin && authStore.user?.accountType !== 'Admin') {
+    toast.error('No tienes permisos para acceder a esta página')
+    next({ name: 'dashboard' })
   } else {
     next()
   }

@@ -17,9 +17,66 @@ const data = reactive({
   paymentMethod: 'Card',
   cardNumber: '4152 3134 5678 9010',
   cardHolder: 'Titular de la Cuenta',
+  cardIssuer: 'Unknown' as CardIssuer,
   expiry: '12/28',
   cvv: '789',
+  valid: null as boolean | null,
 })
+
+type CardIssuer = 'Visa' | 'Mastercard' | 'Unknown'
+function getCardIssuer(cardNumber: string): CardIssuer {
+  const cleaned = cardNumber.replace(/[\s-]/g, '')
+
+  if (cleaned.startsWith('4')) {
+    return 'Visa'
+  }
+  if (
+    cleaned.startsWith('51') ||
+    cleaned.startsWith('52') ||
+    cleaned.startsWith('53') ||
+    cleaned.startsWith('54') ||
+    cleaned.startsWith('55') ||
+    (cleaned.length >= 4 &&
+      parseInt(cleaned.substring(0, 4)) >= 2221 &&
+      parseInt(cleaned.substring(0, 4)) <= 2720)
+  ) {
+    return 'Mastercard'
+  }
+
+  return 'Unknown'
+}
+function luhnCheck(cardNumber: string): boolean {
+  const cleaned = cardNumber.replace(/[\s-]/g, '')
+  let sum = 0
+  let shouldDouble = false
+
+  for (let i = cleaned.length - 1; i >= 0; i--) {
+    let digit = parseInt(cleaned.charAt(i), 10)
+
+    if (shouldDouble) {
+      digit *= 2
+      if (digit > 9) {
+        digit = (digit % 10) + 1
+      }
+    }
+
+    sum += digit
+    shouldDouble = !shouldDouble
+  }
+
+  return sum % 10 === 0
+}
+const validateCardNumber = () => {
+  const cleaned = data.cardNumber.replace(/\D/g, '')
+  const issuer = getCardIssuer(cleaned)
+  const isValid = luhnCheck(cleaned)
+
+  const formatted = cleaned.replace(/(\d{4})(?=\d)/g, '$1 ')
+
+  data.cardNumber = formatted.trim()
+  data.cardIssuer = issuer
+  data.valid = isValid
+}
 
 const presetAmounts = [50, 100, 200, 300, 500]
 
@@ -79,14 +136,16 @@ const handleRecharge = async () => {
       class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto"
       @click.self="router.push({ name: 'card' })"
     >
-      <div class="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-gray-100 p-6 md:p-8 my-8">
+      <div
+        class="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl border border-gray-100 p-6 md:p-8 my-8"
+      >
         <!-- Header -->
         <header class="flex justify-between items-center pb-4 border-b border-gray-100">
           <div>
-            <h3 class="text-2xl font-bold text-gray-900">
-              Recargar Tarjeta RutaPay
-            </h3>
-            <p class="text-xs text-gray-500 mt-0.5">Selecciona el monto y método de pago simulado.</p>
+            <h3 class="text-2xl font-bold text-gray-900">Recargar Tarjeta RutaPay</h3>
+            <p class="text-xs text-gray-500 mt-0.5">
+              Selecciona el monto y método de pago simulado.
+            </p>
           </div>
           <RouterLink
             :to="{ name: 'card' }"
@@ -109,14 +168,20 @@ const handleRecharge = async () => {
                 :key="amt"
                 @click="selectPreset(amt)"
                 class="py-2.5 rounded-xl font-bold text-sm border transition"
-                :class="data.balance === amt ? 'bg-primary text-white border-primary shadow-sm' : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-primary'"
+                :class="
+                  data.balance === amt
+                    ? 'bg-primary text-white border-primary shadow-sm'
+                    : 'bg-gray-50 text-gray-700 border-gray-200 hover:border-primary'
+                "
               >
                 ${{ amt }}
               </button>
             </div>
 
             <div class="relative">
-              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">$</span>
+              <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold"
+                >$</span
+              >
               <input
                 type="number"
                 required
@@ -139,7 +204,11 @@ const handleRecharge = async () => {
                 type="button"
                 @click="selectedMethod = 'Card'"
                 class="p-3 rounded-xl border flex flex-col items-center gap-1 text-center transition"
-                :class="selectedMethod === 'Card' ? 'border-primary bg-primary/5 text-primary font-bold' : 'border-gray-200 hover:bg-gray-50 text-gray-700'"
+                :class="
+                  selectedMethod === 'Card'
+                    ? 'border-primary bg-primary/5 text-primary font-bold'
+                    : 'border-gray-200 hover:bg-gray-50 text-gray-700'
+                "
               >
                 <CreditCard class="text-2xl" />
                 <span class="text-xs">Tarjeta Bancaria</span>
@@ -149,7 +218,11 @@ const handleRecharge = async () => {
                 type="button"
                 @click="selectedMethod = 'SPEI'"
                 class="p-3 rounded-xl border flex flex-col items-center gap-1 text-center transition"
-                :class="selectedMethod === 'SPEI' ? 'border-primary bg-primary/5 text-primary font-bold' : 'border-gray-200 hover:bg-gray-50 text-gray-700'"
+                :class="
+                  selectedMethod === 'SPEI'
+                    ? 'border-primary bg-primary/5 text-primary font-bold'
+                    : 'border-gray-200 hover:bg-gray-50 text-gray-700'
+                "
               >
                 <Buildings class="text-2xl" />
                 <span class="text-xs">Transferencia SPEI</span>
@@ -159,7 +232,11 @@ const handleRecharge = async () => {
                 type="button"
                 @click="selectedMethod = 'OXXO'"
                 class="p-3 rounded-xl border flex flex-col items-center gap-1 text-center transition"
-                :class="selectedMethod === 'OXXO' ? 'border-primary bg-primary/5 text-primary font-bold' : 'border-gray-200 hover:bg-gray-50 text-gray-700'"
+                :class="
+                  selectedMethod === 'OXXO'
+                    ? 'border-primary bg-primary/5 text-primary font-bold'
+                    : 'border-gray-200 hover:bg-gray-50 text-gray-700'
+                "
               >
                 <Store class="text-2xl" />
                 <span class="text-xs">OXXO Pay</span>
@@ -168,14 +245,25 @@ const handleRecharge = async () => {
           </div>
 
           <!-- Detalle dinámico del método de pago -->
-          <div v-if="selectedMethod === 'Card'" class="p-4 bg-gray-50 rounded-2xl border border-gray-200 space-y-3">
+          <div
+            v-if="selectedMethod === 'Card'"
+            class="p-4 bg-gray-50 rounded-2xl border border-gray-200 space-y-3"
+          >
             <div>
               <label class="block text-xs text-gray-500 mb-1">Número de Tarjeta (Simulador)</label>
               <input
                 type="text"
                 v-model="data.cardNumber"
-                class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm font-mono"
+                @input="validateCardNumber"
+                maxlength="19"
+                :class="[
+                  'w-full px-3 py-2 bg-white border-2 border-gray-200 rounded-lg text-sm text-text-dark font-mono focus:outline-none transition-all duration-200',
+                  data.valid ? 'border-green-700' : 'border-red-500',
+                ]"
               />
+              <span class="text-xs text-gray-500 mt-1 block">
+                Emisor: <strong>{{ data.cardIssuer }}</strong>
+              </span>
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
@@ -183,7 +271,7 @@ const handleRecharge = async () => {
                 <input
                   type="text"
                   v-model="data.expiry"
-                  class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm text-center"
+                  class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm text-text-dark text-center"
                 />
               </div>
               <div>
@@ -192,13 +280,16 @@ const handleRecharge = async () => {
                   type="password"
                   maxlength="4"
                   v-model="data.cvv"
-                  class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm text-center font-mono"
+                  class="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm text-text-dark text-center font-mono"
                 />
               </div>
             </div>
           </div>
 
-          <div v-else-if="selectedMethod === 'SPEI'" class="p-4 bg-blue-50/50 rounded-2xl border border-blue-200 text-xs text-gray-700 space-y-2">
+          <div
+            v-else-if="selectedMethod === 'SPEI'"
+            class="p-4 bg-blue-50/50 rounded-2xl border border-blue-200 text-xs text-gray-700 space-y-2"
+          >
             <div class="flex justify-between">
               <span class="text-gray-500">Banco Receptor:</span>
               <strong class="text-gray-900">STP - RutaPay Celaya</strong>
@@ -212,17 +303,24 @@ const handleRecharge = async () => {
               <strong class="font-mono text-primary">RPAY-RECARGA</strong>
             </div>
             <p class="text-gray-500 pt-1 text-[11px]">
-              Al presionar "Confirmar Abono SPEI", se simula la recepción y conciliación bancaria instantánea.
+              Al presionar "Confirmar Abono SPEI", se simula la recepción y conciliación bancaria
+              instantánea.
             </p>
           </div>
 
-          <div v-else-if="selectedMethod === 'OXXO'" class="p-4 bg-amber-50/60 rounded-2xl border border-amber-200 text-xs text-gray-700 space-y-2 text-center">
+          <div
+            v-else-if="selectedMethod === 'OXXO'"
+            class="p-4 bg-amber-50/60 rounded-2xl border border-amber-200 text-xs text-gray-700 space-y-2 text-center"
+          >
             <p class="text-gray-600">Referencia de Pago en Tiendas OXXO:</p>
-            <div class="text-xl font-mono font-bold tracking-widest text-amber-900 bg-white py-2 rounded-lg border border-amber-300">
+            <div
+              class="text-xl font-mono font-bold tracking-widest text-amber-900 bg-white py-2 rounded-lg border border-amber-300"
+            >
               9342-8812-4521-90
             </div>
             <p class="text-[11px] text-gray-500">
-              Al confirmar, el sistema acreditará el pago como si hubiera sido registrado en caja de conveniencia.
+              Al confirmar, el sistema acreditará el pago como si hubiera sido registrado en caja de
+              conveniencia.
             </p>
           </div>
 

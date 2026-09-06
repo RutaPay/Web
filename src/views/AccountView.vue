@@ -37,6 +37,9 @@ switch (accType) {
   case 'Adult':
     currentTierKey = ref('adult')
     break
+  case 'Admin':
+    currentTierKey = ref('admin')
+    break
 }
 
 onMounted(async () => {
@@ -123,12 +126,11 @@ onMounted(async () => {
           >
             {{ benefit }}
           </li>
-          <!--<li class="text-text-dark">Tarjeta Base <span class="text-primary">RutaPay</span></li>
-          <li class="text-text-dark">Acceso a recompensas para miembros</li>-->
         </ul>
         <RouterLink
           :to="{ name: 'account-verify' }"
           class="text-primary font-bold hover:text-dark transition-all duration-200"
+          v-if="authStore.user?.accountType !== 'Admin'"
         >
           Aplicar para tarjeta preferencial
         </RouterLink>

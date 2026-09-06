@@ -41,5 +41,15 @@
       "Acceso a recompensas para miembros",
       "Soporte prioritario"
     ]
+  },
+  "admin": {
+    "title": "RutaPay Administradores",
+    "benefits": [
+      "Tarjeta Administrador RutaPay",
+      "Tarifa Prepago: $8.00 MXN por viaje",
+      "1 punto por cada $20 que gastes",
+      "Ocupas recompensas?",
+      "Tu eres el soporte"
+    ]
   }
 }
