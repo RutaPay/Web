@@ -9,8 +9,9 @@ interface User {
   phoneNumber: string
   cardUID: string
   cardBalance: string
+  cardStatus?: string
   points: string
-  accountType: 'User' | 'Student' | 'Health' | 'Adult'
+  accountType: 'User' | 'Student' | 'Health' | 'Adult' | 'Admin' | 'Driver' | string
   createdOn: string
 }
 

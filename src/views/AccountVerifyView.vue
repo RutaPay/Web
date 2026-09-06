@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import {
   ArrowInUpSquareHalf,
   ChevronDown,
@@ -7,14 +7,30 @@ import {
   InfoCircle,
   PlusBig,
   UniversalAccess,
+  CheckCircle,
+  Clock,
+  AlertCircle,
 } from '@boxicons/vue'
 import Footer from '../components/Footer.vue'
 import Modal from '../components/Modal.vue'
+import { toast } from 'vue-sonner'
 
 const isModalOpen = ref(false)
-
 const isActive = ref(false)
 const selectedOption = ref('Selecciona tu tipo de usuario')
+const isSubmitting = ref(false)
+
+interface VerificationStatus {
+  hasRequest: boolean
+  id?: string
+  targetRole?: string
+  status: 'Pending' | 'Approved' | 'Rejected' | 'None'
+  reviewNotes?: string
+  submittedAt?: string
+  reviewedAt?: string
+}
+
+const currentStatus = ref<VerificationStatus | null>(null)
 
 interface AccountData {
   accType: string
@@ -108,10 +124,66 @@ const handleFileUpload = (e: Event, type: String) => {
   }
 }
 
-const submitForm = async () => {
-  console.log('Form submitted with account type:', data.accType)
-  // Aquí puedes agregar la lógica para enviar el formulario al backend
+const fetchVerificationStatus = async () => {
+  try {
+    const response = await fetch('https://localhost:7130/api/verification/my-status', {
+      credentials: 'include',
+    })
+    if (response.ok) {
+      currentStatus.value = await response.json()
+    }
+  } catch (error) {
+    console.error('Error fetching verification status:', error)
+  }
 }
+
+const submitForm = async () => {
+  if (!data.accType) {
+    toast.error('Por favor selecciona un tipo de usuario preferencial.')
+    return
+  }
+
+  isSubmitting.value = true
+  try {
+    const roleMapping: Record<string, string> = {
+      student: 'Student',
+      health: 'Health',
+      adult: 'Adult',
+    }
+    const targetRole = roleMapping[data.accType] || 'Student'
+
+    const response = await fetch('https://localhost:7130/api/verification/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        targetRole,
+        notes: `Trámite de credencialización preferencial para ${data.accType}.`,
+      }),
+    })
+
+    if (response.ok) {
+      const res = await response.json()
+      toast.success('¡Solicitud enviada exitosamente!', {
+        description: 'La autoridad de transporte revisará tu solicitud para activar tu descuento.',
+      })
+      await fetchVerificationStatus()
+    } else {
+      const err = await response.text()
+      toast.error('Error al enviar trámite', { description: err })
+    }
+  } catch (error) {
+    toast.error('Error de Conexión', { description: 'No se pudo conectar con el servidor.' })
+  } finally {
+    isSubmitting.value = false
+  }
+}
+
+onMounted(() => {
+  fetchVerificationStatus()
+})
 </script>
 
 <template>
@@ -121,10 +193,39 @@ const submitForm = async () => {
         class="w-full md:w-1/2 bg-white rounded-3xl shadow-sm border border-gray-200 p-6 md:p-10"
       >
         <h1
-          class="text-3xl font-bold md:text-4xl xl:text-5xl text-text-dark mb-16 leading-relaxed text-center"
+          class="text-3xl font-bold md:text-4xl xl:text-5xl text-text-dark mb-8 leading-relaxed text-center"
         >
           Aplicar para Tarjeta Preferencial
         </h1>
+
+        <!-- Banner de Estado de Verificación -->
+        <div v-if="currentStatus?.hasRequest" class="mb-8 p-4 rounded-2xl border text-sm"
+          :class="{
+            'bg-amber-50 border-amber-200 text-amber-900': currentStatus.status === 'Pending',
+            'bg-green-50 border-green-200 text-green-900': currentStatus.status === 'Approved',
+            'bg-red-50 border-red-200 text-red-900': currentStatus.status === 'Rejected'
+          }"
+        >
+          <div class="flex items-center gap-2 font-bold mb-1">
+            <Clock v-if="currentStatus.status === 'Pending'" class="text-xl text-amber-600" />
+            <CheckCircle v-else-if="currentStatus.status === 'Approved'" class="text-xl text-green-600" />
+            <AlertCircle v-else class="text-xl text-red-600" />
+            <span>
+              {{ currentStatus.status === 'Pending' ? 'Solicitud en Revisión' : currentStatus.status === 'Approved' ? 'Tarifa Preferencial Activa' : 'Solicitud No Aprobada' }}
+            </span>
+          </div>
+          <p class="text-xs">
+            <span v-if="currentStatus.status === 'Pending'">
+              Tu solicitud para tarifa de <strong>{{ currentStatus.targetRole }}</strong> está siendo validada por la autoridad de movilidad.
+            </span>
+            <span v-else-if="currentStatus.status === 'Approved'">
+              Cuentas con la tarifa preferencial de $5.50 MXN activa en todos los viajes urbanos.
+            </span>
+            <span v-else>
+              Motivo: {{ currentStatus.reviewNotes || 'Documentación no legible o incompleta.' }}. Puedes volver a enviar tu solicitud a continuación.
+            </span>
+          </p>
+        </div>
         <form @submit.prevent="submitForm" class="mt-8 w-full">
           <div class="w-full flex justify-between">
             <label for="type" class="text-text-dark font-semibold text-lg">Tipo de Usuario:</label>
@@ -436,6 +537,17 @@ const submitForm = async () => {
                   <span class="text-sm text-text-light"> Ningún archivo seleccionado </span>
                 </div>
               </div>
+            </div>
+            <div class="mt-10">
+              <button
+                type="submit"
+                :disabled="isSubmitting || currentStatus?.status === 'Pending'"
+                class="w-full py-4 bg-primary hover:bg-dark text-white font-bold rounded-xl shadow-lg transition duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                <span v-if="isSubmitting">Enviando solicitud...</span>
+                <span v-else-if="currentStatus?.status === 'Pending'">Solicitud en Proceso de Revisión</span>
+                <span v-else>Enviar Solicitud de Tarifa Preferencial</span>
+              </button>
             </div>
           </div>
         </form>

@@ -8,6 +8,7 @@ import {
   CreditCardAlt,
   Gift,
   User,
+  ShieldQuarter,
   ArrowOutLeftSquareHalf,
 } from '@boxicons/vue'
 import SideBarItem from '@/components/SideBarItem.vue'
@@ -127,6 +128,19 @@ const isActive = (name: string) => route.matched.some((record) => record.name ==
               ></User>
             </template>
             <template #text>Cuenta</template>
+          </SideBarItem>
+          <SideBarItem
+            url="admin"
+            :isClosed="sidebarStore.closedState"
+            :isActive="isActive('admin')"
+          >
+            <template #icon>
+              <ShieldQuarter
+                class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200 group-hover:text-white"
+                :class="{ 'text-white': isActive('admin') }"
+              ></ShieldQuarter>
+            </template>
+            <template #text>Panel Admin</template>
           </SideBarItem>
         </ul>
       </div>
