@@ -4,8 +4,9 @@ import SideBar from '../components/SideBar.vue'
 import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 
-import mapboxgl from 'mapbox-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import { MglMap } from '@indoorequal/vue-maplibre-gl'
+import { Map, LngLatBounds } from 'maplibre-gl'
+import 'maplibre-gl/dist/maplibre-gl.css';
 
 const sidebarStore = useSidebarStore()
 
@@ -77,15 +78,14 @@ const filteredRoutes = computed(() => {
 })
 
 const mapContainer = ref<HTMLDivElement | null>(null)
-const map = ref<mapboxgl.Map | null>(null)
+const map = ref<Map | null>(null)
 
 onMounted(() => {
-  map.value = new mapboxgl.Map({
-    accessToken: import.meta.env.VITE_MAPBOX_API_KEY,
+  map.value = new Map({
     container: mapContainer.value as HTMLDivElement,
     center: [-100.8140458, 20.521788],
-    zoom: 12,
-    style: 'mapbox://styles/mapbox/standard',
+    zoom: 8,
+    style: 'https://tiles.openfreemap.org/styles/bright',
   })
 })
 
@@ -179,7 +179,7 @@ const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
     })
   }
 
-  const bounds = new mapboxgl.LngLatBounds()
+  const bounds = new LngLatBounds()
   routeData.features.forEach((feature) => {
     if (feature.geometry.type === 'LineString') {
       feature.geometry.coordinates.forEach((coord) => {
@@ -230,7 +230,7 @@ const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
 
       <div class="p-8 bg-white md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
         <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
-          <div ref="mapContainer" class="w-full h-full rounded-lg"></div>
+          <div ref="mapContainer" class="w-full h-full rounded-lg""></div>
         </div>
       </div>
     </div>
