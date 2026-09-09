@@ -125,7 +125,8 @@ onMounted(() => {
         Puntos y Recompensas
       </h1>
       <p class="text-gray-500 mt-2 text-sm md:text-base">
-        Gana puntos en cada viaje y recarga, y canjéalos por saldo directo y beneficios sustentables.
+        Gana puntos en cada viaje y recarga, y canjéalos por saldo directo y beneficios
+        sustentables.
       </p>
     </div>
 
@@ -134,66 +135,80 @@ onMounted(() => {
       class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10 gap-6"
     >
       <div>
-        <h3
-          class="text-2xl font-bold tracking-tight text-text-dark"
-        >
-          Hola, <span class="text-primary">{{ authStore.user?.userName || 'Pasajero' }}</span>!
+        <h3 class="text-2xl font-bold tracking-tight text-text-dark">
+          Hola, <span class="text-primary">{{ authStore.user?.userName || 'Pasajero' }}</span
+          >!
         </h3>
-        <p class="text-gray-500 text-sm mt-1">Miembro RutaPay desde: {{ authStore.user?.createdOn || '2026' }}</p>
+        <p class="text-gray-500 text-sm mt-1">
+          Miembro RutaPay desde: {{ authStore.user?.createdOn || '2026' }}
+        </p>
       </div>
 
       <div class="flex gap-8 sm:gap-12">
         <div class="bg-primary/5 p-4 rounded-2xl border border-primary/20 text-center min-w-32">
-          <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Puntos Acumulados</p>
+          <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
+            Puntos Acumulados
+          </p>
           <h3 class="text-3xl sm:text-4xl font-black text-primary">
             {{ authStore.user?.points || 0 }}
           </h3>
         </div>
 
         <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200 text-center min-w-32">
-          <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">Viajes Realizados</p>
-          <h3 class="text-3xl sm:text-4xl font-black text-gray-800">
-            Nivel 1
-          </h3>
+          <p class="text-gray-500 text-xs font-bold uppercase tracking-wider mb-1">
+            Viajes Realizados
+          </p>
+          <h3 class="text-3xl sm:text-4xl font-black text-gray-800">Nivel 1</h3>
         </div>
       </div>
     </div>
 
     <!-- Cómo Ganar Puntos -->
     <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">
-      <h3
-        class="mb-6 text-2xl font-bold tracking-tight text-text-dark"
-      >
-        ¿Cómo Ganar Más Puntos?
-      </h3>
+      <h3 class="mb-6 text-2xl font-bold tracking-tight text-text-dark">¿Cómo Ganar Más Puntos?</h3>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="p-6 bg-gray-50 rounded-2xl border border-gray-200 hover:border-primary transition">
-          <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+        <div
+          class="p-6 bg-gray-50 rounded-2xl border border-gray-200 hover:border-primary transition"
+        >
+          <div
+            class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4"
+          >
             <Trophy class="text-2xl" />
           </div>
           <h4 class="text-lg font-bold text-gray-900 mb-1">Viaja en Transporte Público</h4>
           <p class="text-sm text-gray-600">
-            Gana <strong>1 punto</strong> por cada pasaje regular ($8.00) y <strong>2 puntos</strong> con tarifa preferencial ($5.50).
+            Gana <strong>1 punto</strong> por cada pasaje regular ($8.00) y
+            <strong>2 puntos</strong> con tarifa preferencial ($5.50).
           </p>
         </div>
 
-        <div class="p-6 bg-gray-50 rounded-2xl border border-gray-200 hover:border-primary transition">
-          <div class="w-12 h-12 rounded-xl bg-green-100 text-green-700 flex items-center justify-center mb-4">
+        <div
+          class="p-6 bg-gray-50 rounded-2xl border border-gray-200 hover:border-primary transition"
+        >
+          <div
+            class="w-12 h-12 rounded-xl bg-green-100 text-green-700 flex items-center justify-center mb-4"
+          >
             <Star class="text-2xl" />
           </div>
           <h4 class="text-lg font-bold text-gray-900 mb-1">Recargas Periódicas</h4>
           <p class="text-sm text-gray-600">
-            Recarga tu tarjeta con $100 o más y mantén saldo suficiente para recibir bonos de lealtad cada quincena.
+            Recarga tu tarjeta con $100 o más y mantén saldo suficiente para recibir bonos de
+            lealtad cada quincena.
           </p>
         </div>
 
-        <div class="p-6 bg-gray-50 rounded-2xl border border-gray-200 hover:border-primary transition">
-          <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center mb-4">
+        <div
+          class="p-6 bg-gray-50 rounded-2xl border border-gray-200 hover:border-primary transition"
+        >
+          <div
+            class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center mb-4"
+          >
             <Gift class="text-2xl" />
           </div>
           <h4 class="text-lg font-bold text-gray-900 mb-1">Tarifa Preferencial</h4>
           <p class="text-sm text-gray-600">
-            Acredítate como estudiante, trabajador de la salud o adulto mayor y duplica tus puntos en cada viaje.
+            Acredítate como estudiante, trabajador de la salud o adulto mayor y duplica tus puntos
+            en cada viaje.
           </p>
         </div>
       </div>
@@ -202,10 +217,10 @@ onMounted(() => {
     <!-- Catálogo de Recompensas Canjeables -->
     <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">
       <div class="mb-8">
-        <h3 class="text-2xl font-bold tracking-tight text-text-dark">
-          Catálogo de Recompensas
-        </h3>
-        <p class="text-gray-500 text-sm mt-1">Canjea tus puntos por saldo inmediato para viajar o boletos de rifa.</p>
+        <h3 class="text-2xl font-bold tracking-tight text-text-dark">Catálogo de Recompensas</h3>
+        <p class="text-gray-500 text-sm mt-1">
+          Canjea tus puntos por saldo inmediato para viajar o boletos de rifa.
+        </p>
       </div>
 
       <div v-if="isLoadingRewards" class="py-12 text-center text-gray-400">
@@ -219,7 +234,9 @@ onMounted(() => {
           class="bg-white rounded-2xl border border-gray-200 p-6 flex flex-col justify-between hover:shadow-lg hover:border-primary transition duration-300 group"
         >
           <div>
-            <span class="inline-block px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary mb-3">
+            <span
+              class="inline-block px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary mb-3"
+            >
               {{ item.rewardType === 'Balance' ? 'Saldo Inmediato' : 'Sorteo Ecológico' }}
             </span>
             <h4 class="text-xl font-bold text-gray-900 mb-2">{{ item.title }}</h4>
@@ -236,10 +253,18 @@ onMounted(() => {
               @click="handleRedeem(item)"
               :disabled="isRedeeming || Number(authStore.user?.points || 0) < item.pointsCost"
               class="w-full py-2.5 rounded-xl font-bold text-sm transition duration-300 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
-              :class="Number(authStore.user?.points || 0) >= item.pointsCost ? 'bg-primary hover:bg-dark text-white' : 'bg-gray-100 text-gray-400'"
+              :class="
+                Number(authStore.user?.points || 0) >= item.pointsCost
+                  ? 'bg-primary hover:bg-dark text-white'
+                  : 'bg-gray-100 text-gray-400'
+              "
             >
               <CheckCircle class="text-base" />
-              {{ Number(authStore.user?.points || 0) >= item.pointsCost ? 'Canjear Ahora' : 'Puntos Insuficientes' }}
+              {{
+                Number(authStore.user?.points || 0) >= item.pointsCost
+                  ? 'Canjear Ahora'
+                  : 'Puntos Insuficientes'
+              }}
             </button>
           </div>
         </div>
@@ -247,15 +272,26 @@ onMounted(() => {
     </div>
 
     <!-- Mis Recompensas Canjeadas -->
-    <div v-if="myRewards.length > 0" class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10">
+    <div
+      v-if="myRewards.length > 0"
+      class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10"
+    >
       <h3 class="text-2xl font-bold tracking-tight text-text-dark mb-4">
         Mis Cupones y Canjes Recientes
       </h3>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div v-for="mr in myRewards" :key="mr.id" class="p-4 bg-gray-50 rounded-xl border border-gray-200">
+        <div
+          v-for="mr in myRewards"
+          :key="mr.id"
+          class="p-4 bg-gray-50 rounded-xl border border-gray-200"
+        >
           <p class="font-bold text-gray-900 text-sm">{{ mr.title }}</p>
-          <p class="text-xs text-gray-500 mt-0.5">Código: <span class="font-mono font-bold text-primary">{{ mr.code }}</span></p>
-          <span class="inline-block mt-2 text-[11px] font-semibold text-green-700 bg-green-50 px-2 py-0.5 rounded">
+          <p class="text-xs text-gray-500 mt-0.5">
+            Código: <span class="font-mono font-bold text-primary">{{ mr.code }}</span>
+          </p>
+          <span
+            class="inline-block mt-2 text-[11px] font-semibold text-green-700 bg-green-50 px-2 py-0.5 rounded"
+          >
             {{ mr.isUsed ? 'Aplicado a tu cuenta' : 'Listo para usar' }}
           </span>
         </div>
@@ -265,14 +301,18 @@ onMounted(() => {
     <!-- Modal de Éxito de Canje -->
     <Modal v-model="isSuccessModalOpen" title="¡Canje Completado!">
       <div class="text-center py-4">
-        <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+        <div
+          class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl"
+        >
           <CheckCircle />
         </div>
         <h4 class="text-xl font-bold text-gray-900 mb-2">{{ lastRedeemedTitle }}</h4>
         <p class="text-sm text-gray-600 mb-4">
           Tu recompensa ha sido procesada con éxito y aplicada a tu cuenta.
         </p>
-        <div class="p-3 bg-gray-100 rounded-xl font-mono text-base font-bold text-primary tracking-wider">
+        <div
+          class="p-3 bg-gray-100 rounded-xl font-mono text-base font-bold text-primary tracking-wider"
+        >
           {{ lastRedeemedCode }}
         </div>
       </div>

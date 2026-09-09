@@ -4,9 +4,10 @@ import SideBar from '../components/SideBar.vue'
 import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 
-import { MglMap } from '@indoorequal/vue-maplibre-gl'
-import { Map, LngLatBounds } from 'maplibre-gl'
-import 'maplibre-gl/dist/maplibre-gl.css';
+import { Map, LngLatBounds, setWorkerUrl } from 'maplibre-gl'
+import 'maplibre-gl/dist/maplibre-gl.css'
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
+setWorkerUrl(workerUrl)
 
 const sidebarStore = useSidebarStore()
 
@@ -84,7 +85,7 @@ onMounted(() => {
   map.value = new Map({
     container: mapContainer.value as HTMLDivElement,
     center: [-100.8140458, 20.521788],
-    zoom: 8,
+    zoom: 12,
     style: 'https://tiles.openfreemap.org/styles/bright',
   })
 })
@@ -179,15 +180,26 @@ const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
     })
   }
 
-  const bounds = new LngLatBounds()
-  routeData.features.forEach((feature) => {
-    if (feature.geometry.type === 'LineString') {
-      feature.geometry.coordinates.forEach((coord) => {
-        bounds.extend(coord as [number, number])
-      })
+  let firstCoord: [number, number] | undefined
+
+  for (const feature of routeData.features) {
+    if (feature.geometry.type === 'LineString' && feature.geometry.coordinates.length > 0) {
+      firstCoord = feature.geometry.coordinates[0] as [number, number]
+      break
     }
-  })
-  map.value.fitBounds(bounds, { padding: 50 })
+  }
+  if (firstCoord) {
+    const bounds = new LngLatBounds(firstCoord, firstCoord)
+
+    routeData.features.forEach((feature) => {
+      if (feature.geometry.type === 'LineString') {
+        feature.geometry.coordinates.forEach((coord) => {
+          bounds.extend(coord as [number, number])
+        })
+      }
+    })
+    map.value.fitBounds(bounds, { padding: 50 })
+  }
 }
 </script>
 
@@ -230,7 +242,7 @@ const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
 
       <div class="p-8 bg-white md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
         <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
-          <div ref="mapContainer" class="w-full h-full rounded-lg""></div>
+          <div ref="mapContainer" class="w-full h-full rounded-lg"></div>
         </div>
       </div>
     </div>
