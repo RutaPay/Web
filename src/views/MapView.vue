@@ -7,8 +7,6 @@ import { useSidebarStore } from '@/stores/sidebarstate'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API_KEY
-
 const sidebarStore = useSidebarStore()
 
 const search = ref('')
@@ -83,6 +81,7 @@ const map = ref<mapboxgl.Map | null>(null)
 
 onMounted(() => {
   map.value = new mapboxgl.Map({
+    accessToken: import.meta.env.VITE_MAPBOX_API_KEY,
     container: mapContainer.value as HTMLDivElement,
     center: [-100.8140458, 20.521788],
     zoom: 12,
