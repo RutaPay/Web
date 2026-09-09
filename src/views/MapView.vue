@@ -18,7 +18,7 @@ const routes = ref([
   'R3 - SAN LORENZO',
   'R7 - EL SAUZ',
   'R8 - SAN JUAN DE LA VEGA',
-  'R8 - RAMAL SJV-5 DE MAYO (RAMAL)',
+  'R8B - RAMAL SJV-5 DE MAYO (RAMAL)',
   'R9 - HOSPITAL',
   'R10 - PUENTE',
   'R11 - PRESA BLANCA',
@@ -70,7 +70,7 @@ const routes = ref([
   'R61 - INDUSTRIAL',
   'R62 - SMO - CD INDUSTRIAL',
   'R63 - UNIVERSIDADES',
-  'R67 - LITTLE SAINT JAMES - CAMINO A KIRK'
+  'R67 - LITTLE SAINT JAMES - CAMINO A KIRK',
 ])
 
 // Computada: devuelve solo las rutas que coinciden con la búsqueda
@@ -81,44 +81,114 @@ const filteredRoutes = computed(() => {
 const mapContainer = ref<HTMLDivElement | null>(null)
 const map = ref<mapboxgl.Map | null>(null)
 
-onMounted(async () => {
+onMounted(() => {
   map.value = new mapboxgl.Map({
     container: mapContainer.value as HTMLDivElement,
     center: [-100.8140458, 20.521788],
     zoom: 12,
     style: 'mapbox://styles/mapbox/standard',
   })
-
-  const route = await fetch('/data/route.geojson')
-  const data = await route.json()
-  addRouteToMap(data)
 })
 
+const loadRoute = async (routeName: string) => {
+  if (!map.value) return
+
+  if (map.value.getSource('route-ida')) {
+    map.value.removeLayer('route-ida')
+    map.value.removeSource('route-ida')
+  }
+  if (map.value.getSource('route-regreso')) {
+    map.value.removeLayer('route-regreso')
+    map.value.removeSource('route-regreso')
+  }
+
+  const routeId = routeName.split(' - ')[0]
+  const routeUrl = `https://raw.githubusercontent.com/RutaPay/Routes/refs/heads/main/${routeId}.geojson`
+
+  try {
+    const response = await fetch(routeUrl)
+    const routeData = await response.json()
+
+    if (map.value.loaded()) {
+      addRouteToMap(routeData)
+    } else {
+      map.value.on('load', () => {
+        addRouteToMap(routeData)
+      })
+    }
+  } catch (error) {
+    console.error('Error al cargar la ruta:', error)
+  }
+}
+
 const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
-  if (map.value?.getSource('route')) {
-    const source = map.value.getSource('route') as mapboxgl.GeoJSONSource
-    source.setData(routeData)
-  } else {
-    map.value?.on('load', () => {
-      map.value?.addSource('route', {
-        type: 'geojson',
-        data: routeData,
-      })
-      map.value?.addLayer({
-        id: 'route',
-        type: 'line',
-        source: 'route',
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        paint: {
-          'line-color': '#449dd1',
-          'line-width': 6
-        }
-      })
+  if (!map.value) return
+
+  const idaFeatures = routeData.features.filter((feature) =>
+    feature.properties?.name?.includes('IDA'),
+  )
+  const regresoFeatures = routeData.features.filter((feature) =>
+    feature.properties?.name?.includes('REGRESO'),
+  )
+
+  if (idaFeatures.length > 0) {
+    map.value.addSource('route-ida', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: idaFeatures,
+      },
+    })
+
+    map.value.addLayer({
+      id: 'route-ida',
+      type: 'line',
+      source: 'route-ida',
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#449dd1',
+        'line-width': 4,
+      },
     })
   }
+
+  if (regresoFeatures.length > 0) {
+    map.value.addSource('route-regreso', {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: regresoFeatures,
+      },
+    })
+
+    map.value.addLayer({
+      id: 'route-regreso',
+      type: 'line',
+      source: 'route-regreso',
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round',
+      },
+      paint: {
+        'line-color': '#052b4a',
+        'line-width': 4,
+        'line-dasharray': [2, 2],
+      },
+    })
+  }
+
+  const bounds = new mapboxgl.LngLatBounds()
+  routeData.features.forEach((feature) => {
+    if (feature.geometry.type === 'LineString') {
+      feature.geometry.coordinates.forEach((coord) => {
+        bounds.extend(coord as [number, number])
+      })
+    }
+  })
+  map.value.fitBounds(bounds, { padding: 50 })
 }
 </script>
 
@@ -146,7 +216,12 @@ const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
 
           <div class="w-full h-164 bg-white rounded-lg p-6 overflow-y-auto border border-gray-300">
             <ul>
-              <li v-for="route in filteredRoutes" :key="route" class="hover:text-primary">
+              <li
+                v-for="route in filteredRoutes"
+                :key="route"
+                @click="loadRoute(route)"
+                class="hover:text-primary"
+              >
                 <span>{{ route }}</span>
               </li>
             </ul>

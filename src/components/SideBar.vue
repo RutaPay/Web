@@ -15,11 +15,12 @@ import SideBarItem from '@/components/SideBarItem.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 import { useRoute } from 'vue-router'
 import { useLogout } from '@/composables/useAuth'
+import { useAuthStore } from '@/stores/auth'
 
 const sidebarStore = useSidebarStore()
 const route = useRoute()
 const { handleLogout } = useLogout()
-
+const authStore = useAuthStore()
 const isActive = (name: string) => route.matched.some((record) => record.name === name)
 </script>
 
@@ -133,6 +134,7 @@ const isActive = (name: string) => route.matched.some((record) => record.name ==
             url="admin"
             :isClosed="sidebarStore.closedState"
             :isActive="isActive('admin')"
+            v-if="authStore.user?.accountType === 'Admin'"
           >
             <template #icon>
               <ShieldQuarter

@@ -13,7 +13,10 @@ import {
 } from '@boxicons/vue'
 import Footer from '../components/Footer.vue'
 import Modal from '../components/Modal.vue'
+import { useRouter } from 'vue-router'
 import { toast } from 'vue-sonner'
+
+const router = useRouter()
 
 const isModalOpen = ref(false)
 const isActive = ref(false)
@@ -143,6 +146,11 @@ const submitForm = async () => {
     return
   }
 
+  if (!data.mainIDFile || !data.secondFile) {
+    toast.error('Por favor sube todos los archivos requeridos.')
+    return
+  }
+
   isSubmitting.value = true
   try {
     const roleMapping: Record<string, string> = {
@@ -178,6 +186,7 @@ const submitForm = async () => {
     toast.error('Error de Conexión', { description: 'No se pudo conectar con el servidor.' })
   } finally {
     isSubmitting.value = false
+    router.push({ name: 'account' })
   }
 }
 
@@ -199,42 +208,55 @@ onMounted(() => {
         </h1>
 
         <!-- Banner de Estado de Verificación -->
-        <div v-if="currentStatus?.hasRequest" class="mb-8 p-4 rounded-2xl border text-sm"
+        <div
+          v-if="currentStatus?.hasRequest"
+          class="mb-8 p-4 rounded-2xl border text-sm"
           :class="{
             'bg-amber-50 border-amber-200 text-amber-900': currentStatus.status === 'Pending',
             'bg-green-50 border-green-200 text-green-900': currentStatus.status === 'Approved',
-            'bg-red-50 border-red-200 text-red-900': currentStatus.status === 'Rejected'
+            'bg-red-50 border-red-200 text-red-900': currentStatus.status === 'Rejected',
           }"
         >
           <div class="flex items-center gap-2 font-bold mb-1">
             <Clock v-if="currentStatus.status === 'Pending'" class="text-xl text-amber-600" />
-            <CheckCircle v-else-if="currentStatus.status === 'Approved'" class="text-xl text-green-600" />
+            <CheckCircle
+              v-else-if="currentStatus.status === 'Approved'"
+              class="text-xl text-green-600"
+            />
             <AlertCircle v-else class="text-xl text-red-600" />
             <span>
-              {{ currentStatus.status === 'Pending' ? 'Solicitud en Revisión' : currentStatus.status === 'Approved' ? 'Tarifa Preferencial Activa' : 'Solicitud No Aprobada' }}
+              {{
+                currentStatus.status === 'Pending'
+                  ? 'Solicitud en Revisión'
+                  : currentStatus.status === 'Approved'
+                    ? 'Tarifa Preferencial Activa'
+                    : 'Solicitud No Aprobada'
+              }}
             </span>
           </div>
           <p class="text-xs">
             <span v-if="currentStatus.status === 'Pending'">
-              Tu solicitud para tarifa de <strong>{{ currentStatus.targetRole }}</strong> está siendo validada por la autoridad de movilidad.
+              Tu solicitud para tarifa de <strong>{{ currentStatus.targetRole }}</strong> está
+              siendo validada por la autoridad de movilidad.
             </span>
             <span v-else-if="currentStatus.status === 'Approved'">
               Cuentas con la tarifa preferencial de $5.50 MXN activa en todos los viajes urbanos.
             </span>
             <span v-else>
-              Motivo: {{ currentStatus.reviewNotes || 'Documentación no legible o incompleta.' }}. Puedes volver a enviar tu solicitud a continuación.
+              Motivo: {{ currentStatus.reviewNotes || 'Documentación no legible o incompleta.' }}.
+              Puedes volver a enviar tu solicitud a continuación.
             </span>
           </p>
         </div>
         <form @submit.prevent="submitForm" class="mt-8 w-full">
           <div class="w-full flex justify-between">
             <label for="type" class="text-text-dark font-semibold text-lg">Tipo de Usuario:</label>
-            <button
+            <!--<button
               class="cursor-pointer text-text-dark focus:outline-none focus:text-primary"
               @click="handleModal"
             >
               <InfoCircle class="inline-block" />
-            </button>
+            </button>-->
           </div>
           <div class="w-full">
             <input type="hidden" name="accType" v-model="data.accType" />
@@ -538,17 +560,19 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-            <div class="mt-10">
-              <button
-                type="submit"
-                :disabled="isSubmitting || currentStatus?.status === 'Pending'"
-                class="w-full py-4 bg-primary hover:bg-dark text-white font-bold rounded-xl shadow-lg transition duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          </div>
+          <div class="mt-10">
+            <button
+              type="submit"
+              :disabled="isSubmitting || currentStatus?.status === 'Pending'"
+              class="w-full py-4 bg-primary hover:bg-dark text-white font-bold rounded-xl shadow-lg transition duration-300 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              <span v-if="isSubmitting">Enviando solicitud...</span>
+              <span v-else-if="currentStatus?.status === 'Pending'"
+                >Solicitud en Proceso de Revisión</span
               >
-                <span v-if="isSubmitting">Enviando solicitud...</span>
-                <span v-else-if="currentStatus?.status === 'Pending'">Solicitud en Proceso de Revisión</span>
-                <span v-else>Enviar Solicitud de Tarifa Preferencial</span>
-              </button>
-            </div>
+              <span v-else>Enviar Solicitud de Tarifa Preferencial</span>
+            </button>
           </div>
         </form>
       </div>

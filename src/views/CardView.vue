@@ -161,7 +161,7 @@ onMounted(() => {
             :class="
               isCardBlocked
                 ? 'bg-linear-to-br from-gray-900 via-red-950 to-black ring-2 ring-red-500'
-                : 'bg-linear-to-br from-gray-950 via-slate-900 to-primary/80'
+                : 'bg-linear-to-br from-gray-900 via-dark to-primary/80'
             "
           >
             <!-- Watermark / Logo background -->
@@ -182,13 +182,13 @@ onMounted(() => {
                 class="text-xs px-2.5 py-1 rounded-md font-mono font-semibold"
                 :class="
                   authStore.user?.accountType === 'Admin'
-                    ? 'bg-primary text-white'
+                    ? 'bg-gray-700/60 text-primary'
                     : authStore.user?.accountType === 'Student'
                       ? 'bg-card-student text-white'
                       : authStore.user?.accountType === 'Health'
                         ? 'bg-card-health text-white'
                         : authStore.user?.accountType === 'Adult'
-                          ? 'bg-card-adult text-white'
+                          ? 'bg-primary/30 text-card-adult'
                           : 'bg-gray-800 text-gray-300'
                 "
               >
@@ -198,7 +198,7 @@ onMounted(() => {
                     : authStore.user?.accountType === 'Health'
                       ? 'Salud'
                       : authStore.user?.accountType === 'Adult'
-                        ? 'Inapam'
+                        ? 'Adultos/Discapacitados'
                         : authStore.user?.accountType === 'Admin'
                           ? 'Admin'
                           : 'Ordinario'
@@ -252,7 +252,7 @@ onMounted(() => {
           <p class="text-sm text-gray-500 max-w-sm mb-6">
             Tarifa por viaje:
             <strong class="text-gray-800">{{
-              authStore.user?.accountType !== 'User' && authStore.user?.accountType
+              authStore.user?.accountType !== 'User' && authStore.user?.accountType !== 'Admin'
                 ? '$5.50 MXN (Preferencial)'
                 : '$8.00 MXN'
             }}</strong
@@ -261,7 +261,7 @@ onMounted(() => {
 
           <RouterLink
             :to="{ name: 'card-recharge' }"
-            class="inline-flex items-center gap-2 bg-primary hover:bg-dark text-white font-bold px-6 py-3.5 rounded-xl shadow-md transition duration-300"
+            class="inline-flex items-center gap-2 bg-primary hover:bg-dark text-white font-bold px-6 py-3.5 rounded-xl shadow-md transition duration-300 focus:outline-none"
           >
             <PlusCircle class="text-2xl" />
             Recargar Saldo Ahora
@@ -275,28 +275,28 @@ onMounted(() => {
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <RouterLink
             :to="{ name: 'card-recharge' }"
-            class="flex flex-col items-center justify-center p-5 bg-gray-50 hover:bg-primary/10 border border-gray-200 hover:border-primary rounded-2xl transition duration-200 group"
+            class="flex flex-col items-center justify-center p-5 bg-gray-50 hover:bg-primary/10 border border-gray-200 hover:border-primary rounded-2xl transition duration-200 group focus:outline-none"
           >
             <span class="text-2xl font-black text-gray-900 group-hover:text-primary">$50</span>
             <span class="text-xs text-gray-500 mt-1 font-medium">Recargar</span>
           </RouterLink>
           <RouterLink
             :to="{ name: 'card-recharge' }"
-            class="flex flex-col items-center justify-center p-5 bg-gray-50 hover:bg-primary/10 border border-gray-200 hover:border-primary rounded-2xl transition duration-200 group"
+            class="flex flex-col items-center justify-center p-5 bg-gray-50 hover:bg-primary/10 border border-gray-200 hover:border-primary rounded-2xl transition duration-200 group focus:outline-none"
           >
             <span class="text-2xl font-black text-gray-900 group-hover:text-primary">$100</span>
             <span class="text-xs text-gray-500 mt-1 font-medium">Recargar</span>
           </RouterLink>
           <RouterLink
             :to="{ name: 'card-recharge' }"
-            class="flex flex-col items-center justify-center p-5 bg-gray-50 hover:bg-primary/10 border border-gray-200 hover:border-primary rounded-2xl transition duration-200 group"
+            class="flex flex-col items-center justify-center p-5 bg-gray-50 hover:bg-primary/10 border border-gray-200 hover:border-primary rounded-2xl transition duration-200 group focus:outline-none"
           >
             <span class="text-2xl font-black text-gray-900 group-hover:text-primary">$200</span>
             <span class="text-xs text-gray-500 mt-1 font-medium">Recargar</span>
           </RouterLink>
           <RouterLink
             :to="{ name: 'card-recharge' }"
-            class="flex flex-col items-center justify-center p-5 bg-primary/5 hover:bg-primary/15 border border-primary/30 rounded-2xl transition duration-200 group"
+            class="flex flex-col items-center justify-center p-5 bg-primary/5 hover:bg-primary/15 border border-primary/30 rounded-2xl transition duration-200 group focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <span class="text-lg font-bold text-primary">Otro Monto</span>
             <span class="text-xs text-gray-500 mt-1 font-medium">Personalizado</span>

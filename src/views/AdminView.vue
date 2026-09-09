@@ -107,7 +107,10 @@ const handleReview = async (id: string, decision: 'Approved' | 'Rejected') => {
       credentials: 'include',
       body: JSON.stringify({
         decision,
-        reason: decision === 'Approved' ? 'Documentos verificados exitosamente.' : 'Documentación ilegible o no vigente.',
+        reason:
+          decision === 'Approved'
+            ? 'Documentos verificados exitosamente.'
+            : 'Documentación ilegible o no vigente.',
       }),
     })
 
@@ -145,14 +148,16 @@ onMounted(() => {
     :class="{ 'ml-64': !sidebarStore.closedState, 'ml-28': sidebarStore.closedState }"
   >
     <!-- Header -->
-    <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10 flex justify-between items-center flex-wrap gap-4">
+    <div
+      class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-8 p-6 md:p-10 flex justify-between items-center flex-wrap gap-4"
+    >
       <div>
-        <div class="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider mb-1">
+        <div
+          class="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-wider mb-1"
+        >
           <ShieldQuarter class="text-xl" /> Panel de Concesionaria y Autoridad de Transporte
         </div>
-        <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">
-          Administración RutaPay
-        </h1>
+        <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">Administración RutaPay</h1>
         <p class="text-gray-500 text-sm mt-1">
           Supervisión de recaudación, auditoría de pasajes y validación de tarifas preferenciales.
         </p>
@@ -169,7 +174,9 @@ onMounted(() => {
     <!-- KPIs -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
       <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200">
-        <span class="text-xs font-bold uppercase text-gray-500 tracking-wider">Trámites Pendientes</span>
+        <span class="text-xs font-bold uppercase text-gray-500 tracking-wider"
+          >Trámites Pendientes</span
+        >
         <div class="text-3xl sm:text-4xl font-black text-amber-600 mt-2">
           {{ pendingVerifications.length }}
         </div>
@@ -177,7 +184,9 @@ onMounted(() => {
       </div>
 
       <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200">
-        <span class="text-xs font-bold uppercase text-gray-500 tracking-wider">Recaudación Total (Recargas)</span>
+        <span class="text-xs font-bold uppercase text-gray-500 tracking-wider"
+          >Recaudación Total (Recargas)</span
+        >
         <div class="text-3xl sm:text-4xl font-black text-green-600 mt-2">
           ${{ totalRevenue.toFixed(2) }} <span class="text-xs font-medium text-gray-500">MXN</span>
         </div>
@@ -185,7 +194,9 @@ onMounted(() => {
       </div>
 
       <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-200">
-        <span class="text-xs font-bold uppercase text-gray-500 tracking-wider">Viajes Auditados</span>
+        <span class="text-xs font-bold uppercase text-gray-500 tracking-wider"
+          >Viajes Auditados</span
+        >
         <div class="text-3xl sm:text-4xl font-black text-primary mt-2">
           {{ totalTrips }}
         </div>
@@ -199,15 +210,25 @@ onMounted(() => {
         <button
           @click="activeTab = 'verifications'"
           class="pb-2 font-bold text-sm flex items-center gap-2 border-b-2 transition"
-          :class="activeTab === 'verifications' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-900'"
+          :class="
+            activeTab === 'verifications'
+              ? 'border-primary text-primary'
+              : 'border-transparent text-gray-500 hover:text-gray-900'
+          "
         >
-          <FileDetail class="text-lg" /> Solicitudes Preferenciales ({{ pendingVerifications.length }})
+          <FileDetail class="text-lg" /> Solicitudes Preferenciales ({{
+            pendingVerifications.length
+          }})
         </button>
 
         <button
           @click="activeTab = 'transactions'"
           class="pb-2 font-bold text-sm flex items-center gap-2 border-b-2 transition"
-          :class="activeTab === 'transactions' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-900'"
+          :class="
+            activeTab === 'transactions'
+              ? 'border-primary text-primary'
+              : 'border-transparent text-gray-500 hover:text-gray-900'
+          "
         >
           <ArrowDownUp class="text-lg" /> Auditoría de Transacciones ({{ transactions.length }})
         </button>
@@ -215,7 +236,11 @@ onMounted(() => {
         <button
           @click="activeTab = 'users'"
           class="pb-2 font-bold text-sm flex items-center gap-2 border-b-2 transition"
-          :class="activeTab === 'users' ? 'border-primary text-primary' : 'border-transparent text-gray-500 hover:text-gray-900'"
+          :class="
+            activeTab === 'users'
+              ? 'border-primary text-primary'
+              : 'border-transparent text-gray-500 hover:text-gray-900'
+          "
         >
           <User class="text-lg" /> Padrón de Usuarios ({{ users.length }})
         </button>
@@ -244,15 +269,43 @@ onMounted(() => {
                 <td class="py-3 px-4 font-semibold text-gray-900">{{ v.userName }}</td>
                 <td class="py-3 px-4 text-xs">{{ v.userEmail }}</td>
                 <td class="py-3 px-4">
-                  <span class="px-2.5 py-1 rounded-md text-xs font-bold uppercase"
-                    :class="v.targetRole === 'Student' ? 'bg-blue-100 text-blue-700' : v.targetRole === 'Health' ? 'bg-teal-100 text-teal-700' : 'bg-purple-100 text-purple-700'">
-                    {{ v.targetRole === 'Student' ? 'Estudiante' : v.targetRole === 'Health' ? 'Sector Salud' : 'Adulto Mayor' }}
+                  <span
+                    class="px-2.5 py-1 rounded-md text-xs font-bold uppercase"
+                    :class="
+                      v.targetRole === 'Student'
+                        ? 'bg-card-student/10 text-card-student'
+                        : v.targetRole === 'Health'
+                          ? 'bg-card-health/10 text-card-health'
+                          : 'bg-card-adult/10 text-card-adult'
+                    "
+                  >
+                    {{
+                      v.targetRole === 'Student'
+                        ? 'Estudiante'
+                        : v.targetRole === 'Health'
+                          ? 'Sector Salud'
+                          : 'Adulto Mayor'
+                    }}
                   </span>
                 </td>
                 <td class="py-3 px-4 text-xs">{{ formatDate(v.submittedAt) }}</td>
                 <td class="py-3 px-4 text-xs font-semibold">
-                  <span :class="v.status === 'Pending' ? 'text-amber-600' : v.status === 'Approved' ? 'text-green-600' : 'text-red-600'">
-                    {{ v.status === 'Pending' ? 'Pendiente' : v.status === 'Approved' ? 'Aprobada' : 'Rechazada' }}
+                  <span
+                    :class="
+                      v.status === 'Pending'
+                        ? 'text-amber-600'
+                        : v.status === 'Approved'
+                          ? 'text-green-600'
+                          : 'text-red-600'
+                    "
+                  >
+                    {{
+                      v.status === 'Pending'
+                        ? 'Pendiente'
+                        : v.status === 'Approved'
+                          ? 'Aprobada'
+                          : 'Rechazada'
+                    }}
                   </span>
                 </td>
                 <td class="py-3 px-4 text-center">
@@ -299,13 +352,27 @@ onMounted(() => {
             <tbody class="divide-y divide-gray-100">
               <tr v-for="t in transactions" :key="t.id" class="hover:bg-gray-50">
                 <td class="py-3 px-4 font-semibold text-gray-900">{{ t.userName }}</td>
-                <td class="py-3 px-4 text-xs font-bold" :class="t.type === 'Recharge' ? 'text-green-600' : 'text-blue-600'">
-                  {{ t.type === 'Recharge' ? 'Recarga Saldo' : t.type === 'TripPayment' ? 'Cobro Pasaje' : 'Recompensa' }}
+                <td
+                  class="py-3 px-4 text-xs font-bold"
+                  :class="t.type === 'Recharge' ? 'text-green-600' : 'text-blue-600'"
+                >
+                  {{
+                    t.type === 'Recharge'
+                      ? 'Recarga Saldo'
+                      : t.type === 'TripPayment'
+                        ? 'Cobro Pasaje'
+                        : 'Recompensa'
+                  }}
                 </td>
-                <td class="py-3 px-4 text-xs">{{ t.routeName || 'General' }} ({{ t.busUnitId || 'N/A' }})</td>
+                <td class="py-3 px-4 text-xs">
+                  {{ t.routeName || 'General' }} ({{ t.busUnitId || 'N/A' }})
+                </td>
                 <td class="py-3 px-4 font-mono text-xs text-gray-500">{{ t.reference }}</td>
                 <td class="py-3 px-4 text-xs">{{ formatDate(t.createdAt) }}</td>
-                <td class="py-3 px-4 text-right font-black" :class="t.type === 'TripPayment' ? 'text-gray-900' : 'text-green-600'">
+                <td
+                  class="py-3 px-4 text-right font-black"
+                  :class="t.type === 'TripPayment' ? 'text-gray-900' : 'text-green-600'"
+                >
                   {{ t.type === 'TripPayment' ? '-' : '+' }}${{ t.amount.toFixed(2) }}
                 </td>
               </tr>
@@ -333,10 +400,14 @@ onMounted(() => {
             </thead>
             <tbody class="divide-y divide-gray-100">
               <tr v-for="u in users" :key="u.id" class="hover:bg-gray-50">
-                <td class="py-3 px-4 font-semibold text-gray-900">{{ u.fullName || u.userName }}</td>
+                <td class="py-3 px-4 font-semibold text-gray-900">
+                  {{ u.fullName || u.userName }}
+                </td>
                 <td class="py-3 px-4 text-xs">{{ u.email }}</td>
                 <td class="py-3 px-4 text-xs font-bold text-primary">{{ u.accountType }}</td>
-                <td class="py-3 px-4 text-sm font-bold text-gray-900">${{ u.cardBalance.toFixed(2) }}</td>
+                <td class="py-3 px-4 text-sm font-bold text-gray-900">
+                  ${{ u.cardBalance.toFixed(2) }}
+                </td>
                 <td class="py-3 px-4 text-right text-sm font-bold text-primary">{{ u.points }}</td>
               </tr>
             </tbody>
