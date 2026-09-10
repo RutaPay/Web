@@ -63,14 +63,13 @@ onMounted(async () => {
   >
     <div class="h-auto bg-white rounded-3xl shadow-sm border border-gray-200 mb-12 p-6 md:p-10">
       <h1
-        class="text-3xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl text-text-dark"
+        class="text-3xl font-extrabold tracking-tight leading-none md:text-4xl xl:text-5xl text-text-dark p-10"
       >
         Mi Cuenta
       </h1>
-    </div>
-
-    <div class="flex justify-center mb-8">
+      <div class="flex justify-center mb-8">
       <div class="w-1/2 h-fit bg-white rounded-3xl shadow-sm border border-gray-200 p-6 md:p-10">
+
         <p class="text-text-dark text-2xl">Nombre:</p>
         <p class="text-primary text-xl">{{ authStore.user?.userName }}</p>
         <br />
@@ -139,6 +138,9 @@ onMounted(async () => {
     <div class="flex justify-center mb-8 text-text-light" v-else>
       <p>Cargando información del plan...</p>
     </div>
+    </div>
+
+
   </main>
   <Footer :isClosed="sidebarStore.closedState" />
   <RouterView />
