@@ -155,10 +155,6 @@ onMounted(async () => {
             </p>
           </div>
 
-<<<<<<< HEAD
-          <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-4 text-sm bg-blue-50/50 py-3 px-6 rounded-xl border border-blue-100">
-            <span class="text-gray-600">📅 Miembro desde: <span class="font-bold">{{ authStore.user?.createdOn || '09/09/2026' }}</span></span>
-=======
           <div
             class="mt-8 flex flex-col md:flex-row justify-center items-center gap-4 text-sm bg-blue-50/50 py-3 px-6 rounded-xl border border-blue-100"
           >
@@ -166,7 +162,6 @@ onMounted(async () => {
               Miembro desde:
               <span class="font-bold">{{ authStore.user?.createdOn || '09/09/2026' }}</span></span
             >
->>>>>>> 2aca11cb6bc0d0b00afe46f749c0e1fb2ad84f49
             <span class="hidden md:block text-gray-300">|</span>
             <span class="text-gray-600"
               >Estado: <span class="text-green-500 font-bold">● Activa</span></span
