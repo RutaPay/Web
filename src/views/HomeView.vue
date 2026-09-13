@@ -34,13 +34,13 @@ import {
         público.
       </p>
       <div class="flex mb-8 lg:mb-16 items-center justify-center space-x-6">
-        <a
-          href="#Q&A"
+        <RouterLink
+          :to="{ hash: '#Q&A' }"
           class="inline-flex justify-center items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-secondary hover:bg-primary focus:ring-2 focus:ring-primary focus:outline-none"
         >
           Saber más
           <ArrowRightStroke class="ml-2 -mr-2" />
-        </a>
+        </RouterLink>
         <RouterLink
           :to="{ name: 'dashboard' }"
           class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-text-dark rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-2 focus:ring-dark focus:outline-none"
