@@ -35,7 +35,7 @@ import {
       </p>
       <div class="flex mb-8 lg:mb-16 items-center justify-center space-x-6">
         <a
-          href="#"
+          href="#Q&A"
           class="inline-flex justify-center items-center py-3 px-5 font-medium text-center text-white rounded-lg bg-secondary hover:bg-primary focus:ring-2 focus:ring-primary focus:outline-none"
         >
           Saber más
