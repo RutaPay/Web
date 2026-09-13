@@ -5,7 +5,7 @@ import { useSidebarStore } from '@/stores/sidebarstate'
 import { useAuthStore } from '@/stores/auth'
 import { useLogout } from '@/composables/useAuth'
 import { ref, onMounted } from 'vue'
-import { CreditCardAlt, CryptoCoin, DollarCircle, Gift, Microphone } from '@boxicons/vue'
+import { CreditCardAlt, CryptoCoin, DollarCircle, Gift, HeadphoneMic } from '@boxicons/vue'
 
 const sidebarStore = useSidebarStore()
 const authStore = useAuthStore()
@@ -195,7 +195,7 @@ onMounted(async () => {
                   <DollarCircle v-if="benefit.toLowerCase().includes('tarifa')" />
                   <CryptoCoin v-if="benefit.toLowerCase().includes('punto')" />
                   <Gift v-if="benefit.toLowerCase().includes('recompensa')" />
-                  <Microphone v-if="benefit.toLowerCase().includes('soporte')" />
+                  <HeadphoneMic v-if="benefit.toLowerCase().includes('soporte')" />
                 </div>
 
                 <span class="text-sm font-medium text-gray-700 max-w-35">{{ benefit }}</span>
