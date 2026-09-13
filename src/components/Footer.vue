@@ -17,7 +17,7 @@ const currentYear = computed(() => new Date().getFullYear())
     :class="{ 'ml-64': !isClosed, 'ml-28': isClosed }"
   >
     <div class="max-w-6xl mx-auto px-6 md:px-10 py-8">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-12">
         <!-- Branding y Derechos -->
         <div class="flex flex-col items-center md:items-start text-center md:text-left">
           <span class="text-2xl font-extrabold text-gray-800 tracking-tight">
@@ -40,7 +40,7 @@ const currentYear = computed(() => new Date().getFullYear())
         </nav>
 
         <!-- Iconos de Redes / Contacto -->
-        <div class="flex flex-col items-center md:items-end gap-2">
+        <div class="flex flex-col items-center gap-2">
           <div class="flex items-center gap-4">
             <img
               src="@/assets/DownloadOnTheAppStore_Badge.svg"
