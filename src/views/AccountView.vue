@@ -170,7 +170,17 @@ onMounted(async () => {
 
           <div class="mt-10" v-if="selectedTier">
             <h3 class="text-xl font-bold text-center text-text-dark mb-8">
-              Mis Beneficios de {{ selectedTier?.title }}
+              Mis Beneficios -
+              <span
+                :class="{
+                  'text-primary': accType === 'User',
+                  'text-card-student': accType === 'Student',
+                  'text-card-health': accType === 'Health',
+                  'text-card-adult': accType === 'Adult',
+                  'text-dark': accType === 'Admin',
+                }"
+                >{{ selectedTier?.title }}</span
+              >
             </h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div
@@ -179,7 +189,7 @@ onMounted(async () => {
                 class="flex flex-col items-center gap-3"
               >
                 <div
-                  class="w-14 h-14 rounded-full bg-gray-50 border border-gray-200 shadow-sm flex items-center justify-center text-gray-700 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md hover:text-blue-500 hover:border-blue-200"
+                  class="w-14 h-14 rounded-full bg-gray-50 border border-gray-200 shadow-sm flex items-center justify-center text-gray-700 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md hover:text-primary hover:border-primary/30"
                 >
                   <CreditCardAlt v-if="benefit.toLowerCase().includes('tarjeta')" />
                   <DollarCircle v-if="benefit.toLowerCase().includes('tarifa')" />
