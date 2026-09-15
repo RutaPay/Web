@@ -26,7 +26,7 @@ const isActive = (name: string) => route.matched.some((record) => record.name ==
 
 <template>
   <nav
-    class="fixed top-0 left-0 h-full py-8 px-6 border-r-2 bg-white transition-all duration-500 z-100"
+    class="fixed top-0 left-0 h-full py-8 px-6 border-r-2 bg-white transition-all duration-500 z-50 print:hidden"
     :class="{
       close: sidebarStore.closedState,
       'w-64': !sidebarStore.closedState,

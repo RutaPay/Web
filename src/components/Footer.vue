@@ -11,7 +11,7 @@ const currentYear = computed(() => new Date().getFullYear())
 
 <template>
   <footer
-    class="bg-white border-t border-gray-200 transition-all duration-500"
+    class="bg-white border-t border-gray-200 transition-all duration-500 print:hidden"
     :class="{ 'ml-64': !sidebarStore.closedState, 'ml-28': sidebarStore.closedState }"
   >
     <div class="max-w-6xl mx-auto px-6 md:px-10 py-8">

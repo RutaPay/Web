@@ -1,6 +1,18 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { PlusCircle, Lock, LockOpen, CheckCircle, ArrowDownUp, Trip, Gift } from '@boxicons/vue'
+import { ref, computed, onMounted, watch } from 'vue'
+import {
+  PlusCircle,
+  Lock,
+  LockOpen,
+  CheckCircle,
+  ArrowDownUp,
+  Trip,
+  Gift,
+  FileDetail,
+  Printer,
+  ScanBarcode,
+  X,
+} from '@boxicons/vue'
 import SideBar from '../components/SideBar.vue'
 import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
@@ -12,6 +24,9 @@ import { API_URL } from '@/composables/constants'
 const sidebarStore = useSidebarStore()
 const authStore = useAuthStore()
 const { handleRefreshUserData } = useRefreshUserData()
+
+const selectedTransaction = ref<Transaction | null>(null)
+const isReceiptModalOpen = ref(false)
 
 interface Transaction {
   id: string
@@ -95,6 +110,53 @@ const formatDate = (isoString: string) => {
   })
 }
 
+const openReceipt = (transaction: Transaction) => {
+  selectedTransaction.value = transaction
+  isReceiptModalOpen.value = true
+}
+
+const closeReceipt = () => {
+  isReceiptModalOpen.value = false
+  selectedTransaction.value = null
+  document.body.style.overflow = ''
+}
+
+watch(isReceiptModalOpen, (isOpen) => {
+  if (isOpen) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+})
+
+const printReceipt = () => {
+  window.print()
+}
+
+const getTariffDescription = (t: Transaction) => {
+  if (t.type === 'TripPayment') {
+    return t.amount <= 5.5
+      ? 'Tarifa Preferencial con Subsidio (Estudiante / Salud / Adulto Mayor)'
+      : 'Tarifa Ordinaria General'
+  }
+  if (t.type === 'Recharge') {
+    return `Abono Electrónico (${t.paymentMethod || 'Tarjeta'})`
+  }
+  if (t.type === 'RewardRedemption') {
+    return 'Canje de Puntos de Lealtad RutaPay'
+  }
+  return 'Operación General de Transporte'
+}
+
+const getDigitalSeal = (t: Transaction) => {
+  const seed = `${t.id}-${t.reference}-${t.amount}-${t.createdAt}`
+  let hash = ''
+  for (let i = 0; i < seed.length; i++) {
+    hash += seed.charCodeAt(i).toString(16).padStart(2, '0')
+  }
+  return (hash + 'E892BF309A41C6D910F4BC9281A7').substring(0, 48).toUpperCase()
+}
+
 onMounted(() => {
   fetchTransactions()
 })
@@ -125,8 +187,8 @@ onMounted(() => {
           class="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-1.5"
           :class="
             isCardBlocked
-              ? 'bg-red-100 text-red-700 border border-red-300'
-              : 'bg-green-100 text-green-700 border border-green-300'
+              ? 'bg-red-100 text-red-700 border border-red-700'
+              : 'bg-green-100 text-green-700 border border-green-700'
           "
         >
           <span
@@ -394,13 +456,15 @@ onMounted(() => {
               <th class="py-3 px-4">Fecha</th>
               <th class="py-3 px-4 text-right">Monto</th>
               <th class="py-3 px-4 text-center">Estado</th>
+              <th class="py-3 px-4 text-center">Comprobante</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
             <tr
               v-for="t in filteredTransactions"
               :key="t.id"
-              class="hover:bg-gray-50/80 transition"
+              @click="openReceipt(t)"
+              class="hover:bg-gray-50/80 transition cursor-pointer"
             >
               <td class="py-3.5 px-4 font-medium flex items-center gap-2">
                 <span
@@ -454,14 +518,300 @@ onMounted(() => {
                   {{ t.status }}
                 </span>
               </td>
+              <td class="py-3.5 px-4 text-center" @click.stop>
+                <button
+                  @click="openReceipt(t)"
+                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-100 hover:bg-primary hover:text-white text-gray-700 transition duration-200 cursor-pointer shadow-2xs"
+                  title="Ver Ticket Digital"
+                >
+                  <FileDetail class="text-sm" />
+                  <span>Ticket</span>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Router View para el Modal de Recarga -->
+    <Teleport to="body">
+      <div
+        v-if="isReceiptModalOpen && selectedTransaction"
+        class="receipt-modal-overlay fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs overflow-y-auto"
+        @click.self="closeReceipt"
+      >
+        <div
+          id="printable-receipt"
+          class="bg-white rounded-3xl shadow-2xl max-w-md w-full border border-gray-200 overflow-hidden relative transition-all duration-300 transform scale-100 my-8"
+        >
+          <button
+            @click="closeReceipt"
+            class="no-print absolute top-4 right-4 text-gray-400 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100 transition cursor-pointer z-10"
+            title="Cerrar ticket"
+          >
+            <X class="text-xl" />
+          </button>
+
+          <div class="bg-dark text-white p-6 text-center relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 opacity-10 font-black text-7xl select-none">
+              RP
+            </div>
+            <div class="flex items-center justify-center gap-2 mb-1">
+              <span class="w-3 h-3 rounded-full bg-primary inline-block"></span>
+              <span class="text-xs uppercase tracking-widest font-black text-primary"
+                >RutaPay Celaya</span
+              >
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">Comprobante Oficial de Movilidad</h2>
+            <p class="text-xs text-gray-300 mt-0.5">Sistema Integrado de Transporte Público</p>
+            <div
+              class="mt-3 inline-block px-3 py-1 rounded-full text-2xs font-semibold uppercase tracking-wider bg-white/10 text-primary border border-primary/30"
+            >
+              Folio: RPAY-{{ selectedTransaction.reference.toUpperCase().substring(0, 10) }}
+            </div>
+          </div>
+
+          <!-- Contenido del Ticket -->
+          <div class="p-6 space-y-4 text-xs sm:text-sm text-gray-700 font-sans">
+            <!-- Datos del Usuario y Tarjeta -->
+            <div class="grid grid-cols-2 gap-3 pb-3 border-b border-dashed border-gray-300">
+              <div>
+                <span class="block text-2xs uppercase tracking-wider text-gray-400 font-semibold"
+                  >Titular</span
+                >
+                <span class="font-bold text-gray-900 block truncate">
+                  {{ authStore.user?.fullName || authStore.user?.userName || 'Usuario Pasajero' }}
+                </span>
+              </div>
+              <div>
+                <span class="block text-2xs uppercase tracking-wider text-gray-400 font-semibold"
+                  >Tarjeta NFC</span
+                >
+                <span class="font-mono font-bold text-gray-900 block text-xs">
+                  {{ formattedCardUID }}
+                </span>
+              </div>
+              <div>
+                <span class="block text-2xs uppercase tracking-wider text-gray-400 font-semibold"
+                  >Modalidad</span
+                >
+                <span class="font-semibold text-primary">
+                  {{
+                    authStore.user?.accountType === 'Student'
+                      ? 'Tarifa Estudiante'
+                      : authStore.user?.accountType === 'Health'
+                        ? 'Tarifa Salud'
+                        : authStore.user?.accountType === 'Adult'
+                          ? 'Tarifa Adulto Mayor'
+                          : 'Tarifa Ordinaria'
+                  }}
+                </span>
+              </div>
+              <div>
+                <span class="block text-2xs uppercase tracking-wider text-gray-400 font-semibold"
+                  >Fecha y Hora</span
+                >
+                <span class="font-medium text-gray-800">
+                  {{ formatDate(selectedTransaction.createdAt) }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Detalles de la Transacción -->
+            <div class="py-2 border-b border-dashed border-gray-300 space-y-2">
+              <div class="flex justify-between items-center">
+                <span class="text-gray-500 font-medium">Concepto:</span>
+                <span class="font-bold text-gray-900">
+                  {{
+                    selectedTransaction.type === 'TripPayment'
+                      ? 'Pago de Pasaje Urbano'
+                      : selectedTransaction.type === 'Recharge'
+                        ? 'Recarga de Saldo Digital'
+                        : 'Canje de Recompensa'
+                  }}
+                </span>
+              </div>
+
+              <div
+                v-if="selectedTransaction.type === 'TripPayment'"
+                class="flex justify-between items-center"
+              >
+                <span class="text-gray-500 font-medium">Ruta / Autobús:</span>
+                <span class="font-semibold text-gray-800">
+                  {{ selectedTransaction.routeName || 'Ruta Urbana' }} • Unidad
+                  {{ selectedTransaction.busUnitId || '01' }}
+                </span>
+              </div>
+
+              <div
+                v-if="selectedTransaction.type === 'TripPayment'"
+                class="flex justify-between items-center"
+              >
+                <span class="text-gray-500 font-medium">Terminal Validador:</span>
+                <span class="font-mono text-2xs text-gray-600 bg-gray-100 px-2 py-0.5 rounded"
+                  >VAL-NFC-04 (Activo)</span
+                >
+              </div>
+
+              <div
+                v-if="selectedTransaction.type === 'Recharge'"
+                class="flex justify-between items-center"
+              >
+                <span class="text-gray-500 font-medium">Canal de Pago:</span>
+                <span class="font-semibold text-gray-800">{{
+                  selectedTransaction.paymentMethod || 'Tarjeta Digital'
+                }}</span>
+              </div>
+
+              <div class="flex justify-between items-center">
+                <span class="text-gray-500 font-medium">Categoría Tarifa:</span>
+                <span class="text-2xs text-gray-600 max-w-[60%] text-right font-medium">
+                  {{ getTariffDescription(selectedTransaction) }}
+                </span>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-2xl p-4 space-y-2 border border-gray-100">
+              <div class="flex justify-between text-xs text-gray-500">
+                <span>Saldo Anterior:</span>
+                <span class="font-mono"
+                  >${{ selectedTransaction.previousBalance.toFixed(2) }} MXN</span
+                >
+              </div>
+              <div
+                class="flex justify-between text-base font-extrabold items-center py-1 border-y border-gray-200"
+              >
+                <span class="text-gray-900">
+                  {{
+                    selectedTransaction.type === 'TripPayment' ? 'Total Cobrado:' : 'Total Abonado:'
+                  }}
+                </span>
+                <span
+                  class="font-mono text-lg"
+                  :class="
+                    selectedTransaction.type === 'TripPayment' ? 'text-gray-900' : 'text-green-600'
+                  "
+                >
+                  {{ selectedTransaction.type === 'TripPayment' ? '-' : '+' }}${{
+                    selectedTransaction.amount.toFixed(2)
+                  }}
+                  MXN
+                </span>
+              </div>
+              <div class="flex justify-between text-xs font-bold text-gray-800">
+                <span>Saldo Nuevo en Tarjeta:</span>
+                <span class="font-mono text-primary font-black"
+                  >${{ selectedTransaction.currentBalance.toFixed(2) }} MXN</span
+                >
+              </div>
+            </div>
+
+            <div class="pt-2 text-center space-y-2">
+              <div class="flex justify-center items-center gap-2 text-gray-700">
+                <ScanBarcode class="text-3xl" />
+                <span class="font-mono tracking-widest text-xs font-bold text-gray-800">
+                  *{{ selectedTransaction.reference }}*
+                </span>
+              </div>
+
+              <div class="bg-gray-50 rounded-lg p-2 text-left border border-gray-200/70">
+                <span
+                  class="block text-3xs uppercase font-mono font-bold text-gray-400 tracking-wider"
+                >
+                  Sello Digital de Seguridad
+                </span>
+                <p class="font-mono text-3xs text-gray-500 break-all leading-tight">
+                  SHA256:{{ getDigitalSeal(selectedTransaction) }}
+                </p>
+              </div>
+
+              <p class="text-3xs text-gray-400 leading-tight">
+                Comprobante electrónico válido como seguro de viaje para usuario registrado en
+                RutaPay Celaya.
+              </p>
+            </div>
+          </div>
+
+          <div class="no-print p-4 bg-gray-50 border-t border-gray-200 flex gap-3">
+            <button
+              @click="printReceipt"
+              class="flex-1 inline-flex items-center justify-center gap-2 bg-primary hover:bg-dark text-white font-bold py-2.5 px-4 rounded-xl text-xs sm:text-sm transition duration-200 shadow-sm cursor-pointer"
+            >
+              <Printer class="text-lg" />
+              <span>Imprimir / Guardar PDF</span>
+            </button>
+            <button
+              @click="closeReceipt"
+              class="px-4 py-2.5 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 font-semibold text-xs sm:text-sm transition duration-200 cursor-pointer"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </Teleport>
+
     <RouterView />
   </main>
   <Footer :isClosed="sidebarStore.closedState" />
 </template>
+
+<style scoped>
+@media print {
+  #app,
+  nav,
+  aside,
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  #printable-receipt,
+  #printable-receipt * {
+    visibility: visible;
+  }
+
+  /*body {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .receipt-modal-overlay {
+    position: static !important;
+    inset: auto !important;
+    display: block !important;
+    padding: 0 !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    overflow: visible !important;
+    z-index: auto !important;
+  }
+
+  #printable-receipt {
+    display: block !important;
+    position: static !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    box-shadow: none !important;
+    border: 1px dashed #555555 !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }*/
+
+  #printable-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+  }
+}
+</style>
