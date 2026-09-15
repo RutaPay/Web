@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useRefreshUserData } from '@/composables/useAuth'
 import { toast } from 'vue-sonner'
 import { X, CreditCard, Buildings, Store, CheckCircle } from '@boxicons/vue'
+import { API_URL } from '@/composables/constants'
 
 const router = useRouter()
 const refreshUserData = useRefreshUserData()
@@ -94,7 +95,7 @@ const handleRecharge = async () => {
   data.paymentMethod = selectedMethod.value
 
   try {
-    const response = await fetch(`https://localhost:7130/api/Cards/UpdateBalance`, {
+    const response = await fetch(`${API_URL}/api/Cards/UpdateBalance`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

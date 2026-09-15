@@ -7,6 +7,7 @@ import { useSidebarStore } from '@/stores/sidebarstate'
 import { useAuthStore } from '@/stores/auth'
 import { useRefreshUserData } from '@/composables/useAuth'
 import { toast } from 'vue-sonner'
+import { API_URL } from '@/composables/constants'
 
 const sidebarStore = useSidebarStore()
 const authStore = useAuthStore()
@@ -43,7 +44,7 @@ const formattedCardUID = computed(() => {
 const fetchTransactions = async () => {
   isLoadingTransactions.value = true
   try {
-    const response = await fetch('https://localhost:7130/api/Cards/transactions', {
+    const response = await fetch(`${API_URL}/api/Cards/transactions`, {
       credentials: 'include',
     })
     if (response.ok) {
@@ -64,7 +65,7 @@ const filteredTransactions = computed(() => {
 const handleToggleStatus = async () => {
   isTogglingStatus.value = true
   try {
-    const response = await fetch('https://localhost:7130/api/Cards/toggle-status', {
+    const response = await fetch(`${API_URL}/api/Cards/toggle-status`, {
       method: 'POST',
       credentials: 'include',
     })

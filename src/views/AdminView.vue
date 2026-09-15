@@ -5,6 +5,7 @@ import Footer from '@/components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 import { toast } from 'vue-sonner'
 import { CheckCircle, XCircle, User, ArrowDownUp, FileDetail, ShieldQuarter } from '@boxicons/vue'
+import { API_URL } from '@/composables/constants'
 
 const sidebarStore = useSidebarStore()
 
@@ -70,21 +71,21 @@ const totalTrips = computed(() => {
 const loadData = async () => {
   isLoading.value = true
   try {
-    const verRes = await fetch('https://localhost:7130/api/verification/all', {
+    const verRes = await fetch(`${API_URL}/api/verification/all`, {
       credentials: 'include',
     })
     if (verRes.ok) {
       verifications.value = await verRes.json()
     }
 
-    const txRes = await fetch('https://localhost:7130/api/Cards/all-transactions', {
+    const txRes = await fetch(`${API_URL}/api/Cards/all-transactions`, {
       credentials: 'include',
     })
     if (txRes.ok) {
       transactions.value = await txRes.json()
     }
 
-    const usrRes = await fetch('https://localhost:7130/api/account/all', {
+    const usrRes = await fetch(`${API_URL}/api/account/all`, {
       credentials: 'include',
     })
     if (usrRes.ok) {
@@ -99,7 +100,7 @@ const loadData = async () => {
 
 const handleReview = async (id: string, decision: 'Approved' | 'Rejected') => {
   try {
-    const response = await fetch(`https://localhost:7130/api/verification/${id}/review`, {
+    const response = await fetch(`${API_URL}/api/verification/${id}/review`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

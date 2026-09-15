@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { Envelope, Facebook, TwitterX } from '@boxicons/vue'
 import { computed } from 'vue'
+import { useSidebarStore } from '@/stores/sidebarstate'
 
-// Definimos la prop que nos pasa el Profile (o cualquier otra vista) para saber si el menú está cerrado
-defineProps<{
-  isClosed: boolean
-}>()
+const sidebarStore = useSidebarStore()
 
 // Calculamos el año actual automáticamente para el copyright
 const currentYear = computed(() => new Date().getFullYear())
@@ -14,7 +12,7 @@ const currentYear = computed(() => new Date().getFullYear())
 <template>
   <footer
     class="bg-white border-t border-gray-200 transition-all duration-500"
-    :class="{ 'ml-64': !isClosed, 'ml-28': isClosed }"
+    :class="{ 'ml-64': !sidebarStore.closedState, 'ml-28': sidebarStore.closedState }"
   >
     <div class="max-w-6xl mx-auto px-6 md:px-10 py-8">
       <div class="flex flex-col md:flex-row justify-between items-center gap-12">

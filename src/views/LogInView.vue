@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { toast } from 'vue-sonner'
 import { useUserInfo } from '@/composables/useAuth'
+import { API_URL } from '@/composables/constants'
 
 const { handleGetUserInfo } = useUserInfo()
 const authStore = useAuthStore()
@@ -17,7 +18,7 @@ const data = reactive({
 
 const submitForm = async () => {
   try {
-    const response = await fetch('https://localhost:7130/api/account/login', {
+    const response = await fetch(`${API_URL}/api/account/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

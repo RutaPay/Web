@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import {
   ArrowInUpSquareHalf,
   ChevronDown,
   Education,
-  InfoCircle,
   PlusBig,
   UniversalAccess,
   CheckCircle,
@@ -15,6 +14,7 @@ import Footer from '../components/Footer.vue'
 import Modal from '../components/Modal.vue'
 import { useRouter } from 'vue-router'
 import { toast } from 'vue-sonner'
+import { API_URL } from '@/composables/constants'
 
 const router = useRouter()
 
@@ -129,7 +129,7 @@ const handleFileUpload = (e: Event, type: String) => {
 
 const fetchVerificationStatus = async () => {
   try {
-    const response = await fetch('https://localhost:7130/api/verification/my-status', {
+    const response = await fetch(`${API_URL}/api/verification/my-status`, {
       credentials: 'include',
     })
     if (response.ok) {
@@ -160,7 +160,7 @@ const submitForm = async () => {
     }
     const targetRole = roleMapping[data.accType] || 'Student'
 
-    const response = await fetch('https://localhost:7130/api/verification/submit', {
+    const response = await fetch(`${API_URL}/api/verification/submit`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

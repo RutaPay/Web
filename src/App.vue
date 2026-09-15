@@ -4,12 +4,13 @@ import { RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { Toaster } from 'vue-sonner'
 import 'vue-sonner/style.css'
+import { API_URL } from '@/composables/constants'
 
 const authStore = useAuthStore()
 
 onMounted(async () => {
   try {
-    const response = await fetch('https://localhost:7130/api/account', {
+    const response = await fetch(`${API_URL}/api/account`, {
       credentials: 'include',
     })
 

@@ -1,12 +1,13 @@
 import { useAuthStore } from '@/stores/auth'
 import { toast } from 'vue-sonner'
 import type { Router } from 'vue-router'
+import { API_URL } from '@/composables/constants'
 
 const authStore = useAuthStore()
 
 export class AuthService {
-  private static readonly LOGOUT_URL = 'https://localhost:7130/api/account/logout'
-  private static readonly USER_INFO_URL = 'https://localhost:7130/api/account'
+  private static readonly LOGOUT_URL = `${API_URL}/api/account/logout`
+  private static readonly USER_INFO_URL = `${API_URL}/api/account`
 
   static async logout(router: Router): Promise<void> {
     try {
