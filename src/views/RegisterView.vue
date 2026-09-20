@@ -24,7 +24,7 @@ const data = reactive({
 // Formateo de teléfono
 const formatPhone = (e: Event) => {
   const target = e.target as HTMLInputElement
-  let val = target.value
+  const val = target.value
 
   if (val.length < 4) {
     data.phoneNumber = '+52 '

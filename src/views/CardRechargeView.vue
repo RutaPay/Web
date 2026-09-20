@@ -121,7 +121,7 @@ const handleRecharge = async () => {
         description: err || 'Error al procesar el abono. Inténtalo más tarde.',
       })
     }
-  } catch (error: any) {
+  } catch {
     toast.error('Error de Conexión', {
       description: 'No se pudo conectar con el servidor de pagos RutaPay.',
     })

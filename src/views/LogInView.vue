@@ -43,8 +43,8 @@ const submitForm = async () => {
     await handleGetUserInfo()
 
     await router.push('/dashboard')
-  } catch (error: any) {
-    if (error.message === 'Failed to fetch') {
+  } catch (error: unknown) {
+    if (error instanceof Error && error.message === 'Failed to fetch') {
       toast.error('Error de Conexión', {
         description:
           'No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet.',

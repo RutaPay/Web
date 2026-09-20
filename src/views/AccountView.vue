@@ -23,7 +23,7 @@ interface TiersData {
 }
 
 const selectedTier = ref<TierInfo | null>(null)
-let currentTierKey = ref('')
+const currentTierKey = ref('')
 
 const profilePicInput = ref<HTMLInputElement | null>(null)
 const bannerInput = ref<HTMLInputElement | null>(null)

@@ -53,7 +53,7 @@ export class AuthService {
       } else {
         authStore.clearAuth()
       }
-    } catch (error) {
+    } catch {
       authStore.clearAuth()
     } finally {
       authStore.isInitialLoading = false
@@ -72,7 +72,7 @@ export class AuthService {
       } else {
         authStore.clearAuth()
       }
-    } catch (error) {
+    } catch {
       authStore.clearAuth()
     }
   }

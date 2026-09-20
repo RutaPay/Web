@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import SideBar from '../components/SideBar.vue'
 import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 
 import mapboxgl from 'mapbox-gl'
+import type GeoJSON from 'geojson'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 const sidebarStore = useSidebarStore()

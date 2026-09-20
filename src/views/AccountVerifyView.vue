@@ -98,7 +98,7 @@ const formattedFileSize = (file: File | null): string => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
 }
 
-const handleFileUpload = (e: Event, type: String) => {
+const handleFileUpload = (e: Event, type: string) => {
   const target = e.target as HTMLInputElement
   const file = target.files ? target.files[0] : null
 
