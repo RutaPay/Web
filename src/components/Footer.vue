@@ -2,8 +2,24 @@
 import { Envelope, Facebook, TwitterX } from '@boxicons/vue'
 import { computed } from 'vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
+import { useRouter } from 'vue-router'
 
 const sidebarStore = useSidebarStore()
+const router = useRouter()
+
+defineProps({
+  isNoSideBarPage: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const footerMarginClass = computed(() => {
+  if (router.currentRoute.value.name === 'home') {
+    return 'ml-0'
+  }
+  return sidebarStore.closedState ? 'ml-28' : 'ml-64'
+})
 
 // Calculamos el año actual automáticamente para el copyright
 const currentYear = computed(() => new Date().getFullYear())
@@ -12,7 +28,7 @@ const currentYear = computed(() => new Date().getFullYear())
 <template>
   <footer
     class="bg-white border-t border-gray-200 transition-all duration-500 print:hidden"
-    :class="{ 'ml-64': !sidebarStore.closedState, 'ml-28': sidebarStore.closedState }"
+    :class="footerMarginClass"
   >
     <div class="max-w-6xl mx-auto px-6 md:px-10 py-8">
       <div class="flex flex-col md:flex-row justify-between items-center gap-12">

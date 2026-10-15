@@ -753,11 +753,18 @@ onMounted(() => {
 
     <RouterView />
   </main>
-  <Footer :isClosed="sidebarStore.closedState" />
+  <Footer />
 </template>
 
-<style scoped>
+<style>
+@page {
+  /* Suprime encabezados y pies automáticos del navegador (URL, IP, fecha, 1/1 pág) */
+  margin: 0 !important;
+  size: 80mm auto; /* Formato estándar de bobina de impresora térmica POS de 80mm */
+}
+
 @media print {
+  /* Ocultar elementos de la web */
   #app,
   nav,
   aside,
@@ -767,15 +774,14 @@ onMounted(() => {
     display: none !important;
   }
 
-  #printable-receipt,
-  #printable-receipt * {
-    visibility: visible;
-  }
-
-  /*body {
+  html,
+  body {
     background: #ffffff !important;
+    color: #000000 !important;
     margin: 0 !important;
     padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
@@ -783,7 +789,8 @@ onMounted(() => {
   .receipt-modal-overlay {
     position: static !important;
     inset: auto !important;
-    display: block !important;
+    display: flex !important;
+    justify-content: center !important;
     padding: 0 !important;
     background: transparent !important;
     backdrop-filter: none !important;
@@ -791,27 +798,89 @@ onMounted(() => {
     z-index: auto !important;
   }
 
+  /* Formato y dimensiones de Ticket Térmico POS 80mm */
   #printable-receipt {
     display: block !important;
     position: static !important;
     margin: 0 auto !important;
-    width: 100% !important;
-    max-width: 440px !important;
+    padding: 5mm 4mm !important;
+    width: 74mm !important; /* Ancho imprimible óptimo en papel térmico de 80mm */
+    max-width: 74mm !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: 'Courier New', Courier, monospace, monospace !important;
+    font-size: 8.5pt !important;
+    line-height: 1.3 !important;
     box-shadow: none !important;
-    border: 1px dashed #555555 !important;
+    border: none !important;
+    border-radius: 0 !important;
     page-break-inside: avoid;
     break-inside: avoid;
-  }*/
+  }
 
-  #printable-receipt {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
+  /* Encabezado térmico: fondo blanco y borde punteado negro */
+  #printable-receipt .bg-dark {
+    background: transparent !important;
+    color: #000000 !important;
+    padding: 0 0 3mm 0 !important;
+    border-bottom: 1.5px dashed #000000 !important;
+    border-radius: 0 !important;
+    text-align: center !important;
+  }
+
+  #printable-receipt .bg-dark * {
+    color: #000000 !important;
+  }
+
+  #printable-receipt h2 {
+    font-size: 10pt !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    margin: 1mm 0 !important;
+    color: #000000 !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  /* Ocultar elementos estéticos web */
+  #printable-receipt .thermal-hide {
+    display: none !important;
+  }
+
+  /* Divisores punteados de ticket */
+  #printable-receipt .border-dashed,
+  #printable-receipt .border-b,
+  #printable-receipt .border-t,
+  #printable-receipt .border-y {
+    border-color: #000000 !important;
+    border-style: dashed !important;
+  }
+
+  /* Bloque de desglose financiero en ticket */
+  #printable-receipt .bg-gray-50,
+  #printable-receipt .bg-white\/10 {
+    background: transparent !important;
+    border: 1px dashed #000000 !important;
+    border-radius: 0 !important;
+    padding: 2mm !important;
+    margin: 2mm 0 !important;
+  }
+
+  /* Todo texto en negro puro para contraste nítido en cabezal térmico */
+  #printable-receipt * {
+    color: #000000 !important;
     box-shadow: none !important;
-    border: 1px solid #e5e7eb !important;
+    text-shadow: none !important;
+  }
+
+  #printable-receipt .font-bold,
+  #printable-receipt .font-extrabold,
+  #printable-receipt .font-black {
+    font-weight: 900 !important;
+  }
+
+  /* Visualización de corte de papel térmico al pie */
+  #printable-receipt .thermal-only-cut {
+    display: block !important;
   }
 }
 </style>

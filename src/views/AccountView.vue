@@ -203,6 +203,16 @@ onMounted(async () => {
             </div>
           </div>
 
+          <div class="mt-8 flex justify-center">
+            <RouterLink
+              :to="{ name: 'account-verify' }"
+              class="text-primary font-bold hover:text-dark transition-all duration-200"
+              v-if="authStore.user?.accountType !== 'Admin'"
+            >
+              Aplicar para tarjeta preferencial
+            </RouterLink>
+          </div>
+
           <div class="mt-12 flex justify-center">
             <button
               class="bg-[#D93025] text-white py-2.5 px-8 rounded-xl font-medium transition-colors duration-300 shadow-sm hover:bg-[#B1271B] disabled:opacity-50"
@@ -216,6 +226,6 @@ onMounted(async () => {
       </div>
     </div>
   </main>
-  <Footer :isClosed="sidebarStore.closedState" />
+  <Footer />
   <RouterView />
 </template>

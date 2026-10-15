@@ -258,5 +258,5 @@ import {
       </div>
     </section>
   </main>
-  <Footer />
+  <Footer :isNoSideBarPage="true" />
 </template>
