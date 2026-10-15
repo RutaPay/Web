@@ -101,7 +101,7 @@ const router = createRouter({
   },
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to) => {
   const authStore = useAuthStore()
 
   const waitUntilLoaded = () => {
@@ -123,23 +123,18 @@ router.beforeEach(async (to, from, next) => {
 
   if (to.meta.requiresAuth && !authStore.authenticated) {
     toast.error('Debes Iniciar Sesión')
-    next({ name: 'login' })
+    return { name: 'login' }
   } else if (to.path === '/login' && authStore.authenticated) {
     toast.info('Ya has iniciado sesión')
-    next({ name: 'dashboard' })
+    return { name: 'dashboard' }
   } else if (to.path === '/register' && authStore.authenticated) {
     toast.info('Ya has iniciado sesión')
-    next({ name: 'dashboard' })
-  } else {
-    next()
-  }
-
-  if (to.meta.requiresAdmin && authStore.user?.accountType !== 'Admin') {
+    return { name: 'dashboard' }
+  } else if (to.meta.requiresAdmin && authStore.user?.accountType !== 'Admin') {
     toast.error('No tienes permisos para acceder a esta página')
-    next({ name: 'dashboard' })
-  } else {
-    next()
+    return { name: 'dashboard' }
   }
+  return
 })
 
 export default router
