@@ -1,10 +1,20 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import SideBar from '@/components/SideBar.vue'
 import Footer from '@/components/Footer.vue'
+import Modal from '@/components/Modal.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 import { toast } from 'vue-sonner'
-import { CheckCircle, XCircle, User, ArrowDownUp, FileDetail, ShieldQuarter } from '@boxicons/vue'
+import {
+  CheckCircle,
+  XCircle,
+  User,
+  ArrowDownUp,
+  FileDetail,
+  ShieldQuarter,
+  DotsVertical,
+  Trash,
+} from '@boxicons/vue'
 import { API_URL } from '@/composables/constants'
 
 const sidebarStore = useSidebarStore()
@@ -53,6 +63,15 @@ const verifications = ref<VerificationItem[]>([])
 const transactions = ref<TransactionItem[]>([])
 const users = ref<UserItem[]>([])
 const isLoading = ref(false)
+
+// Menú de acciones (tres puntos) del padrón de usuarios.
+const menuUser = ref<UserItem | null>(null)
+const menuPosition = ref({ top: 0, left: 0 })
+
+// Confirmación para eliminar un usuario.
+const isDeleteModalOpen = ref(false)
+const userToDelete = ref<UserItem | null>(null)
+const isDeleting = ref(false)
 
 const pendingVerifications = computed(() => {
   return verifications.value.filter((v) => v.status === 'Pending')
@@ -126,6 +145,67 @@ const handleReview = async (id: string, decision: 'Approved' | 'Rejected') => {
   }
 }
 
+const toggleMenu = (user: UserItem, event: MouseEvent) => {
+  if (menuUser.value?.id === user.id) {
+    menuUser.value = null
+    return
+  }
+
+  const trigger = event.currentTarget as HTMLElement
+  const rect = trigger.getBoundingClientRect()
+  const menuWidth = 208
+
+  menuPosition.value = {
+    top: rect.bottom + 6,
+    left: Math.max(8, Math.min(rect.right - menuWidth, window.innerWidth - menuWidth - 8)),
+  }
+
+  menuUser.value = user
+}
+
+const closeMenu = () => {
+  menuUser.value = null
+}
+
+const openDeleteModal = (user: UserItem) => {
+  closeMenu()
+  userToDelete.value = user
+  isDeleteModalOpen.value = true
+}
+
+const confirmDelete = async () => {
+  if (!userToDelete.value) return
+
+  isDeleting.value = true
+  try {
+    const response = await fetch(`${API_URL}/api/account/${userToDelete.value.id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    })
+
+    if (response.ok) {
+      const data = await response.json().catch(() => null)
+      toast.success(data?.message ?? 'Usuario eliminado correctamente.')
+      isDeleteModalOpen.value = false
+      userToDelete.value = null
+      await loadData()
+    } else {
+      let message = 'No se pudo eliminar el usuario.'
+      try {
+        const data = await response.json()
+        message = data?.message ?? data?.title ?? message
+      } catch {
+        // La respuesta de error no traía cuerpo JSON.
+      }
+      toast.error(message)
+    }
+  } catch (error) {
+    toast.error('Error de red al eliminar el usuario.')
+  } finally {
+    isDeleting.value = false
+  }
+}
+
 const formatDate = (isoString: string) => {
   if (!isoString) return ''
   return new Date(isoString).toLocaleDateString('es-MX', {
@@ -139,6 +219,11 @@ const formatDate = (isoString: string) => {
 
 onMounted(() => {
   loadData()
+  document.addEventListener('click', closeMenu)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', closeMenu)
 })
 </script>
 
@@ -397,6 +482,7 @@ onMounted(() => {
                 <th class="py-3 px-4">Tipo de Cuenta</th>
                 <th class="py-3 px-4">Saldo Tarjeta</th>
                 <th class="py-3 px-4 text-right">Puntos</th>
+                <th class="py-3 px-4 text-center">Acciones</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -410,6 +496,17 @@ onMounted(() => {
                   ${{ u.cardBalance.toFixed(2) }}
                 </td>
                 <td class="py-3 px-4 text-right text-sm font-bold text-primary">{{ u.points }}</td>
+                <td class="py-3 px-4 text-center">
+                  <button
+                    type="button"
+                    aria-label="Acciones del usuario"
+                    :aria-expanded="menuUser?.id === u.id"
+                    class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition"
+                    @click.stop="toggleMenu(u, $event)"
+                  >
+                    <DotsVertical class="text-lg" />
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -417,5 +514,54 @@ onMounted(() => {
       </div>
     </div>
   </main>
+
+  <!-- Menú de acciones del padrón de usuarios (posicionado para no quedar recortado por el scroll de la tabla) -->
+  <div
+    v-if="menuUser"
+    class="fixed z-50 w-52 bg-white border border-gray-200 rounded-xl shadow-lg py-1"
+    :style="{ top: `${menuPosition.top}px`, left: `${menuPosition.left}px` }"
+    @click.stop
+  >
+    <button
+      type="button"
+      class="w-full flex items-center gap-2 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 transition"
+      @click="openDeleteModal(menuUser)"
+    >
+      <Trash class="text-base" /> Eliminar usuario
+    </button>
+  </div>
+
+  <!-- Confirmación para eliminar usuario -->
+  <Modal v-model="isDeleteModalOpen" title="Eliminar usuario">
+    <p>
+      ¿Seguro que quieres eliminar la cuenta de
+      <strong class="text-gray-900">{{ userToDelete?.fullName || userToDelete?.userName }}</strong>
+      (<span>{{ userToDelete?.email }}</span
+      >)?
+    </p>
+    <p class="mt-3 text-sm font-medium text-red-600">
+      Esta acción es permanente y borrará su tarjeta, puntos, transacciones y recompensas asociadas.
+    </p>
+
+    <template #footer>
+      <button
+        type="button"
+        class="px-5 py-2.5 font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all disabled:opacity-60"
+        :disabled="isDeleting"
+        @click="isDeleteModalOpen = false"
+      >
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="flex items-center gap-2 px-5 py-2.5 font-semibold text-white bg-red-600 hover:bg-red-700 rounded-xl transition-all disabled:opacity-60"
+        :disabled="isDeleting"
+        @click="confirmDelete"
+      >
+        <Trash /> {{ isDeleting ? 'Eliminando…' : 'Eliminar usuario' }}
+      </button>
+    </template>
+  </Modal>
+
   <Footer :isClosed="sidebarStore.closedState" />
 </template>
