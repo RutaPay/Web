@@ -147,7 +147,7 @@ onMounted(async () => {
 
           <div class="mt-4 text-center">
             <h2 class="text-3xl font-extrabold text-text-dark">
-              {{ authStore.user?.userName || 'Usuario' }}
+              {{ authStore.user?.fullName || 'Usuario' }} {{ authStore.user?.lastNames || '' }}
             </h2>
             <p class="text-gray-500 text-lg mt-1">Usuario de RutaPay Celaya</p>
             <p class="text-gray-400 text-sm mt-1">

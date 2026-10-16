@@ -137,7 +137,7 @@ onMounted(() => {
     >
       <div>
         <h3 class="text-2xl font-bold tracking-tight text-text-dark">
-          Hola, <span class="text-primary">{{ authStore.user?.userName || 'Pasajero' }}</span
+          Hola, <span class="text-primary">{{ authStore.user?.fullName || 'Pasajero' }}</span
           >!
         </h3>
         <p class="text-gray-500 text-sm mt-1">
