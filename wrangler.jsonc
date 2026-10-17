@@ -1,14 +1,22 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "rutapay",
+  "main": "./worker/index.ts",
   "compatibility_date": "2026-10-12",
   "observability": {
     "enabled": true
   },
-  // La SPA se compila a ./dist y se sirve como Worker "solo assets".
-  // not_found_handling = single-page-application permite las rutas de vue-router.
+  // Origen real del backend. El Worker (worker/index.ts) proxya /api/* aquí.
+  "vars": {
+    "API_ORIGIN": "https://rutapayapi.runasp.net"
+  },
+  // La SPA se compila a ./dist y se sirve como assets estáticos.
+  // run_worker_first hace que solo /api (proxy al backend) pase por el Worker;
+  // el resto se sirve como assets, con fallback de SPA.
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "single-page-application"
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api", "/api/*"]
   }
 }
