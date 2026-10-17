@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "rutapay",
+  "compatibility_date": "2026-10-12",
+  "observability": {
+    "enabled": true
+  },
+  // La SPA se compila a ./dist y se sirve como Worker "solo assets".
+  // not_found_handling = single-page-application permite las rutas de vue-router.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
