@@ -59,9 +59,13 @@ const currentYear = computed(() => new Date().getFullYear())
             <img
               src="@/assets/DownloadOnTheAppStore_Badge.svg"
               alt="App Store Badge"
-              class="h-12"
+              class="h-8 lg:h-12"
             />
-            <img src="@/assets/GetItOnGooglePlay_Badge.svg" alt="Google Play Badge" class="h-12" />
+            <img
+              src="@/assets/GetItOnGooglePlay_Badge.svg"
+              alt="Google Play Badge"
+              class="h-8 lg:h-12"
+            />
           </div>
           <div class="flex items-center gap-4 mt-4">
             <!-- Facebook -->

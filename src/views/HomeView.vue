@@ -177,7 +177,7 @@ import {
             height="max-content"
             src="https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png"
             alt="Product screenshot"
-            class="w-full rounded-xl shadow-xl ring-1 ring-white/10 sm:w-228 md:-ml-4 lg:ml-0 hover:scale-105 transition-all duration-300"
+            class="w-lg md:w-2xl lg:w-3xl max-w-none rounded-xl shadow-xl ring-1 ring-white/10 sm:w-228 md:-ml-4 lg:ml-0"
           />
         </div>
       </div>
