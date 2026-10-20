@@ -173,11 +173,11 @@ import {
             </div>
           </div>
           <img
-            width="2432"
-            height="1442"
+            width="100%"
+            height="max-content"
             src="https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png"
             alt="Product screenshot"
-            class="w-3xl max-w-none rounded-xl shadow-xl ring-1 ring-white/10 sm:w-228 md:-ml-4 lg:ml-0"
+            class="w-full rounded-xl shadow-xl ring-1 ring-white/10 sm:w-228 md:-ml-4 lg:ml-0 hover:scale-105 transition-all duration-300"
           />
         </div>
       </div>

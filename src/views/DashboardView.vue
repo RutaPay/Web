@@ -57,7 +57,7 @@ const sidebarStore = useSidebarStore()
                 Realiza una recarga
               </RouterLink>
             </div>
-            <div class="hidden lg:mt-0 lg:col-span-5 lg:flex w-2xl">
+            <div class="hidden lg:mt-0 lg:col-span-5 lg:flex w-auto h-auto justify-center items-center">
               <img src="../assets/phone_mockup.jpg" alt="mockup" />
             </div>
           </div>
