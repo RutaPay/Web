@@ -61,17 +61,6 @@ const isActive = (name: string) => route.matched.some((record) => record.name ==
 
     <div class="flex flex-col grow overflow-y-auto overflow-x-hidden">
       <div class="mt-12">
-        <li class="flex items-center justify-center h-8">
-          <Search
-            class="flex items-center justify-center min-w-16 text-2xl text-text-light transition-all duration-200"
-          ></Search>
-          <input
-            class="w-7/8 outline-none border rounded-xl text-base font-normal text-white bg-secondary hover:border hover:border-dark transition-all duration-300 p-2"
-            :class="{ hidden: sidebarStore.closedState }"
-            type="search"
-            placeholder="Search"
-          />
-        </li>
         <ul class="space-y-2">
           <SideBarItem
             url="dashboard"
