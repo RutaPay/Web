@@ -112,8 +112,11 @@ const submitForm = async () => {
     })
 
     if (response.status === 201) {
+      const data = await response.json().catch(() => null)
       toast.success('¡Registro exitoso!', {
-        description: 'Ahora puedes iniciar sesión.',
+        description: data?.emailSent
+          ? 'Revisa tu correo para confirmar tu cuenta.'
+          : 'Ahora puedes iniciar sesión.',
       })
       await router.push('/login')
     } else if (response.status === 400) {

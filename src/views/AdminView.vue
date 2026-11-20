@@ -18,6 +18,7 @@ import {
   Gift,
   Plus,
   Save,
+  Envelope,
 } from '@boxicons/vue'
 import { API_URL } from '@/composables/constants'
 
@@ -116,6 +117,60 @@ const isSavingReward = ref(false)
 const isDeleteRewardModalOpen = ref(false)
 const rewardToDelete = ref<RewardItem | null>(null)
 const isDeletingReward = ref(false)
+
+// --- Diagnóstico de correo ---
+interface EmailTestResult {
+  success: boolean
+  provider: string
+  statusCode?: number | null
+  providerMessage?: string | null
+  error?: string | null
+  message: string
+  sender?: string
+}
+
+const isEmailTestModalOpen = ref(false)
+const testEmailTo = ref('')
+const isTestingEmail = ref(false)
+const emailTestResult = ref<EmailTestResult | null>(null)
+
+const openEmailTest = () => {
+  emailTestResult.value = null
+  isEmailTestModalOpen.value = true
+}
+
+const runEmailTest = async () => {
+  const to = testEmailTo.value.trim()
+  if (!to) return
+
+  isTestingEmail.value = true
+  emailTestResult.value = null
+  try {
+    const response = await fetch(`${API_URL}/api/account/test-email`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ to }),
+    })
+
+    const data = await response.json().catch(() => null)
+    emailTestResult.value = data
+
+    if (response.ok) {
+      toast.success('Correo de prueba enviado', {
+        description: `Revisa la bandeja de ${to} (y spam).`,
+      })
+    } else {
+      toast.error('El proveedor rechazó el correo', {
+        description: data?.error ?? data?.providerMessage ?? 'Revisa el detalle del diagnóstico.',
+      })
+    }
+  } catch {
+    toast.error('Error de red al probar el correo.')
+  } finally {
+    isTestingEmail.value = false
+  }
+}
 
 const pendingVerifications = computed(() => {
   return verifications.value.filter((v) => v.status === 'Pending')
@@ -445,12 +500,20 @@ onUnmounted(() => {
         </p>
       </div>
 
-      <button
-        @click="loadData"
-        class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl text-sm transition"
-      >
-        Actualizar Datos
-      </button>
+      <div class="flex items-center gap-2">
+        <button
+          @click="openEmailTest"
+          class="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl text-sm transition"
+        >
+          <Envelope class="text-base" /> Probar correo
+        </button>
+        <button
+          @click="loadData"
+          class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold rounded-xl text-sm transition"
+        >
+          Actualizar Datos
+        </button>
+      </div>
     </div>
 
     <!-- KPIs -->
@@ -1017,6 +1080,79 @@ onUnmounted(() => {
         @click="confirmDeleteReward"
       >
         <Trash /> {{ isDeletingReward ? 'Eliminando…' : 'Eliminar recompensa' }}
+      </button>
+    </template>
+  </Modal>
+
+  <!-- Diagnóstico de correo -->
+  <Modal v-model="isEmailTestModalOpen" title="Probar envío de correo">
+    <p class="text-sm text-gray-600">
+      Envía un correo de prueba y muestra la respuesta del proveedor configurado. Úsalo para
+      diagnosticar por qué no llegan los correos (clave inválida, dominio sin verificar, remitente
+      no autorizado, etc.).
+    </p>
+
+    <div class="mt-4">
+      <label
+        class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1"
+        for="test-email-to"
+      >
+        Destinatario
+      </label>
+      <input
+        id="test-email-to"
+        v-model="testEmailTo"
+        type="email"
+        autocomplete="email"
+        class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-primary"
+        placeholder="tucorreo@ejemplo.com"
+      />
+    </div>
+
+    <div
+      v-if="emailTestResult"
+      class="mt-4 rounded-xl border p-4 text-sm"
+      :class="emailTestResult.success ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'"
+    >
+      <p
+        class="font-bold"
+        :class="emailTestResult.success ? 'text-green-700' : 'text-red-700'"
+      >
+        {{ emailTestResult.success ? 'Correo aceptado por el proveedor' : 'El envío falló' }}
+      </p>
+      <ul class="mt-2 space-y-1 text-xs text-gray-700">
+        <li><strong>Proveedor:</strong> {{ emailTestResult.provider }}</li>
+        <li v-if="emailTestResult.sender"><strong>Remitente:</strong> {{ emailTestResult.sender }}</li>
+        <li v-if="emailTestResult.statusCode !== null && emailTestResult.statusCode !== undefined">
+          <strong>HTTP:</strong> {{ emailTestResult.statusCode }}
+        </li>
+        <li class="break-all">
+          <strong>Respuesta:</strong>
+          {{
+            emailTestResult.error ??
+            emailTestResult.providerMessage ??
+            emailTestResult.message
+          }}
+        </li>
+      </ul>
+    </div>
+
+    <template #footer>
+      <button
+        type="button"
+        class="px-5 py-2.5 font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all disabled:opacity-60"
+        :disabled="isTestingEmail"
+        @click="isEmailTestModalOpen = false"
+      >
+        Cerrar
+      </button>
+      <button
+        type="button"
+        class="flex items-center gap-2 px-5 py-2.5 font-semibold text-white bg-primary hover:bg-dark rounded-xl transition-all disabled:opacity-60"
+        :disabled="isTestingEmail || !testEmailTo.trim()"
+        @click="runEmailTest"
+      >
+        <Envelope /> {{ isTestingEmail ? 'Enviando…' : 'Enviar prueba' }}
       </button>
     </template>
   </Modal>
