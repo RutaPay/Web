@@ -38,6 +38,21 @@ const myRewards = ref<UserReward[]>([])
 const isLoadingRewards = ref(false)
 const isRedeeming = ref(false)
 
+const rewardTypeLabel = (type: string) => {
+  switch (type) {
+    case 'Balance':
+      return 'Saldo Inmediato'
+    case 'Raffle':
+      return 'Sorteo Ecológico'
+    case 'Discount':
+      return 'Descuento'
+    case 'TripPass':
+      return 'Pase de Viaje'
+    default:
+      return type
+  }
+}
+
 const isSuccessModalOpen = ref(false)
 const lastRedeemedCode = ref('')
 const lastRedeemedTitle = ref('')
@@ -238,7 +253,7 @@ onMounted(() => {
             <span
               class="inline-block px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary mb-3"
             >
-              {{ item.rewardType === 'Balance' ? 'Saldo Inmediato' : 'Sorteo Ecológico' }}
+              {{ rewardTypeLabel(item.rewardType) }}
             </span>
             <h4 class="text-xl font-bold text-gray-900 mb-2">{{ item.title }}</h4>
             <p class="text-xs text-gray-500 mb-4">{{ item.description }}</p>

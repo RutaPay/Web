@@ -14,6 +14,10 @@ import {
   ShieldQuarter,
   DotsVertical,
   Trash,
+  Edit,
+  Gift,
+  Plus,
+  Save,
 } from '@boxicons/vue'
 import { API_URL } from '@/composables/constants'
 
@@ -57,11 +61,31 @@ interface UserItem {
   points: number
 }
 
-const activeTab = ref<'verifications' | 'transactions' | 'users'>('verifications')
+interface RewardItem {
+  id: number
+  title: string
+  description: string
+  pointsCost: number
+  rewardType: string
+  value: number
+  isActive: boolean
+}
+
+interface RewardForm {
+  title: string
+  description: string
+  pointsCost: number | string
+  rewardType: string
+  value: number | string
+  isActive: boolean
+}
+
+const activeTab = ref<'verifications' | 'transactions' | 'users' | 'rewards'>('verifications')
 
 const verifications = ref<VerificationItem[]>([])
 const transactions = ref<TransactionItem[]>([])
 const users = ref<UserItem[]>([])
+const rewards = ref<RewardItem[]>([])
 const isLoading = ref(false)
 
 // Menú de acciones (tres puntos) del padrón de usuarios.
@@ -72,6 +96,26 @@ const menuPosition = ref({ top: 0, left: 0 })
 const isDeleteModalOpen = ref(false)
 const userToDelete = ref<UserItem | null>(null)
 const isDeleting = ref(false)
+
+// --- Gestión del catálogo de recompensas ---
+const emptyRewardForm = (): RewardForm => ({
+  title: '',
+  description: '',
+  pointsCost: 0,
+  rewardType: 'Balance',
+  value: 0,
+  isActive: true,
+})
+
+const rewardForm = ref<RewardForm>(emptyRewardForm())
+const rewardFormErrors = ref<{ title?: string; pointsCost?: string; value?: string }>({})
+const isRewardModalOpen = ref(false)
+const rewardToEdit = ref<RewardItem | null>(null)
+const isSavingReward = ref(false)
+
+const isDeleteRewardModalOpen = ref(false)
+const rewardToDelete = ref<RewardItem | null>(null)
+const isDeletingReward = ref(false)
 
 const pendingVerifications = computed(() => {
   return verifications.value.filter((v) => v.status === 'Pending')
@@ -109,6 +153,13 @@ const loadData = async () => {
     })
     if (usrRes.ok) {
       users.value = await usrRes.json()
+    }
+
+    const rewRes = await fetch(`${API_URL}/api/rewards/all`, {
+      credentials: 'include',
+    })
+    if (rewRes.ok) {
+      rewards.value = await rewRes.json()
     }
   } catch (error) {
     console.error('Error loading admin data:', error)
@@ -203,6 +254,151 @@ const confirmDelete = async () => {
     toast.error('Error de red al eliminar el usuario.')
   } finally {
     isDeleting.value = false
+  }
+}
+
+const rewardTypeLabel = (type: string) => {
+  switch (type) {
+    case 'Balance':
+      return 'Saldo'
+    case 'Raffle':
+      return 'Sorteo'
+    case 'Discount':
+      return 'Descuento'
+    case 'TripPass':
+      return 'Pase de viaje'
+    default:
+      return type
+  }
+}
+
+const formatRewardValue = (value: number) => (value > 0 ? `$${value.toFixed(2)}` : '—')
+
+const openCreateReward = () => {
+  rewardToEdit.value = null
+  rewardForm.value = emptyRewardForm()
+  rewardFormErrors.value = {}
+  isRewardModalOpen.value = true
+}
+
+const openEditReward = (reward: RewardItem) => {
+  rewardToEdit.value = reward
+  rewardForm.value = {
+    title: reward.title,
+    description: reward.description,
+    pointsCost: reward.pointsCost,
+    rewardType: reward.rewardType,
+    value: reward.value,
+    isActive: reward.isActive,
+  }
+  rewardFormErrors.value = {}
+  isRewardModalOpen.value = true
+}
+
+const validateRewardForm = () => {
+  const errors: { title?: string; pointsCost?: string; value?: string } = {}
+
+  if (!rewardForm.value.title.trim()) {
+    errors.title = 'El título es obligatorio.'
+  }
+
+  const pointsCost = Number(rewardForm.value.pointsCost)
+  if (!Number.isFinite(pointsCost) || pointsCost < 0) {
+    errors.pointsCost = 'Ingresa un costo en puntos válido (0 o más).'
+  }
+
+  const value = Number(rewardForm.value.value)
+  if (!Number.isFinite(value) || value < 0) {
+    errors.value = 'Ingresa un valor válido (0 o más).'
+  }
+
+  rewardFormErrors.value = errors
+  return Object.keys(errors).length === 0
+}
+
+const saveReward = async () => {
+  if (!validateRewardForm()) return
+
+  isSavingReward.value = true
+  try {
+    const payload = {
+      title: rewardForm.value.title.trim(),
+      description: rewardForm.value.description.trim(),
+      pointsCost: Number(rewardForm.value.pointsCost),
+      rewardType: rewardForm.value.rewardType,
+      value: Number(rewardForm.value.value),
+      isActive: rewardForm.value.isActive,
+    }
+
+    const editId = rewardToEdit.value?.id
+    const isEdit = editId != null
+
+    const response = await fetch(
+      isEdit ? `${API_URL}/api/rewards/${editId}` : `${API_URL}/api/rewards`,
+      {
+        method: isEdit ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(payload),
+      },
+    )
+
+    if (response.ok) {
+      toast.success(isEdit ? 'Recompensa actualizada.' : 'Recompensa creada.')
+      isRewardModalOpen.value = false
+      await loadData()
+    } else {
+      let message = 'No se pudo guardar la recompensa.'
+      try {
+        const data = await response.json()
+        message = data?.message ?? data?.title ?? message
+      } catch {
+        // La respuesta de error no traía cuerpo JSON.
+      }
+      toast.error(message)
+    }
+  } catch (error) {
+    toast.error('Error de red al guardar la recompensa.')
+  } finally {
+    isSavingReward.value = false
+  }
+}
+
+const openDeleteRewardModal = (reward: RewardItem) => {
+  rewardToDelete.value = reward
+  isDeleteRewardModalOpen.value = true
+}
+
+const confirmDeleteReward = async () => {
+  if (!rewardToDelete.value) return
+
+  isDeletingReward.value = true
+  try {
+    const response = await fetch(`${API_URL}/api/rewards/${rewardToDelete.value.id}`, {
+      method: 'DELETE',
+      credentials: 'include',
+    })
+
+    if (response.ok) {
+      const data = await response.json().catch(() => null)
+      toast.success(data?.message ?? 'Recompensa eliminada.')
+      isDeleteRewardModalOpen.value = false
+      rewardToDelete.value = null
+      await loadData()
+    } else {
+      let message = 'No se pudo eliminar la recompensa.'
+      try {
+        const data = await response.json()
+        message = data?.message ?? data?.title ?? message
+      } catch {
+        // La respuesta de error no traía cuerpo JSON.
+      }
+      toast.error(message)
+    }
+  } catch (error) {
+    toast.error('Error de red al eliminar la recompensa.')
+  } finally {
+    isDeletingReward.value = false
   }
 }
 
@@ -329,6 +525,18 @@ onUnmounted(() => {
           "
         >
           <User class="text-lg" /> Padrón de Usuarios ({{ users.length }})
+        </button>
+
+        <button
+          @click="activeTab = 'rewards'"
+          class="pb-2 font-bold text-sm flex items-center gap-2 border-b-2 transition"
+          :class="
+            activeTab === 'rewards'
+              ? 'border-primary text-primary'
+              : 'border-transparent text-gray-500 hover:text-gray-900'
+          "
+        >
+          <Gift class="text-lg" /> Recompensas ({{ rewards.length }})
         </button>
       </div>
 
@@ -512,10 +720,93 @@ onUnmounted(() => {
           </table>
         </div>
       </div>
+
+      <!-- Tab 4: Catálogo de Recompensas -->
+      <div v-else-if="activeTab === 'rewards'">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <p class="text-sm text-gray-500">
+            Administra el catálogo que ven los usuarios en la sección de recompensas.
+          </p>
+          <button
+            type="button"
+            class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-dark text-white rounded-xl text-sm font-bold transition"
+            @click="openCreateReward"
+          >
+            <Plus class="text-base" /> Nueva recompensa
+          </button>
+        </div>
+
+        <div v-if="rewards.length === 0" class="text-center py-12 text-gray-400">
+          No hay recompensas registradas.
+        </div>
+
+        <div v-else class="overflow-x-auto">
+          <table class="w-full text-left text-sm text-gray-600">
+            <thead class="bg-gray-50 text-xs uppercase font-semibold text-gray-500 border-b">
+              <tr>
+                <th class="py-3 px-4">Recompensa</th>
+                <th class="py-3 px-4">Tipo</th>
+                <th class="py-3 px-4 text-right">Costo</th>
+                <th class="py-3 px-4 text-right">Valor</th>
+                <th class="py-3 px-4 text-center">Estado</th>
+                <th class="py-3 px-4 text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr v-for="r in rewards" :key="r.id" class="hover:bg-gray-50">
+                <td class="py-3 px-4">
+                  <p class="font-semibold text-gray-900">{{ r.title }}</p>
+                  <p class="text-xs text-gray-500 max-w-md truncate">{{ r.description }}</p>
+                </td>
+                <td class="py-3 px-4">
+                  <span
+                    class="px-2.5 py-1 rounded-md text-xs font-bold uppercase bg-primary/10 text-primary"
+                  >
+                    {{ rewardTypeLabel(r.rewardType) }}
+                  </span>
+                </td>
+                <td class="py-3 px-4 text-right text-sm font-bold text-gray-900">
+                  {{ r.pointsCost }} pts
+                </td>
+                <td class="py-3 px-4 text-right text-sm font-bold text-gray-900">
+                  {{ formatRewardValue(r.value) }}
+                </td>
+                <td class="py-3 px-4 text-center">
+                  <span
+                    class="text-xs font-bold"
+                    :class="r.isActive ? 'text-green-600' : 'text-gray-400'"
+                  >
+                    {{ r.isActive ? 'Activa' : 'Inactiva' }}
+                  </span>
+                </td>
+                <td class="py-3 px-4">
+                  <div class="flex justify-center gap-1">
+                    <button
+                      type="button"
+                      aria-label="Editar recompensa"
+                      class="p-2 rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition"
+                      @click="openEditReward(r)"
+                    >
+                      <Edit class="text-lg" />
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Eliminar recompensa"
+                      class="p-2 rounded-lg text-red-500 hover:bg-red-50 hover:text-red-700 transition"
+                      @click="openDeleteRewardModal(r)"
+                    >
+                      <Trash class="text-lg" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- Menú de acciones del padrón de usuarios (posicionado para no quedar recortado por el scroll de la tabla) -->
   <div
     v-if="menuUser"
     class="fixed z-50 w-52 bg-white border border-gray-200 rounded-xl shadow-lg py-1"
@@ -559,6 +850,173 @@ onUnmounted(() => {
         @click="confirmDelete"
       >
         <Trash /> {{ isDeleting ? 'Eliminando…' : 'Eliminar usuario' }}
+      </button>
+    </template>
+  </Modal>
+
+  <!-- Alta / edición de recompensa -->
+  <Modal
+    v-model="isRewardModalOpen"
+    :title="rewardToEdit ? 'Editar recompensa' : 'Nueva recompensa'"
+  >
+    <form id="reward-form" class="space-y-4" @submit.prevent="saveReward">
+      <div>
+        <label
+          class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1"
+          for="reward-title"
+        >
+          Título
+        </label>
+        <input
+          id="reward-title"
+          v-model="rewardForm.title"
+          type="text"
+          maxlength="100"
+          class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-primary"
+          placeholder="Ej. Saldo: $50 MXN"
+        />
+        <p v-if="rewardFormErrors.title" class="mt-1 text-xs font-semibold text-red-600">
+          {{ rewardFormErrors.title }}
+        </p>
+      </div>
+
+      <div>
+        <label
+          class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1"
+          for="reward-description"
+        >
+          Descripción
+        </label>
+        <textarea
+          id="reward-description"
+          v-model="rewardForm.description"
+          rows="2"
+          maxlength="500"
+          class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-primary resize-none"
+          placeholder="Describe el beneficio para el usuario"
+        ></textarea>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label
+            class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1"
+            for="reward-type"
+          >
+            Tipo
+          </label>
+          <select
+            id="reward-type"
+            v-model="rewardForm.rewardType"
+            class="w-full rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-primary"
+          >
+            <option value="Balance">Saldo</option>
+            <option value="Raffle">Sorteo</option>
+            <option value="Discount">Descuento</option>
+            <option value="TripPass">Pase de viaje</option>
+          </select>
+        </div>
+
+        <div>
+          <label
+            class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1"
+            for="reward-points"
+          >
+            Costo en puntos
+          </label>
+          <input
+            id="reward-points"
+            v-model.number="rewardForm.pointsCost"
+            type="number"
+            min="0"
+            step="1"
+            class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-primary"
+          />
+          <p v-if="rewardFormErrors.pointsCost" class="mt-1 text-xs font-semibold text-red-600">
+            {{ rewardFormErrors.pointsCost }}
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label
+            class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-1"
+            for="reward-value"
+          >
+            Valor en MXN
+          </label>
+          <input
+            id="reward-value"
+            v-model.number="rewardForm.value"
+            type="number"
+            min="0"
+            step="0.01"
+            class="w-full rounded-xl border border-gray-300 px-4 py-2.5 text-sm text-gray-900 outline-none focus:border-primary"
+          />
+          <p v-if="rewardFormErrors.value" class="mt-1 text-xs font-semibold text-red-600">
+            {{ rewardFormErrors.value }}
+          </p>
+        </div>
+
+        <label class="flex items-center gap-3 sm:mt-6 cursor-pointer select-none">
+          <input
+            v-model="rewardForm.isActive"
+            type="checkbox"
+            class="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+          />
+          <span class="text-sm font-semibold text-gray-700">Visible para los usuarios</span>
+        </label>
+      </div>
+    </form>
+
+    <template #footer>
+      <button
+        type="button"
+        class="px-5 py-2.5 font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all disabled:opacity-60"
+        :disabled="isSavingReward"
+        @click="isRewardModalOpen = false"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        form="reward-form"
+        class="flex items-center gap-2 px-5 py-2.5 font-semibold text-white bg-primary hover:bg-dark rounded-xl transition-all disabled:opacity-60"
+        :disabled="isSavingReward"
+      >
+        <Save /> {{ isSavingReward ? 'Guardando…' : 'Guardar recompensa' }}
+      </button>
+    </template>
+  </Modal>
+
+  <!-- Confirmación para eliminar recompensa -->
+  <Modal v-model="isDeleteRewardModalOpen" title="Eliminar recompensa">
+    <p>
+      ¿Seguro que quieres eliminar
+      <strong class="text-gray-900">{{ rewardToDelete?.title }}</strong
+      >?
+    </p>
+    <p class="mt-3 text-sm font-medium text-red-600">
+      Si la recompensa ya tiene canjes registrados no se podrá borrar; en ese caso, desactívala.
+    </p>
+
+    <template #footer>
+      <button
+        type="button"
+        class="px-5 py-2.5 font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all disabled:opacity-60"
+        :disabled="isDeletingReward"
+        @click="isDeleteRewardModalOpen = false"
+      >
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="flex items-center gap-2 px-5 py-2.5 font-semibold text-white bg-red-600 hover:bg-red-700 rounded-xl transition-all disabled:opacity-60"
+        :disabled="isDeletingReward"
+        @click="confirmDeleteReward"
+      >
+        <Trash /> {{ isDeletingReward ? 'Eliminando…' : 'Eliminar recompensa' }}
       </button>
     </template>
   </Modal>
