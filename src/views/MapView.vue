@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, shallowRef, computed, onMounted, onBeforeUnmount } from 'vue'
+import { MapIcon } from '@boxicons/vue'
+import { toast } from 'vue-sonner'
 import SideBar from '../components/SideBar.vue'
 import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
@@ -9,6 +11,10 @@ import type GeoJSON from 'geojson'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
 const sidebarStore = useSidebarStore()
+
+const ROUTES_BASE_URL = 'https://raw.githubusercontent.com/RutaPay/Routes/refs/heads/main'
+const STOPS_SOURCE_ID = 'route-stops'
+const STOPS_LAYER_ID = 'route-stops-layer'
 
 const search = ref('')
 const routes = ref([
@@ -78,46 +84,91 @@ const filteredRoutes = computed(() => {
 })
 
 const mapContainer = ref<HTMLDivElement | null>(null)
-const map = ref<mapboxgl.Map | null>(null)
+// shallowRef: Mapbox no debe volverse reactivo (evita errores de tipos y coste extra).
+const map = shallowRef<mapboxgl.Map | null>(null)
+let mapReady: Promise<void> = Promise.resolve()
+
+// --- Paradas ---
+const selectedRoute = ref('')
+const currentRouteId = ref('')
+const stopsVisible = ref(false)
+const stopsLoading = ref(false)
+const stopsData = ref<GeoJSON.FeatureCollection | null>(null)
+const stopsCount = computed(() => stopsData.value?.features.length ?? 0)
+
+// Caché por ruta: null = la ruta todavía no tiene archivo _P.geojson publicado.
+const stopsCache = new Map<string, GeoJSON.FeatureCollection | null>()
+let stopsPopup: mapboxgl.Popup | null = null
+let loadToken = 0
 
 onMounted(() => {
-  map.value = new mapboxgl.Map({
+  const instance = new mapboxgl.Map({
     accessToken: import.meta.env.VITE_MAPBOX_API_KEY,
     container: mapContainer.value as HTMLDivElement,
     center: [-100.8140458, 20.521788],
     zoom: 12,
     style: 'mapbox://styles/mapbox/standard',
   })
+
+  map.value = instance
+  mapReady = new Promise<void>((resolve) => {
+    if (instance.loaded()) {
+      resolve()
+      return
+    }
+    instance.once('load', () => resolve())
+  })
 })
+
+onBeforeUnmount(() => {
+  closeStopsPopup()
+  map.value?.remove()
+  map.value = null
+})
+
+/* -------------------------------------------------------------------------- */
+/* Rutas                                                                      */
+/* -------------------------------------------------------------------------- */
+
+const removeRouteLayers = () => {
+  if (!map.value) return
+  if (map.value.getLayer('route-ida')) map.value.removeLayer('route-ida')
+  if (map.value.getSource('route-ida')) map.value.removeSource('route-ida')
+  if (map.value.getLayer('route-regreso')) map.value.removeLayer('route-regreso')
+  if (map.value.getSource('route-regreso')) map.value.removeSource('route-regreso')
+}
 
 const loadRoute = async (routeName: string) => {
   if (!map.value) return
 
-  if (map.value.getSource('route-ida')) {
-    map.value.removeLayer('route-ida')
-    map.value.removeSource('route-ida')
-  }
-  if (map.value.getSource('route-regreso')) {
-    map.value.removeLayer('route-regreso')
-    map.value.removeSource('route-regreso')
-  }
+  const routeId = routeName.split(' - ')[0] ?? ''
+  selectedRoute.value = routeName
+  currentRouteId.value = routeId
+  loadToken += 1
+  closeStopsPopup()
+  removeStopsLayer()
+  stopsData.value = null
+  removeRouteLayers()
 
-  const routeId = routeName.split(' - ')[0]
-  const routeUrl = `https://raw.githubusercontent.com/RutaPay/Routes/refs/heads/main/${routeId}.geojson`
+  await mapReady
+  const token = loadToken
 
   try {
-    const response = await fetch(routeUrl)
-    const routeData = await response.json()
+    const response = await fetch(`${ROUTES_BASE_URL}/${routeId}.geojson`)
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
 
-    if (map.value.loaded()) {
-      addRouteToMap(routeData)
-    } else {
-      map.value.on('load', () => {
-        addRouteToMap(routeData)
-      })
-    }
+    const routeData = (await response.json()) as GeoJSON.FeatureCollection
+    if (token !== loadToken || !map.value) return
+
+    addRouteToMap(routeData)
+
+    // Si las paradas estaban visibles, se cargan las de la ruta nueva.
+    if (stopsVisible.value) await showStops(false)
   } catch (error) {
     console.error('Error al cargar la ruta:', error)
+    stopsVisible.value = false
+    removeStopsLayer()
+    toast.error('No se pudo cargar la ruta', { description: routeName })
   }
 }
 
@@ -189,6 +240,209 @@ const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
     }
   })
   map.value.fitBounds(bounds, { padding: 50 })
+  bringStopsToFront()
+}
+
+/* -------------------------------------------------------------------------- */
+/* Paradas                                                                    */
+/* -------------------------------------------------------------------------- */
+
+const HTML_ESCAPES: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+}
+
+const escapeHtml = (value: unknown) =>
+  String(value ?? '').replace(/[&<>"']/g, (character) => HTML_ESCAPES[character] ?? character)
+
+// "PO_001_Cruz Roja_I" -> "Cruz Roja"
+const formatStopName = (raw: string) =>
+  raw
+    .replace(/^[A-Za-z]{2,4}_/, '')
+    .replace(/^\d+_/, '')
+    .replace(/_[IR]$/i, '')
+    .replace(/_/g, ' ')
+    .trim()
+
+const formatSentido = (sentido?: string) => {
+  if (!sentido) return ''
+  const values = sentido.split(',').map((value) => value.trim().toUpperCase())
+  const hasIda = values.includes('IDA')
+  const hasRegreso = values.includes('REGRESO')
+  if (hasIda && hasRegreso) return 'Ida y regreso'
+  if (hasIda) return 'Ida'
+  if (hasRegreso) return 'Regreso'
+  return sentido
+}
+
+const buildStopPopupHtml = (properties: Record<string, unknown>) => {
+  const name = formatStopName(String(properties.nombre ?? 'Parada'))
+  const colonia = String(properties.colonia ?? '').trim()
+  const sentido = formatSentido(properties.sentido ? String(properties.sentido) : undefined)
+
+  const lines = [
+    `<div style="font-weight:600;font-size:13px;color:#052b4a;line-height:1.3;">${escapeHtml(name)}</div>`,
+  ]
+  if (colonia) {
+    lines.push(
+      `<div style="margin-top:2px;font-size:11px;color:#707070;">${escapeHtml(colonia)}</div>`,
+    )
+  }
+  if (sentido) {
+    lines.push(
+      `<div style="margin-top:4px;font-size:11px;font-weight:600;color:#449dd1;">Sentido: ${escapeHtml(sentido)}</div>`,
+    )
+  }
+
+  return `<div style="font-family:'Lexend',sans-serif;padding:2px 2px 0;">${lines.join('')}</div>`
+}
+
+const fetchStops = async (routeId: string): Promise<GeoJSON.FeatureCollection | null> => {
+  if (stopsCache.has(routeId)) return stopsCache.get(routeId) ?? null
+
+  try {
+    const response = await fetch(`${ROUTES_BASE_URL}/${routeId}_P.geojson`)
+    if (!response.ok) {
+      stopsCache.set(routeId, null)
+      return null
+    }
+
+    const data = (await response.json()) as GeoJSON.FeatureCollection
+    const stops: GeoJSON.FeatureCollection = {
+      type: 'FeatureCollection',
+      features: (data.features ?? []).filter((feature) => feature.geometry?.type === 'Point'),
+    }
+
+    stopsCache.set(routeId, stops)
+    return stops
+  } catch (error) {
+    console.error('Error al cargar las paradas:', error)
+    return null
+  }
+}
+
+const handleStopsMouseEnter = () => {
+  if (map.value) map.value.getCanvas().style.cursor = 'pointer'
+}
+
+const handleStopsMouseLeave = () => {
+  if (map.value) map.value.getCanvas().style.cursor = ''
+}
+
+const closeStopsPopup = () => {
+  stopsPopup?.remove()
+  stopsPopup = null
+}
+
+const handleStopsClick = (event: mapboxgl.MapMouseEvent) => {
+  const instance = map.value
+  const feature = event.features?.[0]
+  if (!instance || !feature) return
+
+  closeStopsPopup()
+  stopsPopup = new mapboxgl.Popup({ closeButton: true, offset: 12, maxWidth: '260px' })
+    .setLngLat(event.lngLat)
+    .setHTML(buildStopPopupHtml(feature.properties ?? {}))
+    .addTo(instance)
+}
+
+const removeStopsLayer = () => {
+  const instance = map.value
+  if (!instance) return
+
+  if (instance.getLayer(STOPS_LAYER_ID)) {
+    instance.off('mouseenter', STOPS_LAYER_ID, handleStopsMouseEnter)
+    instance.off('mouseleave', STOPS_LAYER_ID, handleStopsMouseLeave)
+    instance.off('click', STOPS_LAYER_ID, handleStopsClick)
+    instance.removeLayer(STOPS_LAYER_ID)
+  }
+  if (instance.getSource(STOPS_SOURCE_ID)) instance.removeSource(STOPS_SOURCE_ID)
+}
+
+const addStopsLayer = () => {
+  const instance = map.value
+  const data = stopsData.value
+  if (!instance || !data || data.features.length === 0) return
+
+  const source = instance.getSource<mapboxgl.GeoJSONSource>(STOPS_SOURCE_ID)
+  if (source) {
+    source.setData(data)
+    return
+  }
+
+  instance.addSource(STOPS_SOURCE_ID, { type: 'geojson', data })
+  instance.addLayer({
+    id: STOPS_LAYER_ID,
+    type: 'circle',
+    source: STOPS_SOURCE_ID,
+    paint: {
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 4, 14, 6, 17, 9],
+      'circle-color': '#449dd1',
+      'circle-stroke-color': '#ffffff',
+      'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 10, 1.5, 16, 3],
+      'circle-opacity': 0.95,
+    },
+  })
+
+  instance.on('mouseenter', STOPS_LAYER_ID, handleStopsMouseEnter)
+  instance.on('mouseleave', STOPS_LAYER_ID, handleStopsMouseLeave)
+  instance.on('click', STOPS_LAYER_ID, handleStopsClick)
+}
+
+const bringStopsToFront = () => {
+  if (!map.value) return
+  if (map.value.getLayer(STOPS_LAYER_ID)) map.value.moveLayer(STOPS_LAYER_ID)
+}
+
+const showStops = async (notify = true) => {
+  const routeId = currentRouteId.value
+  if (!routeId) {
+    if (notify) toast.info('Selecciona una ruta para ver sus paradas')
+    return
+  }
+
+  const token = loadToken
+  stopsLoading.value = true
+  try {
+    const data = await fetchStops(routeId)
+    if (token !== loadToken) return
+
+    stopsData.value = data
+
+    if (!data || data.features.length === 0) {
+      stopsVisible.value = false
+      removeStopsLayer()
+      if (notify) {
+        toast.info(`La ruta ${routeId} todavía no tiene paradas publicadas`)
+      }
+      return
+    }
+
+    addStopsLayer()
+    bringStopsToFront()
+  } finally {
+    if (token === loadToken) stopsLoading.value = false
+  }
+}
+
+const toggleStops = () => {
+  if (stopsVisible.value) {
+    stopsVisible.value = false
+    closeStopsPopup()
+    removeStopsLayer()
+    return
+  }
+
+  if (!currentRouteId.value) {
+    toast.info('Selecciona una ruta para ver sus paradas')
+    return
+  }
+
+  stopsVisible.value = true
+  void showStops()
 }
 </script>
 
@@ -220,7 +474,8 @@ const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
                 v-for="route in filteredRoutes"
                 :key="route"
                 @click="loadRoute(route)"
-                class="hover:text-primary"
+                class="cursor-pointer rounded-md px-2 py-1 transition-colors hover:text-primary"
+                :class="{ 'bg-primary/10 font-semibold text-primary': selectedRoute === route }"
               >
                 <span>{{ route }}</span>
               </li>
@@ -231,7 +486,47 @@ const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
 
       <div class="p-8 bg-white md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
         <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
-          <div ref="mapContainer" class="w-full h-full rounded-lg"></div>
+          <div class="relative w-full h-full">
+            <div ref="mapContainer" class="w-full h-full rounded-lg"></div>
+
+            <div
+              v-if="currentRouteId"
+              class="pointer-events-none absolute top-4 left-4 z-10 rounded-lg bg-white/90 px-3 py-1.5 text-xs text-text-light shadow backdrop-blur"
+            >
+              Ruta <span class="font-semibold text-dark">{{ currentRouteId }}</span>
+              <span v-if="stopsVisible && stopsCount > 0"> · {{ stopsCount }} paradas</span>
+            </div>
+
+            <button
+              type="button"
+              @click="toggleStops"
+              :disabled="stopsLoading"
+              :aria-pressed="stopsVisible"
+              class="absolute top-4 right-4 z-10 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold shadow-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-70"
+              :class="
+                stopsVisible
+                  ? 'bg-primary text-white hover:bg-[#3a8bc2]'
+                  : 'bg-white/95 text-dark hover:bg-white'
+              "
+            >
+              <MapIcon class="text-base" />
+              <span>
+                {{
+                  stopsLoading
+                    ? 'Cargando paradas…'
+                    : stopsVisible
+                      ? 'Ocultar paradas'
+                      : 'Mostrar paradas'
+                }}
+              </span>
+              <span
+                v-if="stopsVisible && stopsCount > 0"
+                class="rounded-full bg-white/25 px-2 py-0.5 text-xs leading-none"
+              >
+                {{ stopsCount }}
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
