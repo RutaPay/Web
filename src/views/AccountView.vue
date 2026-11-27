@@ -4,7 +4,7 @@ import Footer from '../components/Footer.vue'
 import { useSidebarStore } from '@/stores/sidebarstate'
 import { useAuthStore } from '@/stores/auth'
 import { useLogout } from '@/composables/useAuth'
-import { ref, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { CreditCardAlt, CryptoCoin, DollarCircle, Gift, HeadphoneMic } from '@boxicons/vue'
 
 const sidebarStore = useSidebarStore()
@@ -25,19 +25,28 @@ interface TiersData {
 const selectedTier = ref<TierInfo | null>(null)
 const currentTierKey = ref('')
 
-const profilePicInput = ref<HTMLInputElement | null>(null)
-const bannerInput = ref<HTMLInputElement | null>(null)
-
-const triggerProfilePicUpload = () => profilePicInput.value?.click()
-const triggerBannerUpload = () => bannerInput.value?.click()
-
-const handleFileUpload = (event: Event, type: 'profile' | 'banner') => {
-  const target = event.target as HTMLInputElement
-  if (target.files && target.files.length > 0) {
-    const file = target.files[0]
-    console.log(`Subiendo ${type}:`, file.name)
+const bannerColor = computed(() => {
+  switch (authStore.user?.accountType) {
+    case 'Student':
+      return '#22DD6D'
+    case 'Health':
+      return '#F87171'
+    case 'Adult':
+      return '#CA8A04'
+    case 'User':
+    case 'Admin':
+    case 'Driver':
+    default:
+      return '#449DD1'
   }
-}
+})
+
+const userInitials = computed(() => {
+  const firstName = authStore.user?.fullName.trim().split(/\s+/)[0] ?? ''
+  const firstLastName = authStore.user?.lastNames.trim().split(/\s+/)[0] ?? ''
+  const initials = `${firstName[0] ?? ''}${firstLastName[0] ?? ''}`.toUpperCase()
+  return initials || 'U'
+})
 
 switch (accType) {
   case 'User':
@@ -77,71 +86,15 @@ onMounted(async () => {
   >
     <div class="max-w-4xl mx-auto flex flex-col gap-8">
       <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden">
-        <div
-          class="group relative h-48 md:h-64 bg-gray-300 cursor-pointer overflow-hidden"
-          @click="triggerBannerUpload"
-        >
-          <img
-            src="https://via.placeholder.com/1200x400"
-            alt="Banner"
-            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          <div
-            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center border-4 border-transparent group-hover:border-blue-400"
-          >
-            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-              />
-            </svg>
-          </div>
-          <input
-            type="file"
-            ref="bannerInput"
-            class="hidden"
-            accept="image/*"
-            @change="(e) => handleFileUpload(e, 'banner')"
-          />
+        <div class="h-48 md:h-64" :style="{ backgroundColor: bannerColor }">
         </div>
 
         <div class="px-6 pb-8 md:px-10">
           <div class="flex justify-center -mt-16 relative z-10">
             <div
-              class="group relative cursor-pointer rounded-full bg-white p-1 shadow-sm border border-gray-100 transition-colors duration-300 hover:border-blue-400"
-              @click="triggerProfilePicUpload"
+              class="w-32 h-32 rounded-full bg-black/40 flex items-center justify-center shadow-sm border-4 border-white"
             >
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Profile"
-                class="w-32 h-32 rounded-full object-cover"
-              />
-              <div
-                class="absolute inset-1 bg-black/40 opacity-0 group-hover:opacity-100 rounded-full transition-opacity duration-300 flex items-center justify-center"
-              >
-                <svg
-                  class="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                  />
-                </svg>
-              </div>
-              <input
-                type="file"
-                ref="profilePicInput"
-                class="hidden"
-                accept="image/*"
-                @change="(e) => handleFileUpload(e, 'profile')"
-              />
+              <span class="text-4xl font-bold text-white">{{ userInitials }}</span>
             </div>
           </div>
 
