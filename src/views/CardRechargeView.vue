@@ -104,7 +104,7 @@ const mountConektaCardTokenizer = async () => {
   isTokenizerReady.value = false
   conektaSubmitTrigger.value = null
 
-  const publicKey = (import.meta.env.VITE_CONEKTA_PUBLIC_KEY as string | undefined)?.trim()
+  const publicKey = import.meta.env.VITE_CONEKTA_PUBLIC_KEY?.trim()
   if (!publicKey) {
     toast.error('Falta configurar VITE_CONEKTA_PUBLIC_KEY en el archivo .env')
     return
