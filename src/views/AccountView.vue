@@ -33,8 +33,9 @@ const bannerColor = computed(() => {
       return '#F87171'
     case 'Adult':
       return '#CA8A04'
-    case 'User':
     case 'Admin':
+      return '#052B4A'
+    case 'User':
     case 'Driver':
     default:
       return '#449DD1'
