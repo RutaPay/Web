@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, shallowRef, computed, onMounted, onBeforeUnmount } from 'vue'
-import { MapIcon } from '@boxicons/vue'
 import { toast } from 'vue-sonner'
 import SideBar from '../components/SideBar.vue'
 import Footer from '../components/Footer.vue'
@@ -144,14 +143,14 @@ const loadRoute = async (routeName: string) => {
   const routeId = routeName.split(' - ')[0] ?? ''
   selectedRoute.value = routeName
   currentRouteId.value = routeId
-  loadToken += 1
+  const token = ++loadToken
   closeStopsPopup()
   removeStopsLayer()
   stopsData.value = null
   removeRouteLayers()
 
   await mapReady
-  const token = loadToken
+  if (token !== loadToken) return
 
   try {
     const response = await fetch(`${ROUTES_BASE_URL}/${routeId}.geojson`)
@@ -170,6 +169,18 @@ const loadRoute = async (routeName: string) => {
     removeStopsLayer()
     toast.error('No se pudo cargar la ruta', { description: routeName })
   }
+}
+
+const clearRoute = () => {
+  loadToken += 1
+  selectedRoute.value = ''
+  currentRouteId.value = ''
+  stopsVisible.value = false
+  stopsLoading.value = false
+  stopsData.value = null
+  closeStopsPopup()
+  removeStopsLayer()
+  removeRouteLayers()
 }
 
 const addRouteToMap = (routeData: GeoJSON.FeatureCollection) => {
@@ -482,6 +493,88 @@ const toggleStops = () => {
             </ul>
           </div>
         </div>
+
+        <div
+          v-if="currentRouteId"
+          class="mt-6 w-full rounded-2xl border border-gray-200 bg-white p-4 shadow-sm"
+          aria-live="polite"
+        >
+          <div class="flex items-center gap-3">
+            <svg
+              aria-hidden="true"
+              class="h-5 w-5 shrink-0 text-[#449dd1]"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"
+              />
+            </svg>
+            <span class="min-w-0 flex-1 truncate text-sm font-bold text-[#052b4a]">
+              {{ selectedRoute }}
+            </span>
+            <button
+              type="button"
+              @click="clearRoute"
+              aria-label="Quitar ruta activa"
+              class="shrink-0 rounded-full p-1 text-gray-500 transition-colors hover:bg-gray-100 hover:text-[#052b4a] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="m6 6 12 12M18 6 6 18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="mt-1 flex items-center gap-3 pl-8 text-[10px] font-semibold text-[#052b4a]">
+            <span class="inline-flex items-center gap-1">
+              <span class="h-1 w-5 rounded-full bg-[#449dd1]"></span>
+              IDA
+            </span>
+            <span class="inline-flex items-center gap-1">
+              <span class="h-1 w-5 rounded-full bg-[#052b4a]"></span>
+              REGRESO
+            </span>
+          </div>
+
+          <button
+            type="button"
+            @click="toggleStops"
+            :disabled="stopsLoading"
+            :aria-pressed="stopsVisible"
+            class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-semibold text-[#052b4a] transition-colors hover:bg-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-70"
+          >
+            <svg
+              aria-hidden="true"
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"
+              />
+            </svg>
+            <span>
+              {{
+                stopsLoading
+                  ? 'Cargando paradas…'
+                  : stopsVisible
+                    ? 'Ocultar paradas'
+                    : 'Mostrar paradas'
+              }}
+            </span>
+            <span
+              v-if="stopsVisible && stopsCount > 0"
+              class="rounded-full bg-[#052b4a]/10 px-2 py-0.5 text-xs leading-none"
+            >
+              {{ stopsCount }}
+            </span>
+          </button>
+        </div>
       </div>
 
       <div class="p-8 bg-white md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
@@ -489,44 +582,6 @@ const toggleStops = () => {
           <!-- El inicio del mapa y para agregar elementos visuales comienza aquí. -->
           <div class="relative w-full h-full">
             <div ref="mapContainer" class="w-full h-full rounded-lg"></div>
-
-            <div
-              v-if="currentRouteId"
-              class="pointer-events-none absolute top-4 left-4 z-10 rounded-lg bg-white/90 px-3 py-1.5 text-sm text-text-light shadow backdrop-blur"
-            >
-              Ruta <span class="font-semibold text-dark">{{ currentRouteId }}</span>
-              <span v-if="stopsVisible && stopsCount > 0"> · {{ stopsCount }} paradas</span>
-            </div>
-
-            <button
-              type="button"
-              @click="toggleStops"
-              :disabled="stopsLoading"
-              :aria-pressed="stopsVisible"
-              class="absolute top-4 right-4 z-10 inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold shadow-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-wait disabled:opacity-70"
-              :class="
-                stopsVisible
-                  ? 'bg-primary text-white hover:bg-[#3a8bc2]'
-                  : 'bg-white/95 text-dark hover:bg-white'
-              "
-            >
-              <MapIcon class="text-base" />
-              <span>
-                {{
-                  stopsLoading
-                    ? 'Cargando paradas…'
-                    : stopsVisible
-                      ? 'Ocultar paradas'
-                      : 'Mostrar paradas'
-                }}
-              </span>
-              <span
-                v-if="stopsVisible && stopsCount > 0"
-                class="rounded-full bg-white/25 px-2 py-0.5 text-xs leading-none"
-              >
-                {{ stopsCount }}
-              </span>
-            </button>
           </div>
         </div>
       </div>
