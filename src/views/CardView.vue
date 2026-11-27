@@ -12,6 +12,8 @@ import {
   Printer,
   ScanBarcode,
   X,
+  Clock,
+  AlertCircle,
 } from '@boxicons/vue'
 import SideBar from '../components/SideBar.vue'
 import Footer from '../components/Footer.vue'
@@ -512,10 +514,32 @@ onMounted(() => {
               </td>
               <td class="py-3.5 px-4 text-center">
                 <span
-                  class="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-md bg-green-50 text-green-700"
+                  class="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-md"
+                  :class="
+                    t.status === 'Pending'
+                      ? 'bg-amber-50 text-amber-700'
+                      : t.status === 'Failed'
+                        ? 'bg-red-50 text-red-700'
+                        : 'bg-green-50 text-green-700'
+                  "
                 >
-                  <CheckCircle class="text-xs" />
-                  {{ t.status }}
+                  <component
+                    :is="
+                      t.status === 'Pending'
+                        ? Clock
+                        : t.status === 'Failed'
+                          ? AlertCircle
+                          : CheckCircle
+                    "
+                    class="text-xs"
+                  />
+                  {{
+                    t.status === 'Pending'
+                      ? 'Pendiente'
+                      : t.status === 'Failed'
+                        ? 'Fallida'
+                        : t.status
+                  }}
                 </span>
               </td>
               <td class="py-3.5 px-4 text-center" @click.stop>
