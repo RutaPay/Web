@@ -486,12 +486,13 @@ const toggleStops = () => {
 
       <div class="p-8 bg-white md:w-full sm:h-1/3 md:h-screen xl:w-2/3 xl:max-h-screen">
         <div class="w-full h-full bg-gray-300 rounded-lg p-5 flex items-center justify-center">
+          <!-- El inicio del mapa y para agregar elementos visuales comienza aquí. -->
           <div class="relative w-full h-full">
             <div ref="mapContainer" class="w-full h-full rounded-lg"></div>
 
             <div
               v-if="currentRouteId"
-              class="pointer-events-none absolute top-4 left-4 z-10 rounded-lg bg-white/90 px-3 py-1.5 text-xs text-text-light shadow backdrop-blur"
+              class="pointer-events-none absolute top-4 left-4 z-10 rounded-lg bg-white/90 px-3 py-1.5 text-sm text-text-light shadow backdrop-blur"
             >
               Ruta <span class="font-semibold text-dark">{{ currentRouteId }}</span>
               <span v-if="stopsVisible && stopsCount > 0"> · {{ stopsCount }} paradas</span>
